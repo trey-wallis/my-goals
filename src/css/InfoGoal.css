@@ -1,0 +1,43 @@
+.InfoGoal {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+	margin-bottom: 5px;
+	padding: 10px 20px;
+	font-size: 0.9em;
+}
+
+.InfoGoal__left {
+	width: 50%;
+}
+
+.InfoGoal__label {
+	font-weight: bold;
+}
+
+.InfoGoal__text {
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.InfoGoal__right {
+	padding-right: 40px;
+}
+
+.InfoGoal__button {
+	color: white;
+	background-color: #008CBA;
+	padding: 5px 10px;
+	border-radius: 5px;
+	border: 1px solid transparent;
+}
+
+.InfoGoal__button:hover {
+    border:1px solid rgba(0,0,0,0.2);
+}
+
+.InfoGoal__button:active {
+	transform: translateY(1px);
+	border: 1px solid rgba(0,0,0,0.3);
+}

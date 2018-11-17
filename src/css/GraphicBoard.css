@@ -1,0 +1,4 @@
+.GraphicBoard {
+	background-color: #F7B733;
+	min-height: calc(100vh - 70px);
+}

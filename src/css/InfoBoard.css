@@ -1,0 +1,4 @@
+.InfoBoard {
+	background-color: #FC4A1A;
+	min-height: calc(100vh - 70px);
+}

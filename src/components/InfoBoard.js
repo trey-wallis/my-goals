@@ -38,7 +38,7 @@ class InfoBoard extends Component {
 	}
 
 	renderDefault(){
-		return (<InfoModule stats="true" deadlines="true"/>);
+		return (<InfoModule deadlines="true" stats="true"/>);
 	}
 }
 

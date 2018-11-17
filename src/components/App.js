@@ -8,14 +8,16 @@ class App extends Component {
 
 	constructor(){
 		super();
+
 		this.state = {
+			user: "Trey"
 		}
 	}
 
 	render(){
 		return (
 			<div className="App">
-				<Header />
+				<Header user={this.state.user} />
 				<div className="row">
 					<GraphicBoard />
 					<InfoBoard />
