@@ -1,0 +1,49 @@
+.Header {
+
+}
+
+.Header__header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
+	z-index: 1;
+	padding: 0px 20px;
+	height: 50px;
+	border: 1px solid rgba(0,0,0,0.2);
+}
+
+.Header-nav__ul {
+}
+
+.Header-nav__li {
+	display: inline-block;
+	padding: 0px 5px;
+}
+
+.Header-nav__left {
+	display: block;
+}
+
+.Header-nav__right {
+	display: block;
+}
+
+.Header-nav__hidden {
+	display: none;
+}
+
+.Header-nav__img {
+	width: 25px;
+	height: 25px;
+}
+
+.Header-nav__menu-button {
+	border: 2px solid transparent;
+	border-radius: 2px;
+	transition: border 0.5s;
+}
+
+.Header-nav__menu-button:hover {
+	border: 2px solid #DFDCE3;
+}
