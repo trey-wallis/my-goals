@@ -1,8 +1,4 @@
-.Header {
-
-}
-
-.Header__header {
+.Header__flex {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -13,73 +9,69 @@
 	border: 1px solid rgba(0,0,0,0.2);
 }
 
-.Header-nav__title {
+.Header__ul {
+	list-style-type: none;
+}
+
+.Header__hidden {
+	display: block;
+	background: transparent;
+}
+
+.Header__collapse {
+	display: none;
+}
+
+.Header__title {
 	font-family: 'Bree Serif', serif;
 	font-size: 1.3em;
 	color: white;
 
 }
 
-.Header-nav__ul {
-}
-
-.Header-nav__li {
+.Header__li {
 	display: inline-block;
-	padding: 0px 5px;
+	padding-right: 10px;
 }
 
-.Header-nav__left {
-	display: block;
-}
-
-.Header-nav__right {
-	display: none;
-}
-
-.Header-nav__hidden {
-	display: block;
-}
-
-.Header-nav__img {
-	width: 25px;
-	height: 25px;
-}
-
-.Header-nav__link-button {
+.Header__button {
 	border: 0;
 	background-color: transparent;
 	color: #DFDCE3;
 	font-size: 1em;
+	transition: color 0.25s;
 }
 
-.Header-nav__link-button:focus{
+
+.Header__button:focus{
 	outline: 0;
 }
 
-.Header-nav__link-button:hover {
+.Header__button:hover {
 	color: rgba(255,255,255, 0.9);
 }
 
-.Header-nav__link-button:active {
+.Header__button:active {
 	color: rgba(255,255,255,0.7);
 }
 
-.Header-nav__menu-button {
+.Header__icon {
 	border: 2px solid transparent;
 	border-radius: 2px;
 	transition: border 0.5s;
 }
 
-.Header-nav__menu-button:hover {
+.Header__icon:hover {
 	border: 2px solid #DFDCE3;
 }
 
 @media only screen and (min-width: 768px) {
-	.Header-nav__right {
+
+	.Header__collapse {
 		display: block;
 	}
 
-	.Header-nav__hidden {
+	.Header__hidden {
 		display: none;
 	}
 }
