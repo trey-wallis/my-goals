@@ -1,0 +1,28 @@
+.StatsModule {
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+	margin-bottom: 5px;
+	padding: 10px 20px;
+	font-size: 0.9em;
+}
+
+.StatsModule__header {
+	font-family: 'Bree Serif', serif;
+	font-size: 1.3em;
+	color: white;
+	text-align: center;
+	padding: 10px 0px;
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.StatsModule__left {
+	width: 50%;
+}
+
+.StatsModule__label {
+	font-weight: bold;
+}
+
+.StatsModule__text {
+	overflow: hidden;
+	white-space: nowrap;
+}
