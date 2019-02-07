@@ -1,0 +1,26 @@
+.Login {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: calc(100vh - 70px);
+}
+
+.Login__title {
+	text-align: center;
+	font-size: 1.2em;
+	color: white;
+}
+
+.Login__wrapper {
+
+}
+
+.Login__item {
+	margin: 5px 0px;
+}
+
+.Login__status {
+	margin-top: 5px;
+	color: white;
+	font-size: 0.8em;
+}

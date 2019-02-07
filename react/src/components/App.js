@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import {observer} from 'mobx-react';
+
 import '../css/App.css';
+
 import RootStore from '../store/RootStore';
 import Header from '../components/Header';
-import GraphicBoard from '../components/GraphicBoard';
-import InfoBoard from '../components/InfoBoard';
-import Title from '../components/Title';
-import {observer} from 'mobx-react';
 
 class App extends Component {
 

@@ -8,9 +8,6 @@ class GraphicBoard extends Component {
 
 	constructor(){
 		super();
-		this.state = {
-			display: 1
-		}
 	}
 
 	getBoard(id){

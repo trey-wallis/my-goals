@@ -6,10 +6,10 @@ class DomainStore {
 		this.root = root;
 		this.connected = false;
 		this.displayName = "Trey";
-		this.user = "default";
-		this.pass = "default";
-		this.passRepeat = "default";
-		this.loginResponse = "";
+		this.username = "";
+		this.password = "";
+		this.passwordRepeat = "";
+		this.serverResponse = "";
 	}
 
 	get loggedIn(){
@@ -20,46 +20,86 @@ class DomainStore {
 		return this.displayName;
 	}
 
-	set username(user){
-		this.user = user;
+	set loginUser(name){
+		this.username = name;
 	}
 
-	set password(pass){
-		this.pass = pass;
+	set loginPass(pass){
+		this.password = pass;
 	}
 
-	set passwordRepeat(repeat){
-		this.passRepeat = repeat;
+	get loginUser(){
+		return this.username;
 	}
 
-	get username(){
-		return this.user;
+	get loginPassword(){
+		return this.password;
 	}
 
-	get password(){
-		return this.pass;
+	get loginResponse(){
+		return this.serverResponse;
 	}
 
-	get passwordRepeat(){
-		return this.passRepeat
+	set registerUser(name){
+		this.username = name;
+	}
+
+	set registerPass(pass){
+		this.password = pass;
+	}
+
+	set registerPassRepeat(pass){
+		this.passwordRepeat = pass;
+	}
+
+	set response(res){
+		this.serverResponse = res;
+	}
+
+	get registerResponse(){
+		return this.serverResponse;
 	}
 
 	login = () => {
+		// fetch('http://localhost:3006/signin', {
+		// 	method: 'post',
+		// 	headers: {'Content-Type': 'application/json'},
+		// 	body: JSON.stringify({
+		// 		username: this.username,
+		// 		password: this.password
+		// 	})
+		// })
+		// .then(response => response.json())
+		// .then(response => this.serverResponse = response)
+		// .catch(error => this.serverResponse = "Client error: " + error.message);
+		this.connected = true;
+		this.root.store.ui.menu = "vision";
+		console.log("Connected!");
+	}
+
+	register = () => {
 		fetch('http://localhost:3006/signin', {
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({
-				username: this.user,
-				password: this.pass
+				username: this.username,
+				password: this.password
 			})
 		})
 		.then(response => response.json())
-		.then(response => this.loginResponse = response);
+		.then(response => this.serverResponse = response)
+		.catch(error => this.serverResponse = "Client error: " + error.message);
+	}
+
+	logout = () => {
+		this.connected = false;
+		this.root.store.ui.menu = "title";
 	}
 }
 
 decorate(DomainStore, {
-	loginResponse: observable
+	serverResponse: observable,
+	connected: observable
 })
 
 export default DomainStore;
