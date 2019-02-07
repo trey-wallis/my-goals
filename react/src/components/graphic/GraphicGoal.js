@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import "../css/GraphicGoal.css";
+import '../../css/GraphicGoal.css';
 
 class GraphicGoal extends Component {
 

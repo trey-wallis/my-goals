@@ -4,9 +4,9 @@ import Title from '../components/Title';
 import Register from '../components/Register';
 import Login from '../components/Login';
 import Vision from '../components/Vision';
-import GraphicItem from '../components/GraphicItem';
-import GraphicGoal from '../components/GraphicGoal';
-import GraphicVision from '../components/GraphicVision';
+import GraphicItem from '../components/graphic/GraphicItem';
+import GraphicGoal from '../components/graphic/GraphicGoal';
+import GraphicVision from '../components/graphic/GraphicVision';
 
 class UIStore {
 
@@ -14,6 +14,7 @@ class UIStore {
 		this.root = root;
 		this.loginMenu = "title";
 		this.graphicMenu = "vision";
+		this.visionMenu = "closed";
 	}
 
 	set menu(route){
@@ -50,10 +51,19 @@ class UIStore {
 				return <GraphicVision/>
 		}
 	}
+
+	set vision(val){
+		this.visionMenu = val;
+	}
+
+	get vision(){
+		return this.visionMenu;
+	}
 }
 
 decorate(UIStore, {
 	loginMenu: observable,
+	visionMenu: observable,
 	menu: computed
 })
 

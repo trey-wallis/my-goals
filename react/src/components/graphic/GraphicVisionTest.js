@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import GraphicVisionItem from '../components/GraphicVisionItem.js'
-import {VisionItems} from "../data/Vision.js";
-import {Goals} from "../data/Goals.js";
-import "../css/GraphicVision.css";
+import GraphicVisionItem from '.GraphicVisionItem.js'
+import {VisionItems} from '../../data/Vision.js';
+import {Goals} from "../../data/Goals.js";
+import '../../css/GraphicVision.css';
 
 class GraphicVision extends Component {
 
