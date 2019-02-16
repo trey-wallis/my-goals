@@ -1,24 +1,34 @@
 import React, {Component} from 'react';
-import {Categories} from '../../data/Categories.js';
+import {observer} from 'mobx-react';
 import '../../css/GraphicVision.css';
 import GraphicCategory from './GraphicCategory.js';
+
+import RootStore from '../../store/RootStore';
 
 class GraphicVision extends Component {
 
 
-	renderCategory(i){
+	constructor(){
+		super();
+		const {ui, domain} = RootStore.store;
+		this.ui = ui;
+		this.domain = domain;
+	}
+
+	renderCategory(category, i){
 		return (
 			<GraphicCategory
 				key={i}
-				name={Categories[i]['name']}
-				items={Categories[i]['items']}/>);
+				name={category['name']}
+				items={category['items']}/>);
 	}
 
 
 	renderCategories(){
 		let renderList = [];
-		for (let i = 0; i < Categories.length; i++){
-			renderList.push(this.renderCategory(i));
+		const categories = this.domain.categoriesData;
+		for (let i = 0; i < categories.length; i++){
+			renderList.push(this.renderCategory(categories[i], i));
 		}
 		return renderList;
 	}
@@ -31,4 +41,4 @@ class GraphicVision extends Component {
 	}
 }
 
-export default GraphicVision;
+export default observer(GraphicVision);

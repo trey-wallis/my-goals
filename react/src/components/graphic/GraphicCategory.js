@@ -4,6 +4,7 @@ import GraphicCategoryItem from './GraphicCategoryItem';
 
 class GraphicCategory extends Component {
 
+
 	renderItems(items, type){
 		return items.map((item, i) => {
 			return (<GraphicCategoryItem

@@ -1,8 +1,27 @@
+/*
+* React imports
+*/
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './css/reset.css';
-import './index.css';
+
+/*
+* Import components
+*/
 import App from './components/App';
+
+/*
+* Import custom packages
+*/
+import 'bootstrap';
+
+/*
+* Import custom bootstrap
+*/
+import './custom.scss';
+
+/*
+* Import service working for caching
+*/
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(

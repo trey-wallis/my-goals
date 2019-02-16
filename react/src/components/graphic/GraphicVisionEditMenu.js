@@ -5,7 +5,8 @@ class GraphicVisionEditMenu extends Component {
 
 	render(){
 		return (
-			<div className="GraphicVisionEditMenu">edit</div>
+			<div className="GraphicVisionEditMenu">
+			</div>
 		);
 	}
 }

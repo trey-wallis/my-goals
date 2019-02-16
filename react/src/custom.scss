@@ -1,0 +1,44 @@
+// Override default variables before the import
+$body-bg: #FFF;
+$light: #A2B9BC;
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
+
+body {
+	min-height: 100vh;
+}
+
+.App {
+	height: calc(100vh - 56px);
+}
+
+.menu {
+	height: 100%;
+}
+
+.btn--reset {
+	background: inherit;
+	border: 0;
+}
+
+.btn--reset:focus {
+	outline: 0;
+}
+
+.bg--inherit {
+	background: inherit;
+}
+
+.btn--reset:active {
+	outline: 0;
+}
+
+#navbar-dropdown {
+	font-size: 1.3rem;
+}
+
+.icon--small {
+	height: 25px;
+	width: auto;
+}

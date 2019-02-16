@@ -1,4 +1,5 @@
 import { observable, decorate } from "mobx";
+import {Categories} from '../data/Categories.js';
 
 class DomainStore {
 
@@ -10,6 +11,7 @@ class DomainStore {
 		this.password = "";
 		this.passwordRepeat = "";
 		this.serverResponse = "";
+		this.dataForCategories = Categories;
 	}
 
 	get loggedIn(){
@@ -60,21 +62,25 @@ class DomainStore {
 		return this.serverResponse;
 	}
 
+	get categoriesData(){
+		return this.dataForCategories;
+	}
+
 	login = () => {
-		// fetch('http://localhost:3006/signin', {
-		// 	method: 'post',
-		// 	headers: {'Content-Type': 'application/json'},
-		// 	body: JSON.stringify({
-		// 		username: this.username,
-		// 		password: this.password
-		// 	})
-		// })
-		// .then(response => response.json())
-		// .then(response => this.serverResponse = response)
-		// .catch(error => this.serverResponse = "Client error: " + error.message);
-		this.connected = true;
-		this.root.store.ui.menu = "vision";
-		console.log("Connected!");
+		 fetch('http://localhost:3006/signin', {
+		 	method: 'post',
+		 	headers: {'Content-Type': 'application/json'},
+		 	body: JSON.stringify({
+		 		username: this.username,
+		 		password: this.password
+		 	})
+		 })
+		 .then(response => response.json())
+		 .then(response => this.serverResponse = response)
+		 .catch(error => this.serverResponse = "Client error: " + error.message);
+		//this.connected = true;
+		//this.root.store.ui.menu = "vision";
+		//console.log("Connected!");
 	}
 
 	register = () => {
@@ -95,11 +101,27 @@ class DomainStore {
 		this.connected = false;
 		this.root.store.ui.menu = "title";
 	}
+
+	postVisionCategory = () => {
+		console.log("Posting category!");
+		this.dataForCategories.push(
+		{
+			name: this.root.store.ui.vCategoryName,
+			items: []
+		});
+		this.root.store.ui.vCategoryName = "";
+	}
+
+	postVisionItem = () => {
+		console.log("Posting item!");
+
+	}
 }
 
 decorate(DomainStore, {
 	serverResponse: observable,
-	connected: observable
+	connected: observable,
+	dataForCategories: observable
 })
 
 export default DomainStore;

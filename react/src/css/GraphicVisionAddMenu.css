@@ -1,0 +1,41 @@
+.GraphicVisionAddMenu {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	top: 100px;
+	width: 300px;
+	height: 500px;
+	background-color: rgba(0,0,0,0.4);
+	box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+	font-size: 1.2em;
+	padding: 10px;
+}
+
+.GraphicVisionAddMenu__outer {
+	position: relative;
+	z-index: 3;
+}
+
+.GraphicVisionAddMenu__inner {
+	position: relative;
+	z-index: 2;
+}
+
+.GraphicVisionAddMenu__title {
+	text-align: center;
+}
+
+.GraphicVisionAddMenu__header {
+	margin: 10px;
+	text-align: center;
+}
+
+.GraphicVisionAddMenu__item {
+	margin-left: 40px;
+}
+
+.GraphicVisionAddMenu__close {
+	position: absolute;
+	right: 0px;
+	z-index: 4;
+}

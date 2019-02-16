@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
-import '../css/Register.css';
 
 import RootStore from '../store/RootStore';
 
@@ -32,20 +31,20 @@ class Register extends Component {
 
 	render(){
 		return(
-			<div className="Register">
-				<div className="Register__wrapper">
-					<div className="Register__title">Register</div>
-					<div className="Register__item">
-						<input type="text" placeholder="Username" onChange={(e)=>{this.onChangeUsername(e)}}/>
+			<div className="menu bg-light d-flex justify-content-center align-items-center">
+				<div className="wrapper">
+					<h4 className="text-center">Register</h4>
+					<div className="form-group">
+						<input type="text" placeholder="Username" class="form-control" onChange={(e)=>{this.onChangeUsername(e)}}/>
 					</div>
-					<div className="Register__item">
-						<input type="password" placeholder="Password" onChange={(e)=>{this.onChangePassword(e)}}/>
+					<div className="form-group">
+						<input type="password" placeholder="Password" class="form-control" onChange={(e)=>{this.onChangePassword(e)}}/>
 					</div>
-					<div className="Register__item">
-						<input type="password" placeholder="Password Repeat" onChange={(e)=>{this.onChangePasswordRepeat(e)}}/>
+					<div className="form-group">
+						<input type="password" placeholder="Password Repeat" class="form-control" onChange={(e)=>{this.onChangePasswordRepeat(e)}}/>
 					</div>
-					<button className="Register__button" onClick={this.onSubmit}>Submit</button>
-					<div className="Register__status">{this.domain.registerResponse}</div>
+					<button className="btn btn-primary" onClick={this.onSubmit}>Submit</button>
+					<div className="text-danger">{this.domain.registerResponse}</div>
 				</div>
 			</div>);
 	}

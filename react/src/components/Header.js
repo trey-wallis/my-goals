@@ -14,7 +14,10 @@ class Header extends Component {
 	}
 
 	onRegister = () => {
-		this.ui.menu = "register";
+		this.ui.menu = {
+			active: "register",
+			activeIndex: 2
+		}
 	}
 
 	onLogout = () => {
@@ -22,73 +25,132 @@ class Header extends Component {
 	}
 
 	onLogin = () => {
-		this.ui.menu = "login";
+		this.ui.menu = {
+			active: "login",
+			activeIndex: 1
+		}
 	}
 
 	onHome = () => {
-		this.ui.menu = "title";
+		this.ui.menu = {
+			active: "title",
+			activeIndex: 0
+		}
 	}
 
-	onVision = () => {
-		this.ui.menu = "vision";
+	onDashBoard = () => {
+		this.ui.menu = {
+			active: "dash",
+			activeIndex: 0
+		}
+	}
+
+	onVisionBoard = () => {
+		this.ui.menu = {
+			active: "vision",
+			activeIndex: 1
+		}
+	}
+
+	onGoals = () => {
+		this.ui.menu = {
+			active: "goals",
+			activeIndex: 2
+		}
+	}
+
+	onHabits= () => {
+		this.ui.menu = {
+			active: "habits",
+			activeIndex: 3
+		}
+	}
+
+	onSettings = () => {
+		this.ui.menu = {
+			active: "settings",
+			activeIndex: 4
+		}
+	}
+
+	renderDropDownMenu(){
+		let menu = [];
+		for (let i = 0; i < this.ui.dropDownItems.length; i++){
+			menu.push(<button className={this.ui.getDropDownNavActive(i) + " btn btn--reset dropdown-item"}>{this.ui.dropDownItems[i]}</button>);
+		}
+		return menu;
 	}
 
 	renderLoggedIn(){
-		const {ui, domain} = RootStore.store;
+
 		return(
-			<div className="Header__flex">
-				<ul className="Header__ul">
-					<li className="Header__li Header__title">My Goals</li>
-					<li className="Header__li">
-						<button className="Header__button" onClick={this.onVision}>My Vision</button>
-					</li>
-				</ul>
-				<ul className="Header__ul Header__collapse">
-					<li className="Header__li">Welcome {domain.name}</li>
-					<li className="Header__li">
-						<button className="Header__button" onClick={this.onLogout}>Logout</button>
-					</li>
-				</ul>
-				<ul className="Header__ul Header__hidden">
-					<li className="Header__li"></li>
-					<li className="Header__li"></li>
-				</ul>
-			</div>);
+			<nav className="navbar navbar-expand-md navbar-dark bg-primary">
+			    <div className="btn-group">
+					<button type="button" className="btn btn--reset dropdown-toggle" data-toggle="dropdown" id="navbar-dropdown">{this.ui.dropDownTitle}</button>
+					<div className="dropdown-menu">
+						{
+							this.renderDropDownMenu()
+						}
+				    	<div className="dropdown-divider"></div>
+				    	<button type="button" className="btn btn-primary ml-2">Edit</button>
+					</div>
+				</div>
+				<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main">
+    				<span className="navbar-toggler-icon"></span>
+  				</button>
+  				<div className="collapse navbar-collapse" id="navbar-main">
+    				<ul className="navbar-nav ml-auto">
+    				    <li className={this.ui.getMainNavActive(0) + " nav-item ml-auto"}>
+	        				<button className="nav-link btn--reset" onClick={this.onDashBoard}>Dashboard</button>
+	      				</li>
+	      				<li className={this.ui.getMainNavActive(1) + " nav-item ml-auto"}>
+	        				<button className="nav-link btn--reset" onClick={this.onVisionBoard}>Vision Board</button>
+	      				</li>
+	      				<li className={this.ui.getMainNavActive(2) + " nav-item ml-auto"}>
+	        				<button className="nav-link btn--reset" onClick={this.onGoals}>Goals</button>
+	      				</li>
+	      				<li className={this.ui.getMainNavActive(3) + " nav-item ml-auto"}>
+	        				<button className="nav-link btn--reset" onClick={this.onHabits}>Habits</button>
+	      				</li>
+	      				<li className={this.ui.getMainNavActive(4) + " nav-item ml-auto"}>
+	        				<button className="nav-link btn--reset" onClick={this.onSettings}>Settings</button>
+	      				</li>
+	      				<li className={this.ui.getMainNavActive(5) + " nav-item ml-auto"}>
+	        				<button className="nav-link btn--reset" onClick={this.onLogout}>Logout</button>
+	      				</li>
+    				</ul>
+    			</div>
+    		</nav>);
 	}
 
 	renderLoggedOut(){
 		return(
-			<div className="Header__flex">
-				<ul className="Header__ul">
-					<li className="Header__li Header__title">My Goals</li>
-					<li className="Header__li">
-						<button className="Header__button" onClick={this.onHome}>Home</button>
-					</li>
-				</ul>
-				<ul className="Header__ul Header__collapse">
-					<li className="Header__li">
-						<button className="Header__button" onClick={this.onRegister}>Register</button>
-					</li>
-					<li className="Header__li">
-						<button className="Header__button" onClick={this.onLogin}>Login</button>
-					</li>
-				</ul>
-				<ul className="Header__ul Header__hidden">
-					<li className="Header__li">
-						<img className="Header__icon" src={menu} alt="menu"/>
-					</li>
-				</ul>
-			</div>);
+			<nav className="navbar navbar-expand-md navbar-dark bg-primary">
+			    <button className="navbar-brand btn--reset" onClick={this.onHome}>My Goals</button>
+				<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main">
+    				<span className="navbar-toggler-icon"></span>
+  				</button>
+  				<div className="collapse navbar-collapse" id="navbar-main">
+    				<ul className="navbar-nav ml-auto">
+      					<li className={this.ui.getMainNavActive(1) + " nav-item ml-auto"}>
+        					<button className="nav-link btn--reset" onClick={this.onLogin}>Login</button>
+      					</li>
+      					<li className={this.ui.getMainNavActive(2) + " nav-item ml-auto"}>
+        					<button className="nav-link btn--reset" onClick={this.onRegister}>Register</button>
+      					</li>
+    				</ul>
+    			</div>
+    		</nav>);
 	}
 
 	render() {
 		const {ui, domain} = RootStore.store;
 		return (
-			<header className="Header">
+			<div className="Header">
 			{
 				(domain.loggedIn ? this.renderLoggedIn() : this.renderLoggedOut())
 			}
-			</header>
+			</div>
 		);
 	}
 }

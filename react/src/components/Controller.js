@@ -16,7 +16,6 @@ class Controller extends Component {
 
 	onAdd = () => {
 		this.ui.vision = "add";
-		console.log("Add menu!");
 	}
 
 	onEdit = () => {
