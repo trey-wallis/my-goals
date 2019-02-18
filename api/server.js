@@ -149,7 +149,7 @@ app.post('/signin', (req, res) => {
 		});
     })
     .catch(error => {
-    	res.status(400).json("Invalid username or password");
+    	res.status(400).json("Account doesn't exist. Please register");
         console.log(error);
     });
 });

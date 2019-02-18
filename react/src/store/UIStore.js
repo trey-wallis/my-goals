@@ -15,7 +15,7 @@ class UIStore {
 		this.root = root;
 
 		this.dropDownMenu = {
-			items: [""],
+			items: [],
 			activeIndex: 0,
 		}
 

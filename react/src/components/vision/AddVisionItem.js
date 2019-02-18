@@ -62,7 +62,7 @@ class AddVisionItem extends Component {
 								<input type="text" className="form-control" value={this.domain.addVisionItemName} placeholder="Name" id="addCategoryName" onChange={ (e)=> {this.onNameChange(e)} }/>
 							</div>
 							<div className="form-group">
-								<input type="text" className="form-control" value={this.domain.addVisionItemDescription} placeholder="Description" id="addCategoryName" onChange={ (e)=> {this.onDescriptionChange(e)} }/>
+								<textarea className="form-control" value={this.domain.addVisionItemDescription} placeholder="Description" id="addCategoryName" onChange={ (e)=> {this.onDescriptionChange(e)} }></textarea>
 							</div>
 							<div className="form-group">
 								<input type="text" className="form-control" value={this.domain.addVisionItemUrl} placeholder="Url" id="addCategoryName" onChange={ (e)=> {this.onUrlChange(e)} }/>

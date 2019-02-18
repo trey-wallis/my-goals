@@ -248,6 +248,11 @@ class DomainStore {
 		 	this.visionData = response;
 		 	console.log("Loading resources. Categories:");
 		 	console.log(this.visionData);
+
+		 	//Instead of using selected
+		 	if (this.visionData.categories.length > 0){
+		 		this.addVisionItemForm.categoryId = this.visionData.categories[0].id;
+		 	}
 		 	this.login();
 		 })
 		 .catch(error => console.log);
@@ -281,7 +286,8 @@ class DomainStore {
 		 		$("#add-vision-category-name").val('');
 		 		$("#modal-add-category").modal('hide');
 		 		this.addVisionCategoryForm.name = "";
-		 		this.root.uiStore.dropDownMenu.items.push(this.visionData.categories[this.vision.categories.length - 1]);
+		 		this.addVisionCategoryForm.response = "";
+		 		this.root.uiStore.dropDownMenu.items.push(this.visionData.categories[this.visionData.categories.length - 1].name);
 		 	}
 		 })
 		 .catch(error => console.log);
@@ -315,7 +321,7 @@ class DomainStore {
 		 		this.addVisionItemForm.name = "";
 				this.addVisionItemForm.description = "";
 				this.addVisionItemForm.url = "";
-				this.addVisionItemForm.categoryId = 1;
+				this.addVIsionItemForm.response = "";
 		 	}
 		 })
 		 .catch(error => console.log);
@@ -325,10 +331,12 @@ class DomainStore {
 decorate(DomainStore, {
 	loginForm: observable,
 	registrationForm: observable,
-	addCategoryForm: observable,
+	addVisionCategoryForm: observable,
 	addVisionItemForm: observable,
 	connected: observable,
-	dataForCategories: observable,
+	visionData: observable,
+	visionCategories: computed,
+	visionItems: computed,
 })
 
 export default DomainStore;

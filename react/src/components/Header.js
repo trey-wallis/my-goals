@@ -53,13 +53,16 @@ class Header extends Component {
 			activeIndex: 1
 		}
 
-		const categoryItems = this.domain.visionCategories.map(category => {
-			return category.name;
-		});
+		if (this.domain.visionCategories.length > 0){
 
-		this.ui.dropDownMenu = {
-			items: categoryItems, 
-			activeIndex: 0
+			const categoryItems = this.domain.visionCategories.map(category => {
+				return category.name;
+			});
+
+			this.ui.dropDownMenu = {
+				items: categoryItems, 
+				activeIndex: 0
+			}
 		}
 
 		this.ui.showBrand = false;
@@ -91,15 +94,18 @@ class Header extends Component {
 			return <button className="navbar-brand btn--reset" onClick={this.onDashBoard}>My Goals</button>;
 		} else {
 			return (<div className="btn-group">
-					<button type="button" className="btn btn--reset dropdown-toggle" data-toggle="dropdown" id="navbar-dropdown">{this.ui.dropDownTitle}</button>
+					<button type="button" className="btn btn--reset dropdown-toggle" data-toggle="dropdown" id="navbar-dropdown">{this.domain.visionCategories.length > 0 ? this.ui.dropDownTitle : 'My Goals'}</button>
 					<div className="dropdown-menu">
-						<Scrollable height="100px">
 						{
-							this.ui.dropDownItems.map((item, i) => {
-								return <button key={i} className={this.ui.getDropDownNavActive(i) + " dropdown-item"} onClick={()=>{this.ui.dropDownActive = i}}>{this.ui.dropDownItems[i]}</button>
-							})
+							this.domain.visionCategories.length > 0 ?
+								<Scrollable height="100px">
+								{
+									this.ui.dropDownItems.map((item, i) => {
+										return <button key={i} className={this.ui.getDropDownNavActive(i) + " dropdown-item"} onClick={()=>{this.ui.dropDownActive = i}}>{this.ui.dropDownItems[i]}</button>
+									})
+								}
+								</Scrollable> : ''
 						}
-						</Scrollable>
 				    	<div className="dropdown-divider"></div>
 				    	<button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-add-category">Add Category</button>
 				    	<button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-add-vision-item">Add Vision Item</button>

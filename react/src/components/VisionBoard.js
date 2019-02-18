@@ -13,15 +13,17 @@ class VisionBoard extends Component {
 	}
 
 	renderItems(){
-		console.log(this.domain.visionCategories);
-		console.log(this.domain.visionData);
-		const categoryId = this.domain.visionCategories[this.ui.dropDownActive].categoryid;
-		return this.domain.visionItems.map((item, i) => {
-			if (item.categoryId === categoryId){
-				return <VisionItem key={i} img={item.url} title={item.title} desc={item.description} />
-			}
-			return '';
-		});
+		if(this.domain.visionCategories.length > 0){
+			const categoryId = this.domain.visionCategories[this.ui.dropDownActive].id;
+			return this.domain.visionItems.map((item, i) => {
+				if (item.categoryid === categoryId){
+					return <VisionItem key={i} img={item.url} title={item.title} desc={item.description} />
+				}
+				return '';
+			});
+		} else {
+			return <p>No categories to display</p>
+		}
 	}
 
 	render(){
