@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import {observer} from 'mobx-react';
 
-import '../css/App.css';
-
 import RootStore from '../store/RootStore';
 import Header from '../components/Header';
+import Modals from '../components/Modals';
 
 class App extends Component {
 
@@ -15,6 +14,7 @@ class App extends Component {
 			<div className="App">
 				<Header />
 				{ui.menu}
+				<Modals />
 			</div>);
 	}
 }

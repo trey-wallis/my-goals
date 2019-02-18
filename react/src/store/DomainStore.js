@@ -1,5 +1,4 @@
 import { observable, decorate } from "mobx";
-import {Categories} from '../data/Categories.js';
 
 class DomainStore {
 
@@ -11,7 +10,7 @@ class DomainStore {
 		this.password = "";
 		this.passwordRepeat = "";
 		this.serverResponse = "";
-		this.dataForCategories = Categories;
+		this.visionData = [];
 	}
 
 	get loggedIn(){
@@ -22,51 +21,52 @@ class DomainStore {
 		return this.displayName;
 	}
 
-	set loginUser(name){
-		this.username = name;
+	set user(user){
+		this.username = user;
 	}
 
-	set loginPass(pass){
+	set pass(pass){
 		this.password = pass;
 	}
 
-	get loginUser(){
+	set passRepeat(passRepeat){
+		this.passwordRepeat = passRepeat;
+	}
+
+	get user(){
 		return this.username;
 	}
 
-	get loginPassword(){
+	get pass(){
 		return this.password;
 	}
 
-	get loginResponse(){
-		return this.serverResponse;
-	}
-
-	set registerUser(name){
-		this.username = name;
-	}
-
-	set registerPass(pass){
-		this.password = pass;
-	}
-
-	set registerPassRepeat(pass){
-		this.passwordRepeat = pass;
+	get passRepeat(){
+		return this.passwordRepeat;
 	}
 
 	set response(res){
 		this.serverResponse = res;
 	}
 
-	get registerResponse(){
+	get response(){
 		return this.serverResponse;
 	}
 
-	get categoriesData(){
-		return this.dataForCategories;
+	get visionItems(){
+		return this.visionData;
 	}
 
-	login = () => {
+	login(){
+		this.connected = true;
+		this.root.store.ui.menu = {
+			active: "dash",
+			activeIndex: 0
+		}
+	}
+
+	connectLogin = () => {
+		let successful = false;
 		 fetch('http://localhost:3006/signin', {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
@@ -75,46 +75,76 @@ class DomainStore {
 		 		password: this.password
 		 	})
 		 })
-		 .then(response => response.json())
-		 .then(response => this.serverResponse = response)
+		 .then(response => {
+		 	if (response.status === 200){
+		 		successful = true;
+		 	}
+		 	return response.json();
+		 })
+		 .then(response => {
+		 	if (!successful){
+		 		this.serverResponse = response;
+		 	} else {
+		 		this.visionData = response;
+		 		console.log(response);
+		 		this.login();
+		 	}
+		 })
 		 .catch(error => this.serverResponse = "Client error: " + error.message);
-		//this.connected = true;
-		//this.root.store.ui.menu = "vision";
-		//console.log("Connected!");
 	}
 
-	register = () => {
-		fetch('http://localhost:3006/signin', {
-			method: 'post',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({
-				username: this.username,
-				password: this.password
-			})
-		})
-		.then(response => response.json())
-		.then(response => this.serverResponse = response)
-		.catch(error => this.serverResponse = "Client error: " + error.message);
+	connectRegister = () => {
+		 fetch('http://localhost:3006/register', {
+		 	method: 'post',
+		 	headers: {'Content-Type': 'application/json'},
+		 	body: JSON.stringify({
+		 		username: this.username,
+		 		password: this.password,
+		 		passwordRepeat: this.passwordRepeat
+		 	})
+		 })
+		 .then(response => {
+		 	if (response.status === 200){
+		 		this.login();
+		 		console.log("logging in");
+		 	} else {
+		 	return response.json();
+		 	}
+		 })
+		 .then(response => {
+		 	this.serverResponse = response;
+		 })
+		 .catch(error => this.serverResponse = "Client error: " + error.message);
+	}
+
+	saveEditChanges = () => {
+		fetch('http://localhost:3006/edit', {
+		 	method: 'post',
+		 	headers: {'Content-Type': 'application/json'},
+		 	body: JSON.stringify({
+		 		username: this.username,
+		 	})
+		 })
+		 .then(response => {
+		 	if (response.status === 200){
+		 		this.login();
+		 		console.log("logging in");
+		 	} else {
+		 	return response.json();
+		 	}
+		 })
+		 .then(response => {
+		 	this.serverResponse = response;
+		 })
+		 .catch(error => this.serverResponse = "Client error: " + error.message);
 	}
 
 	logout = () => {
 		this.connected = false;
-		this.root.store.ui.menu = "title";
-	}
-
-	postVisionCategory = () => {
-		console.log("Posting category!");
-		this.dataForCategories.push(
-		{
-			name: this.root.store.ui.vCategoryName,
-			items: []
-		});
-		this.root.store.ui.vCategoryName = "";
-	}
-
-	postVisionItem = () => {
-		console.log("Posting item!");
-
+		this.root.store.ui.menu = {
+			active: "title",
+			activeIndex: 0
+		}
 	}
 }
 

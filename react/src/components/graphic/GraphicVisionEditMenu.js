@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import '../../css/GraphicVisionEditMenu.css';
 
 class GraphicVisionEditMenu extends Component {
 

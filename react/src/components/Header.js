@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
-import '../css/Header.css';
 import menu from '../img/icons/menu-icon.png';
 import RootStore from '../store/RootStore';
 
@@ -76,7 +75,7 @@ class Header extends Component {
 	renderDropDownMenu(){
 		let menu = [];
 		for (let i = 0; i < this.ui.dropDownItems.length; i++){
-			menu.push(<button className={this.ui.getDropDownNavActive(i) + " btn btn--reset dropdown-item"}>{this.ui.dropDownItems[i]}</button>);
+			menu.push(<button key={i} className={this.ui.getDropDownNavActive(i) + " btn btn--reset dropdown-item"} onClick={()=>{this.ui.clickDropDown(i)}}>{this.ui.dropDownItems[i]}</button>);
 		}
 		return menu;
 	}
@@ -92,7 +91,7 @@ class Header extends Component {
 							this.renderDropDownMenu()
 						}
 				    	<div className="dropdown-divider"></div>
-				    	<button type="button" className="btn btn-primary ml-2">Edit</button>
+				    	<button type="button" className="btn btn-primary ml-2" data-toggle="modal" data-target="#edit-modal">Edit</button>
 					</div>
 				</div>
 				<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main">

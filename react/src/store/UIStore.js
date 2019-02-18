@@ -17,22 +17,24 @@ class UIStore {
 
 	constructor(root){
 		this.root = root;
-		this.graphicMenu = "vision";
-		this.visionMenu = "closed";
-		this.visionCategoryName = "";
-		this.visionItemName = "";
-		this.visionItemDescription = "";
 
 		this.dropDownMenu = {
-			title: "Category",
 			items: ["Category 1", "Category 2", "Category 3"],
 			activeIndex: 0,
 		}
 
 		this.navMenu = {
-			active: "",
-			activeIndex: 3
+			active: "title",
+			activeIndex: 0
 		}
+
+		this.editMenu = {
+			categoryInputName: ""
+		}
+	}
+
+	set categoryInputName(text) {
+		this.editMenu.categoryInputName = text;
 	}
 
 	getDropDownNavActive(index){
@@ -48,16 +50,23 @@ class UIStore {
 	}
 
 	get dropDownTitle() {
-		return this.dropDownMenu.title;
+		return this.dropDownMenu.items[this.dropDownMenu.activeIndex];
 	}
 
 	get dropDownItems() {
 		return this.dropDownMenu.items;
 	}
 
+	clickDropDown(index){
+		this.dropDownMenu.activeIndex = index;
+	}
+
 	set menu(route){
 		if (this.navMenu.active === "login" || this.navMenu.active === "register"){
 			this.root.store.domain.response = "";
+			this.root.store.domain.username = "";
+			this.root.store.domain.password = "";
+			this.root.store.domain.passwordRepeat = "";
 		}
 		this.navMenu = route;
 	}
@@ -82,55 +91,11 @@ class UIStore {
 				return <Title/>
 		}
 	}
-
-	set graphic(route){
-		this.graphicMenu = route;
-	}
-
-	get graphic(){
-		switch(this.graphicMenu){
-			case "item":
-				return <GraphicItem/>
-			case "goal":
-				return <GraphicGoal/>
-			default:
-				return <GraphicVision/>
-		}
-	}
-
-	set vision(val){
-		this.visionMenu = val;
-	}
-
-	get vision(){
-		return this.visionMenu;
-	}
-
-	set vItemDescription(desc){
-		this.visionItemDescription = desc;
-	}
-
-	set vItemName(name){
-		this.visionItemName = name;
-	}
-
-	set vCategoryName(cat){
-		this.visionCategoryName = cat;
-	}
-
-	get vCategoryName(){
-		return this.visionCategoryName;
-	}
-
-	resetVisionMenu(){
-		this.visionCategoryName = "";
-		this.visionItemName = "";
-		this.visionItemDescription = "";
-	}
 }
 
 decorate(UIStore, {
 	navMenu: observable,
+	dropDownMenu: observable,
 	visionMenu: observable,
 	visionCategoryName: observable,
 	menu: computed

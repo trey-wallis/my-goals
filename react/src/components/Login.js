@@ -13,25 +13,30 @@ class Login extends Component {
 	}
 
 	onSubmit = () => {
-		this.domain.login();
+		this.domain.connectLogin();
 	}
 
 	onChangeUsername = (e) => {
-		this.domain.loginUser = e.target.value;
+		this.domain.user = e.target.value;
 	}
 
 	onChangePassword = (e) => {
-		this.domain.loginPass = e.target.value;
+		this.domain.pass = e.target.value;
 	}
 
 	render(){
 		const style_response =  {
-			height: '25px',
+			minHeight: '25px',
 			marginTop: '-15px',
 		}
+
+		const style_wrapper = {
+			width: '250px'
+		}
+
 		return(
 			<div className="menu bg-light d-flex justify-content-center align-items-center">
-				<div className="wrapper">
+				<div className="wrapper" style={style_wrapper}>
 					<h4 className="text-center">Login</h4>
 					<div className="form-group">
 						<input type="text" placeholder="Username" className="form-control" onChange={(e)=>{this.onChangeUsername(e)}}/>
@@ -39,7 +44,7 @@ class Login extends Component {
 					<div className="form-group">
 						<input type="password" placeholder="Password" className="form-control" onChange={(e)=>{this.onChangePassword(e)}}/>
 					</div>
-					<div className="text-danger" style={style_response}>{this.domain.loginResponse}</div>
+					<div className="text-danger" style={style_response}>{this.domain.response}</div>
 					<button className="btn btn-primary" onClick={this.onSubmit}>Submit</button>
 				</div>
 			</div>);

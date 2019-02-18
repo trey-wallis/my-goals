@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
-import '../css/Vision.css';
 import RootStore from '../store/RootStore';
 import Controller from '../components/Controller';
 import GraphicVisionAddMenu from '../components/graphic/GraphicVisionAddMenu';

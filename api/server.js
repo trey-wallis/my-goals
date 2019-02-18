@@ -2,53 +2,15 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const bcrypt = require("bcrypt-nodejs");
+const pgp = require('pg-promise')({});
+
 
 const PORT = 3006;
 const app = express();
 
-/*
-* Our "fake" database
-*/
-const database = {
-	users:[
-		{
-			id: '0',
-			username: 'bob',
-			hash: '$2a$10$vLD8J0SsmvqMbL8eCZ.XiOey1fhlDsxt7zjlbdA2qDUlooCRpOJLO',
-			joined: new Date()
-		}
-	]
-};
 
-/*
-* Bcrypt methods
-*/
-const registerUser = (response, username, password) => {
-	bcrypt.genSalt(10, function(err, salt) {
-		bcrypt.hash(password, salt, null, (err, res) => {
-			database.users.push({
-				username: username,
-				hash: res,
-				joined: new Date()
-			});
-			console.log("Registered", username);
-			console.log("Hash", res);
-			response.status(200).json("Successfully registered");
-		});
-	});
-};
-
-const checkLogin = (res, username, password, hash) => {
-	bcrypt.compare(password, hash, (err, match) => {
-	    if(match){
-	    	const user = database.users.find(user=> user.username === username);
-	    	res.status(200).json({id: user.id, joined: user.joined});
-	    	console.log(username, "has successfully logged in")
-	    } else {
-	    	res.status(400).json("Invalid username or password");
-	    }
-	});
-}
+const cn = 'postgres://root:root@localhost:5432/mygoalsreact';
+const db = pgp(cn);
 
 /*
 * Middlewares for express
@@ -60,44 +22,81 @@ app.use((req, res, next) => {
 	next();
 });
 
-/*
-* Get requests
-*/
-app.get('/', (req, res) => {
-	res.send(database.users);
-});
-
+grabResources = (res, userId) => {
+	db.task(t => {
+	    return t.any('SELECT * FROM categories WHERE userId = $1', userId)
+	        .then(categories => {
+	        	return t.any('SELECT * FROM visionitem WHERE userId= $1', userId).
+	        		then(items => {
+	        			console.log(items);
+	        			return { categories, items};
+	        		})
+	        	return {categories};
+	        });    
+	})
+	    .then(data => {
+	    	res.json(data);
+	    })
+	    .catch(error => {
+	       console.log(error);   
+	    });
+}
 
 /*
 * Post Requests
 */
 app.post('/register', (req, res) => {
 	const {username, password, passwordRepeat} = req.body;
-	const usernameToLowercase = username.toLowerCase();
+	const usernameLowercase = username.toLowerCase();
+
 	if (username === '' || password === '' || passwordRepeat === ''){
 		res.status(400).json("Please fill out all fields");
 	} else if (password.length < 8){
-		res.status(400).json("Your password must have at least 8 characters")
+		res.status(400).json("Your password must have at least 8 characters");
 	} else if (password !== passwordRepeat){
 		res.status(400).json("Passwords don't match");
-	} else if (database.users.find(user => user.username === username.toLowerCase())){
-		console.log("User already exists");
-		res.status(400).json("Username already exists");
 	} else {
-		registerUser(res, usernameToLowercase, password);
+		db.one('SELECT * FROM users WHERE name = $1', usernameLowercase)
+    	.then((data) => {
+    		res.status(400).json("User already exists");
+    	})
+    	.catch(error => {
+			bcrypt.genSalt(10, function(err, salt) {
+				bcrypt.hash(password, salt, null, (err, hash) => {
+					db.none('INSERT INTO users(name, hash) VALUES ($1, $2)', [usernameLowercase, hash])
+					.then(()=>{
+						res.status(200).json("Registered");
+						console.log("Registered", username);
+					})
+					.catch((error)=>{
+						console.log(error);
+						res.status(400).json("An error occurred while registering");
+					});
+				});
+			});
+    	});
 	}
 });
 
 app.post('/signin', (req, res) => {
 	const {username, password} = req.body;
 	const usernameLowercase = username.toLowerCase();
-	const user = database.users.find(user => user.username == usernameLowercase);
-	if (user){
-		const hash = user.hash;
-		checkLogin(res, usernameLowercase, password, hash);
-	} else {
-		res.status(400).json("Invalid username or password");
-	}
+
+	db.one('SELECT * FROM users WHERE name= $1', usernameLowercase)
+    .then((data) => {
+	    bcrypt.compare(password, data.hash, (err, match) => {
+		    if(match){
+		    	grabResources(res, data.id);
+		    	console.log(username, "has successfully logged in");
+		    } else {
+		    	res.status(400).json("Invalid username or password");
+		    }
+		});
+    })
+    .catch(error => {
+    	res.status(400).json("Invalid username or password");
+        console.log(error);
+    });
 });
 
 app.post('/logout', (req, res) => {

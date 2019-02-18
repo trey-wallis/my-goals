@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import '../../css/GraphicVisionAddMenu.css';
 
 import RootStore from '../../store/RootStore';
 
