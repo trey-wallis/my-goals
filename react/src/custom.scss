@@ -5,15 +5,19 @@ $light: #A2B9BC;
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';
 
-body {
-	min-height: 100vh;
+body > #root {
+	height: 100vh;
 }
 
 .App {
-	height: calc(100vh - 56px);
+	height: 100%;
 }
 
 .menu {
+	height: calc(100% - 56px);
+}
+
+.wrapper {
 	height: 100%;
 }
 
@@ -36,6 +40,16 @@ body {
 
 #navbar-dropdown {
 	font-size: 1.3rem;
+}
+
+#navbar-top {
+	height: auto;
+}
+
+@media (min-width: 576px) {
+	#navbar-top {
+		height: 56px;
+	}
 }
 
 .icon--small {

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
-import menu from '../img/icons/menu-icon.png';
+
+import Scrollable from '../components/Scrollable';
 import RootStore from '../store/RootStore';
 
 class Header extends Component {
@@ -42,6 +43,8 @@ class Header extends Component {
 			active: "dash",
 			activeIndex: 0
 		}
+
+		this.ui.showBrand = true;
 	}
 
 	onVisionBoard = () => {
@@ -49,6 +52,17 @@ class Header extends Component {
 			active: "vision",
 			activeIndex: 1
 		}
+
+		const categoryItems = this.domain.visionCategories.map(category => {
+			return category.name;
+		});
+
+		this.ui.dropDownMenu = {
+			items: categoryItems, 
+			activeIndex: 0
+		}
+
+		this.ui.showBrand = false;
 	}
 
 	onGoals = () => {
@@ -73,27 +87,33 @@ class Header extends Component {
 	}
 
 	renderDropDownMenu(){
-		let menu = [];
-		for (let i = 0; i < this.ui.dropDownItems.length; i++){
-			menu.push(<button key={i} className={this.ui.getDropDownNavActive(i) + " btn btn--reset dropdown-item"} onClick={()=>{this.ui.clickDropDown(i)}}>{this.ui.dropDownItems[i]}</button>);
+		if(this.ui.showBrand){
+			return <button className="navbar-brand btn--reset" onClick={this.onDashBoard}>My Goals</button>;
+		} else {
+			return (<div className="btn-group">
+					<button type="button" className="btn btn--reset dropdown-toggle" data-toggle="dropdown" id="navbar-dropdown">{this.ui.dropDownTitle}</button>
+					<div className="dropdown-menu">
+						<Scrollable height="100px">
+						{
+							this.ui.dropDownItems.map((item, i) => {
+								return <button key={i} className={this.ui.getDropDownNavActive(i) + " dropdown-item"} onClick={()=>{this.ui.dropDownActive = i}}>{this.ui.dropDownItems[i]}</button>
+							})
+						}
+						</Scrollable>
+				    	<div className="dropdown-divider"></div>
+				    	<button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-add-category">Add Category</button>
+				    	<button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-add-vision-item">Add Vision Item</button>
+				    	<button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-edit">Edit</button>
+					</div>
+				</div>);
 		}
-		return menu;
 	}
 
 	renderLoggedIn(){
 
 		return(
-			<nav className="navbar navbar-expand-md navbar-dark bg-primary">
-			    <div className="btn-group">
-					<button type="button" className="btn btn--reset dropdown-toggle" data-toggle="dropdown" id="navbar-dropdown">{this.ui.dropDownTitle}</button>
-					<div className="dropdown-menu">
-						{
-							this.renderDropDownMenu()
-						}
-				    	<div className="dropdown-divider"></div>
-				    	<button type="button" className="btn btn-primary ml-2" data-toggle="modal" data-target="#edit-modal">Edit</button>
-					</div>
-				</div>
+			<nav className="navbar navbar-expand-md navbar-dark bg-primary" id="navbar-top">
+				{this.renderDropDownMenu()}
 				<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main">
     				<span className="navbar-toggler-icon"></span>
   				</button>
@@ -124,7 +144,7 @@ class Header extends Component {
 
 	renderLoggedOut(){
 		return(
-			<nav className="navbar navbar-expand-md navbar-dark bg-primary">
+			<nav className="navbar navbar-expand-md navbar-dark bg-primary" id="navbar-top">
 			    <button className="navbar-brand btn--reset" onClick={this.onHome}>My Goals</button>
 				<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main">
     				<span className="navbar-toggler-icon"></span>

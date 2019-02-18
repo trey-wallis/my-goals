@@ -8,11 +8,11 @@ class Title extends Component {
 
 	render(){
 		const background_style = {
-			height: '65%'
+			minHeight: '65%'
 		}
 
 		const row_style = {
-			height: '35%'
+			minHeight: '35%'
 		}
 
 		return(
@@ -20,7 +20,7 @@ class Title extends Component {
 				<div className="wrapper h-100">
 					<div className="background bg-primary d-flex align-items-center justify-content-center" style={background_style}>
 						<div className="jumbotron bg--inherit m4 d-flex flex-column align-items-center">
-						<h1 className="display-4">What are my goals?</h1>
+						<h1 className="display-4 text-center">What are my goals?</h1>
 						<p className="lead w-50">Meet the dynamic way and responsive way to expand your vision and track your SMART goals</p>
 						</div>
 					</div>

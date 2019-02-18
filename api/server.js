@@ -22,11 +22,12 @@ app.use((req, res, next) => {
 	next();
 });
 
-grabResources = (res, userId) => {
+app.get('/visionboard/:id', (req, res) => {
+	const {id} = req.params;
 	db.task(t => {
-	    return t.any('SELECT * FROM categories WHERE userId = $1', userId)
-	        .then(categories => {
-	        	return t.any('SELECT * FROM visionitem WHERE userId= $1', userId).
+	    return t.any('SELECT id, name FROM categories WHERE userid = $1', id).
+	        then(categories => {
+	        	return t.any('SELECT title, description, url, categoryid FROM visionitem WHERE userid= $1', id).
 	        		then(items => {
 	        			console.log(items);
 	        			return { categories, items};
@@ -34,17 +35,65 @@ grabResources = (res, userId) => {
 	        	return {categories};
 	        });    
 	})
-	    .then(data => {
-	    	res.json(data);
-	    })
-	    .catch(error => {
-	       console.log(error);   
-	    });
-}
+	.then(data => {
+		res.json(data);
+	})
+	.catch(error => {
+		console.log(error);   
+	});
+});
 
 /*
 * Post Requests
 */
+app.post('/addcategory', (req, res) => {
+	const {userId, name} = req.body;
+
+	if (name === ''){
+		return res.status(400).json("Please enter a category name");
+	}
+
+	db.none('INSERT INTO categories(name, userid) VALUES ($1, $2)', [name, userId]).
+	then(()=>{
+		db.one("SELECT id, name FROM categories ORDER BY id DESC LIMIT 1").
+		then((data)=>{
+			res.status(200).json(data);
+			console.log(data);
+		}).catch((error) => {
+			console.log(error);
+		});
+	}).catch((error) => {
+		console.log(error);
+		res.status(400).json("An error occurred while adding category");
+	});
+});
+
+app.post('/addvisionitem', (req, res) => {
+	const {name, description, url, userId, categoryId } = req.body;
+
+	if (name === ''){
+		return res.status(400).json("Please enter a name");
+	} else if(description === ''){
+		return res.status(400).json("Please enter a description");
+	} else if(url === ''){
+		return res.status(400).json("Please enter a url");
+	}
+
+	db.none('INSERT INTO visionitem(title, description, url, userid, categoryid) VALUES ($1, $2, $3, $4, $5)', [name, description, url, userId, categoryId]).
+	then(()=>{
+		db.one("SELECT title, description, url, categoryid FROM visionitem ORDER BY id DESC LIMIT 1").
+		then((data)=>{
+			res.status(200).json(data);
+			console.log(data);
+		}).catch((error) => {
+			console.log(error);
+		});
+	}).catch((error) => {
+		console.log(error);
+		res.status(400).json("An error occurred while adding category");
+	});
+});
+
 app.post('/register', (req, res) => {
 	const {username, password, passwordRepeat} = req.body;
 	const usernameLowercase = username.toLowerCase();
@@ -86,8 +135,14 @@ app.post('/signin', (req, res) => {
     .then((data) => {
 	    bcrypt.compare(password, data.hash, (err, match) => {
 		    if(match){
-		    	grabResources(res, data.id);
-		    	console.log(username, "has successfully logged in");
+		    	db.one('SELECT id, display FROM users WHERE name= $1', usernameLowercase).
+		    	then((data) => {
+		    		res.status(200).json(data);
+		    		console.log(username, "has successfully logged in");
+		    	}).catch((error) =>{
+		    		console.log(error);
+		    		res.status(400).json("An error occured while logging in");
+		    	});
 		    } else {
 		    	res.status(400).json("Invalid username or password");
 		    }

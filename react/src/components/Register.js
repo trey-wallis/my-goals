@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 
+import '../css/Registration.css';
 import RootStore from '../store/RootStore';
 
 class Register extends Component {
@@ -18,30 +19,21 @@ class Register extends Component {
 
 
 	onChangeUsername = (e) => {
-		this.domain.user = e.target.value;
+		this.domain.registrationUsername = e.target.value;
 	}
 
 	onChangePassword = (e) => {
-		this.domain.pass = e.target.value;
+		this.domain.registrationPassword = e.target.value;
 	}
 
 	onChangePasswordRepeat = (e) =>  {
-		this.domain.passRepeat = e.target.value;
+		this.domain.registrationPasswordRepeat = e.target.value;
 	}
 
 	render(){
-		const style_response =  {
-			minHeight: '25px',
-			marginTop: '-15px',
-		}
-		
-		const style_wrapper = {
-			width: '250px'
-		}
-
 		return(
 			<div className="menu bg-light d-flex justify-content-center align-items-center">
-				<div className="wrapper" style={style_wrapper}>
+				<div className="Registration__wrapper">
 					<h4 className="text-center">Register</h4>
 					<div className="form-group">
 						<input type="text" placeholder="Username" className="form-control" onChange={(e)=>{this.onChangeUsername(e)}}/>
@@ -52,7 +44,7 @@ class Register extends Component {
 					<div className="form-group">
 						<input type="password" placeholder="Password Repeat" className="form-control" onChange={(e)=>{this.onChangePasswordRepeat(e)}}/>
 					</div>
-					<div className="text-danger" style={style_response}>{this.domain.response}</div>
+					<div className="text-danger Registration__response">{this.domain.registrationResponse}</div>
 					<button className="btn btn-primary" onClick={this.onSubmit}>Submit</button>
 				</div>
 			</div>);

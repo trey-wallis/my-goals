@@ -13,14 +13,15 @@ class VisionBoard extends Component {
 	}
 
 	renderItems(){
-		let queue = [];		
-		console.log(this.domain.visionItems);
-		for (let i = 0; i < this.domain.visionItems.length; i++){
-			const item = this.domain.visionItems[i];
-			console.log(item);
-			queue.push(<VisionItem key={i} img={item.url} title={item.title} desc={item.description} />);
-		}
-		return queue;
+		console.log(this.domain.visionCategories);
+		console.log(this.domain.visionData);
+		const categoryId = this.domain.visionCategories[this.ui.dropDownActive].categoryid;
+		return this.domain.visionItems.map((item, i) => {
+			if (item.categoryId === categoryId){
+				return <VisionItem key={i} img={item.url} title={item.title} desc={item.description} />
+			}
+			return '';
+		});
 	}
 
 	render(){
@@ -29,7 +30,7 @@ class VisionBoard extends Component {
 				<div className="container h-100">
 					<h3 className="py-5 text-center">{this.ui.dropDownTitle}</h3>
 					<div className="row justify-content-center">
-						{ this.renderItems() }
+						{this.renderItems()}
 					</div>
 				</div>
 			</div>);

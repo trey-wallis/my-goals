@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
-import Pin from '../icons/pin.svg';
-import Tag from '../icons/tags.svg';
+
+import Scrollable from '../components/Scrollable';
 import RootStore from '../store/RootStore';
 
 class Modals extends Component {
@@ -23,7 +23,7 @@ class Modals extends Component {
 
 	renderModal(){
 		return (
-			<div className="modal fade" id="edit-modal" role="dialog">
+			<div className="modal fade" id="modal-edit" role="dialog">
 				<div className="modal-dialog" role="document">
 			    	<div className="modal-content">
 			    		<div className="modal-header">
@@ -37,44 +37,56 @@ class Modals extends Component {
 							  <option>Category 1</option>
 							  <option>Category 2</option>
 							</select>
-							<h6>Category</h6>
+							<h6 className="mt-2">Category</h6>
 			      			<div className="form-group mb-3">
 			      				<div className="row">
 			      					<div className="col-8">
 			      						<input type="text" className="form-control" placeholder="Name" onChange={ (e) => {this.onCategoryNameChange(e)}}/>
 			      					</div>
 			      					<div className="col-2">
-			      						<button className="btn btn-sm btn-danger">Delete</button>
+			      						<button className="btn btn-danger">Delete</button>
 			      					</div>
 			      				</div>
 			      			</div>
-			      			<h6>Items</h6>
-							<div className="row">
-								<div className="col-9">
+			      			<h6>Vision Items</h6>
+			      			<Scrollable>
+							<div className="row no-gutters">
+								<div className="col-8">
 									 <div className="form-group">
-									 	<input type="text" className="form-control-sm" placeholder="Name"/>
+									 	<input type="text" className="form-control form-control-sm" placeholder="Name"/>
 									 </div>
 									 <div className="form-group">
-									 	<input type="text" className="form-control-sm" placeholder="URL"/>
+									 	<input type="text" className="form-control form-control-sm" placeholder="URL"/>
 									 </div>
 									 <div className="form-group">
-									 	<input type="text" className="form-control-sm" placeholder="Description"/>
+									 	<input type="text" className="form-control form-control-sm" placeholder="Description"/>
 									 </div>
 								</div>
-								<div className="col-3 d-flex align-items-center">
+								<div className="col-3 d-flex align-items-center justify-content-center">
 									 <button className="btn btn-danger btn-sm">Delete</button>
 								</div>
 							</div>
+														<div className="row no-gutters mt-1">
+								<div className="col-8">
+									 <div className="form-group">
+									 	<input type="text" className="form-control form-control-sm" placeholder="Name"/>
+									 </div>
+									 <div className="form-group">
+									 	<input type="text" className="form-control form-control-sm" placeholder="URL"/>
+									 </div>
+									 <div className="form-group">
+									 	<input type="text" className="form-control form-control-sm" placeholder="Description"/>
+									 </div>
+								</div>
+								<div className="col-3 d-flex align-items-center justify-content-center">
+									 <button className="btn btn-danger btn-sm">Delete</button>
+								</div>
+							</div>
+							</Scrollable>
 			      		</div>
-			      		<div className="modal-footer d-flex justify-content-between">
-			      			<div>
-			      				<img src={Tag} alt="Tag" className="icon--small mr-2"/>
-			      				<img src={Pin} alt="pin" className="icon--small"/>
-			      			</div>
-			      			<div>
+			      		<div className="modal-footer">
 			      			<button type="button" className="btn btn-primary mr-2" onClick={this.onSaveChanges}>Save changes</button>
 			        		<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-			        		</div>
 			      		</div>
 			    	</div>
 			  	</div>
