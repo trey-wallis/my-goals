@@ -91,7 +91,7 @@ class Header extends Component {
 
 				{this.ui.displayDropDownMenu ? this.renderDropDownMenu() : 
 					<button className="navbar-brand btn--reset" onClick={this.onDashBoard}>My Goals</button>}
-				{this.domain.displayName}
+				<span className="lead">{this.domain.displayName}</span>
 				<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main">
     				<span className="navbar-toggler-icon"></span>
   				</button>

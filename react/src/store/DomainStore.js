@@ -42,6 +42,15 @@ class DomainStore {
 			passwordRepeat: "",
 			response: ""
 		}
+
+		this.settingsForm = {
+			profile : {
+				display: "",
+				password: "",
+				passwordRepeat: "",
+				response: "error"
+			}
+		}
 	}
 
 	/*
@@ -138,6 +147,34 @@ class DomainStore {
 
 	get displayName(){
 		return this.profile.display;
+	}
+
+	set settingsDisplay(display){
+		this.settingsForm.profile.display = display;
+	}
+
+	get settingsDisplay(){
+		return this.settingsForm.profile.display;
+	}
+
+	set settingsPassword(pass){
+		this.settingsForm.profile.password = pass;
+	}
+
+	get settingsPassword(){
+		return this.settingsForm.profile.password;
+	}
+
+	set settingsPasswordRepeat(repeat){
+		this.settingsForm.profile.passwordRepeat = repeat;
+	}
+
+	get settingsPasswordRepeat(){
+		return this.settingsForm.profile.passwordRepeat;
+	}
+
+	get settingsProfileResponse (){
+		return this.settingsForm.profile.response;
 	}
 
 	/*
@@ -362,6 +399,10 @@ class DomainStore {
 		 	this.logout()
 		 })
 		 .catch(error => console.log);
+	}
+
+	postSettingsProfile = () => {
+		console.log("posting settings profile");
 	}
 }
 
