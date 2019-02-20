@@ -15,8 +15,8 @@ class UIStore {
 		this.root = root;
 
 		this.dropDownMenu = {
-			items: [],
 			active: -1,
+			items: []
 		}
 
 		this.navMenu = {
@@ -24,6 +24,10 @@ class UIStore {
 			route: "title",
 			active: 0
 		}
+	}
+
+	get storage(){
+		return [this.dropDownMenu, this.navMenu];
 	}
 
 	/*
@@ -47,12 +51,8 @@ class UIStore {
 		return this.dropDownMenu.items[this.dropDownMenu.active];
 	}
 
-	get dropDownMenuItems() {
+	get dropDownMenuItems() {;
 		return this.dropDownMenu.items;
-	}
-
-	set dropDownMenuItems(items){
-		this.dropDownMenu.items = items;
 	}
 
 	set dropDownMenuActive(index){
@@ -61,6 +61,13 @@ class UIStore {
 
 	get dropDownMenuActive(){
 		return this.dropDownMenu.active;
+	}
+
+	updateDropDownMenu(){
+		const categories = this.root.store.domain.visionCategories.map(category => {
+			return category.name;
+		});
+		this.dropDownMenu.items = categories;
 	}
 
 	/*
@@ -113,7 +120,7 @@ decorate(UIStore, {
 	navMenu: observable,
 	dropDownMenu: observable,
 	visionMenu: observable,
-	menu: computed
+	menu: computed,
 })
 
 export default UIStore;

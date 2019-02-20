@@ -8,14 +8,12 @@ import DomainStore from './DomainStore';
 class RootStore {
 
 	constructor(){
-		this.uiStore = new UIStore(this);
-		this.domainStore = new DomainStore(this);
-	}
+		const uiStore = new UIStore(this);
+		const domainStore = new DomainStore(this);
 
-	get store(){
-		return {
-			ui: this.uiStore,
-			domain: this.domainStore
+		this.store = {
+			ui: uiStore,
+			domain: domainStore
 		}
 	}
 }

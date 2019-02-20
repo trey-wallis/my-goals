@@ -13,8 +13,8 @@ class DomainStore {
 		};
 
 		this.profile = {
-			id: -1,
-			display: ""
+			uid: 0,
+			display: "",
 		}
 
 		this.addVisionCategoryForm = {
@@ -136,15 +136,22 @@ class DomainStore {
 		return this.registrationForm.response;
 	}
 
+	get displayName(){
+		return this.profile.display;
+	}
+
 	/*
 	* UI Methods
 	*/
 	login(){
+		window.sessionStorage.setItem('uid', this.profile.uid);
+		console.log("Setting uid", this.profile.uid);
 		this.connected = true;
 		this.root.store.ui.changeMenu("dash", 0, false);
 	}
 
 	logout = () => {
+		window.sessionStorage.setItem('uid', 0);
 		this.connected = false;
 		this.root.store.ui.changeMenu("title", 0, false);
 	}
@@ -161,6 +168,35 @@ class DomainStore {
 		return this.visionData.items;
 	}
 
+
+	checkLogin = () => {
+		//Attempt to load id
+		let successful = false;
+		if (window.sessionStorage.getItem('uid') > 0) {
+		 	fetch('http://localhost:3006/checklogin', {
+		 		method: 'post',
+		 		headers: {'Content-Type': 'application/json'},
+		 		body: JSON.stringify({
+		 			uid: window.sessionStorage.getItem('uid')
+		 		})
+		 	})
+		 .then(response => {
+		 	if (response.status === 200){
+		 		successful = true;
+		 	}
+		 	return response.json();
+		 })
+		 .then(response => {
+		 	if (!successful){
+		 		console.log(response);
+		 	} else {
+		 		this.profile = response;
+		 		this.getCategories();
+		 	}
+		 })
+		 .catch(error => console.log);
+		}
+	}
 
 	/*
 	* Connection Methods
@@ -230,7 +266,7 @@ class DomainStore {
 	* Get resource methods
 	*/
 	getCategories = () => {
-		 fetch('http://localhost:3006/visionboard/' + this.profile.id)
+		 fetch('http://localhost:3006/visionboard/' + this.profile.uid)
 		 .then(response => response.json())
 		 .then(response => {
 		 	this.visionData = response;
@@ -249,11 +285,11 @@ class DomainStore {
 	*/
 	postAddCategory = () => {
 		let successful = false;
-		fetch('http://localhost:3006/addcategory', {
+		fetch('http://localhost:3006/addvisioncategory', {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
-		 		userId: this.profile.id,
+		 		uid: this.profile.uid,
 		 		name: this.addVisionCategoryForm.name
 		 	})
 		 })
@@ -268,12 +304,12 @@ class DomainStore {
 		 		this.addVisionCategoryForm.response = response;
 		 	} else { 
 		 		this.visionData.categories.push(response);
-		 		console.log(this.visionData);
 		 		$("#add-vision-category-name").val('');
-		 		$("#modal-add-category").modal('hide');
+		 		$("#modal-add-vision-category").modal('hide');
 		 		this.addVisionCategoryForm.name = "";
 		 		this.addVisionCategoryForm.response = "";
-		 		this.root.uiStore.dropDownMenu.items.push(this.visionData.categories[this.visionData.categories.length - 1].name);
+		 		this.root.store.ui.dropDownMenu.items.push(this.visionData.categories[this.visionData.categories.length - 1].name);
+		 		this.root.store.ui.updateDropDownMenu();
 		 	}
 		 })
 		 .catch(error => console.log);
@@ -288,7 +324,7 @@ class DomainStore {
 		 		name: this.addVisionItemForm.name,
 		 		description: this.addVisionItemForm.description,
 		 		url: this.addVisionItemForm.url,
-		 		userId: this.profile.id,
+		 		uid: this.profile.uid,
 		 		categoryId: this.addVisionItemForm.categoryId
 		 	})
 		 })
@@ -313,8 +349,19 @@ class DomainStore {
 		 .catch(error => console.log);
 	}
 
-	fetch = async ()=> {
-		console.log("test");
+	postLogout = () => {
+		fetch('http://localhost:3006/logout', {
+		 	method: 'post',
+		 	headers: {'Content-Type': 'application/json'},
+		 	body: JSON.stringify({
+		 		uid: this.profile.uid,
+		 	})
+		 })
+		 .then(response => response.json())
+		 .then(response => {
+		 	this.logout()
+		 })
+		 .catch(error => console.log);
 	}
 }
 

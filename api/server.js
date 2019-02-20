@@ -12,10 +12,22 @@ const app = express();
 const cn = 'postgres://root:root@localhost:5432/mygoalsreact';
 const db = pgp(cn);
 
+//A look up table for users and their username
+let users = {392: "hello"}
+
+const routes = {
+	signIn: "/signin",
+	register: "/register",
+	addVisionCategory: "/addvisioncategory",
+	addVisionItem: "/addvisionitem",
+	logOut: "/logout",
+	visionBoard: "/visionboard/:uid",
+	checkLogin: "/checkLogin",
+}
+
 /*
 * Middlewares for express
 */
-app.set('trust proxy', true);
 app.use(cors()); //Allow cross origin resource sharing
 app.use(bodyParser.json());
 app.use((req, res, next) => {
@@ -24,77 +36,47 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.get('/visionboard/:id', (req, res) => {
-	const {id} = req.params;
-	db.task(t => {
-	    return t.any('SELECT id, name FROM categories WHERE userid = $1', id).
-	        then(categories => {
-	        	return t.any('SELECT title, description, url, categoryid FROM visionitem WHERE userid= $1', id).
-	        		then(items => {
-	        			return { categories, items};
-	        		})
-	        	return {categories};
-	        });    
-	})
-	.then(data => {
-		res.json(data);
-	})
-	.catch(error => {
-		console.log(error);   
-	});
-});
-
 /*
-* Post Requests
+* Sign in, Register
 */
-app.post('/addcategory', (req, res) => {
-	const {userId, name} = req.body;
+app.post(routes.signIn, (req, res) => {
+	const {username, password} = req.body;
+	const usernameLowercase = username.toLowerCase().trim();
 
-	if (name === ''){
-		return res.status(400).json("Please enter a category name");
-	}
-
-	db.none('INSERT INTO categories(name, userid) VALUES ($1, $2)', [name, userId]).
-	then(()=>{
-		db.one("SELECT id, name FROM categories ORDER BY id DESC LIMIT 1").
-		then((data)=>{
-			res.status(200).json(data);
-		}).catch((error) => {
-			console.log(error);
+	db.one('SELECT * FROM users WHERE name= $1', usernameLowercase)
+    .then((data) => {
+	    bcrypt.compare(password, data.hash, (err, match) => {
+		    if(match){
+		    	db.task(t => {
+		    		return db.one('SELECT uid, display FROM users WHERE name= $1', usernameLowercase).
+		    			then((user) => {
+		    				db.none('UPDATE users SET online=$1 WHERE uid = $2', [true, user.uid]).
+		    					then(()=>{
+		    						return user;
+		    					});
+		    				return user;
+		    			});
+		    	}).then((data)=>{
+		    		const uid = data.uid;
+		    		users.uid = usernameLowercase;
+		    		res.status(200).json(data);
+		    		console.log(`${routes.signIn} ${usernameLowercase}`, "has successfully logged in");
+		    	}).catch((error) => {
+		    		console.log(`${routes.signIn} ${usernameLowercase}`, error);
+		    		res.status(400).json("An error occured while logging in");
+		    	});
+		    } else {
+		    	res.status(400).json("Invalid username or password");
+		    }
 		});
-	}).catch((error) => {
-		console.log(error);
-		res.status(400).json("An error occurred while adding category");
-	});
+    })
+    .catch(error => {
+        //console.log(error);
+        res.status(400).json("Account doesn't exist. Please register then try again");
+    });
 });
 
-app.post('/addvisionitem', (req, res) => {
-	const {name, description, url, userId, categoryId } = req.body;
-
-	if (name === ''){
-		return res.status(400).json("Please enter a name");
-	} else if(description === ''){
-		return res.status(400).json("Please enter a description");
-	} else if(url === ''){
-		return res.status(400).json("Please enter a url");
-	}
-
-	db.none('INSERT INTO visionitem(title, description, url, userid, categoryid) VALUES ($1, $2, $3, $4, $5)', [name, description, url, userId, categoryId]).
-	then(()=>{
-		db.one("SELECT title, description, url, categoryid FROM visionitem ORDER BY id DESC LIMIT 1").
-		then((data)=>{
-			res.status(200).json(data);
-			console.log(data);
-		}).catch((error) => {
-			console.log(error);
-		});
-	}).catch((error) => {
-		console.log(error);
-		res.status(400).json("An error occurred while adding category");
-	});
-});
-
-app.post('/register', (req, res) => {
+app.post(routes.register, (req, res) => {
 	const {username, password, passwordRepeat} = req.body;
 	const usernameLowercase = username.toLowerCase().trim();
 
@@ -112,13 +94,21 @@ app.post('/register', (req, res) => {
     	.catch(error => {
 			bcrypt.genSalt(10, function(err, salt) {
 				bcrypt.hash(password, salt, null, (err, hash) => {
-					db.none('INSERT INTO users(name, hash) VALUES ($1, $2)', [usernameLowercase, hash])
+					db.none('INSERT INTO users(name, display, hash, uid) VALUES ($1, $2, $3)', [usernameLowercase, username, hash, genRandomUID()])
 					.then(()=>{
-						res.status(200).json("Registered");
-						console.log("Registered new user: ", username);
+				    	db.one('SELECT uid, display FROM users WHERE name= $1', usernameLowercase).
+				    	then((data) => {
+				    		const uid = data.uid;
+				    		users.uid = usernameLowercase;
+				    		res.status(200).json(data);
+				    		console.log(`{$routes.register ${usernameLowercase}`, "registered");
+				    	}).catch((error) =>{
+				    		console.log(`{$routes.register ${usernameLowercase}`, error);
+				    		res.status(400).json("An error occured while logging in");
+				    	});
 					})
 					.catch((error)=>{
-						console.log(error);
+						console.log(`{$routes.register ${usernameLowercase}`, error);
 						res.status(400).json("An error occurred while registering");
 					});
 				});
@@ -127,40 +117,139 @@ app.post('/register', (req, res) => {
 	}
 });
 
-app.post('/signin', (req, res) => {
-	const {username, password} = req.body;
-	const usernameLowercase = username.toLowerCase().trim();
+/*
+* Check Logged In, Logout
+*/
+app.post(routes.checkLogin, (req, res) => {
+	const {uid} = req.body;
+	const username = users.uid;
 
-	db.one('SELECT * FROM users WHERE name= $1', usernameLowercase)
-    .then((data) => {
-	    bcrypt.compare(password, data.hash, (err, match) => {
-		    if(match){
-		    	db.one('SELECT id, display FROM users WHERE name= $1', usernameLowercase).
-		    	then((data) => {
-		    		res.status(200).json(data);
-		    		console.log(username, " has successfully logged in");
-		    	}).catch((error) =>{
-		    		console.log(error);
-		    		res.status(400).json("An error occured while logging in");
-		    	});
-		    } else {
-		    	res.status(400).json("Invalid username or password");
-		    }
-		});
-    })
-    .catch(error => {
-        //console.log(error);
-        res.status(400).json("Account doesn't exist. Please register then try again");
-    });
+	db.one('SELECT uid, display, online FROM users WHERE uid= $1', uid).
+	then(user => {
+		if (user.online === true){
+			res.status(200).json(user);
+			console.log(`${routes.checkLogin} ${username}`, "success");
+		} else {
+			console.log(`${routes.checkLogin} ${username}`, "rejected login");
+			res.status(400).json("Rejected");
+		}
+	}).catch(error => {
+		res.status(400).json("Error relogging in");
+		console.log(`${routes.checkLogin} ${username}`, error);
+	});
 });
 
-app.post('/logout', (req, res) => {
-	console.log("Logging out");
+app.post(routes.logOut, (req, res) => {
+	const {uid} = req.body;
+	const username = users.uid;
+	db.none("UPDATE users SET online=$1 WHERE uid=$2", [false, uid]).
+	then(()=>{
+		res.status(200).json("Successfully logged out");
+		console.log(`${routes.logOut} ${username}`, "success");
+	}).catch((error) => {
+		console.log(`${routes.logOut} ${username}`, error);
+	});
 });
+
+/*
+* Vision Board
+*/
+app.post(routes.addVisionCategory, (req, res) => {
+	const {uid, name} = req.body;
+	const username = users.uid;
+
+	if (name === ''){
+		return res.status(400).json("Please enter a category name");
+	}
+
+	db.task(t=>{
+		return t.none('INSERT INTO categories(name, userid) VALUES ($1, $2)', [name, uid]).
+			then(()=>{
+				return t.one("SELECT id, name FROM categories ORDER BY id DESC LIMIT 1").
+					then((category)=>{
+						return category;
+					});
+				return;
+			})
+	}).then(data => {
+		res.status(200).json(data);
+		console.log(`${routes.addVisionCategory} ${username}`, "success");
+	}).catch(error => {
+		console.log(`${routes.addVisionCategory} ${username}`, error);
+		res.status(400).json("An error occurred while adding category");
+	});
+});
+
+app.post(routes.addVisionItem, (req, res) => {
+	const {name, description, url, uid, categoryId } = req.body;
+	const username = users.uid;
+
+	if (name === ''){
+		return res.status(400).json("Please enter a name");
+	} else if(description === ''){
+		return res.status(400).json("Please enter a description");
+	} else if(url === ''){
+		return res.status(400).json("Please enter a url");
+	}
+
+
+	db.task(t=>{
+		return t.none('INSERT INTO visionitem(title, description, url, userid, categoryid) VALUES ($1, $2, $3, $4, $5)', [name, description, url, uid, categoryId]).
+			then(()=>{
+				return t.one("SELECT title, description, url, categoryid FROM visionitem ORDER BY id DESC LIMIT 1").
+					then(item => {
+						return item;
+					});
+				return;
+			})
+	}).then(data => {
+		res.status(200).json(data);
+		console.log(`${routes.addVisionItem} ${username}`, "success"); 
+	}).catch(error => {
+		console.log(`${routes.addVisionItem} ${username}`, error); 
+		res.status(400).json("An error occurred while adding the vision item");  
+	});
+});
+
+
+app.get(routes.visionBoard, (req, res) => {
+	const {uid} = req.params;
+	const username = users.uid;
+
+	db.task(t => {
+	    return t.any('SELECT id, name FROM categories WHERE userid = $1', uid).
+	        then(categories => {
+	        	return t.any('SELECT title, description, url, categoryid FROM visionitem WHERE userid= $1', uid).
+	        		then(items => {
+	        			return { categories, items};
+	        		})
+	        	return {categories};
+	        });    
+	})
+	.then(data => {
+		res.json(data);
+		console.log(`${routes.visionBoard} ${username}`, "success");   
+	})
+	.catch(error => {
+		console.log(`${routes.visionBoard} ${username}`, error);   
+	});
+});
+
+
 
 /*
 * Start app
 */
 app.listen(PORT, ()=>{
-	console.log("API is running on port", PORT);
+	console.log("API is now running on port", PORT);
 });
+
+/*
+* Generates a random user id between 10000 and 1000000
+* This is private and is how requests are authenticated
+*/
+genRandomUID = () => {
+	const max = 1000000;
+	const min = 100000;
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}

@@ -29,7 +29,7 @@ class Header extends Component {
 	}
 
 	onLogout = () => {
-		this.domain.logout();
+		this.domain.postLogout();
 	}
 
 	/*
@@ -41,19 +41,13 @@ class Header extends Component {
 	}
 
 	onVisionBoard = () => {
-		if (this.domain.visionCategories.length > 0){
-			const categories = this.domain.visionCategories.map(category => {
-				return category.name;
-			});
-			this.ui.dropDownMenuItems = categories;
-		}
+		this.ui.updateDropDownMenu();
 		this.ui.changeMenu("vision", 1);
 	}
 
 	onViewAll = () => {
 		this.ui.dropDownMenuActive = -1;
 	}
-
 
 	onGoals = () => {
 		this.ui.changeMenu("goals", 2);
@@ -97,7 +91,7 @@ class Header extends Component {
 
 				{this.ui.displayDropDownMenu ? this.renderDropDownMenu() : 
 					<button className="navbar-brand btn--reset" onClick={this.onDashBoard}>My Goals</button>}
-
+				{this.domain.displayName}
 				<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main">
     				<span className="navbar-toggler-icon"></span>
   				</button>

@@ -3,6 +3,8 @@ import {observer} from 'mobx-react';
 import VisionItem from './vision/VisionItem.js';
 import RootStore from '../store/RootStore';
 
+import '../css/VisionBoard.css';
+
 class VisionBoard extends Component {
 
 	constructor(){
@@ -25,9 +27,9 @@ class VisionBoard extends Component {
 		});
 		} else {
 			return (
-			<div>
-			<p>There are no items to display.<br/>
-			Would you like to <span className="text-danger" data-toggle="modal" data-target="#modal-add-vision-item">add</span> items?</p>
+			<div className="VisionBoard__display-no-item">
+				<p>There are no items to display.<br/>
+				Would you like to <span className="text-danger" data-toggle="modal" data-target="#modal-add-vision-item">add</span> items?</p>
 			</div>);
 		}
 	}
@@ -49,8 +51,8 @@ class VisionBoard extends Component {
 			});
 		} else {
 			return (
-			<div>
-			<p>Ther are no categories to display.<br/>
+			<div className="text-center">
+			<p>There are no categories to display.<br/>
 			Would you like to <span className="text-danger" data-toggle="modal" data-target="#modal-add-vision-category">add</span> a category?</p>
 			</div>);
 		}

@@ -9,6 +9,11 @@ import EditVision from '../components/vision/EditVision.js';
 
 class App extends Component {
 
+	componentDidMount(){
+		const {domain} = RootStore.store;
+		domain.checkLogin();
+	}
+
 	render(){
 		const {ui, domain} = RootStore.store;
 
