@@ -1,0 +1,9 @@
+.Vision__img {
+	max-width: 250px;
+	max-height: auto;
+}
+
+.Vision__card {
+	outline: 0;
+	border: 0 !important;
+}

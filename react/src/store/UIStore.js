@@ -16,55 +16,64 @@ class UIStore {
 
 		this.dropDownMenu = {
 			items: [],
-			activeIndex: 0,
+			active: -1,
 		}
 
 		this.navMenu = {
-			brand: true,
-			active: "title",
-			activeIndex: 0
+			displayDropDownMenu: true,
+			route: "title",
+			active: 0
 		}
 	}
 
 	/*
 	* Show Brand Getters/Setters
 	*/
-	get showBrand(){
-		return this.navMenu.brand;
+	get displayDropDownMenu(){
+		return this.navMenu.displayDropDownMenu;
 	}
 
-	set showBrand(val){
-		this.navMenu.brand = val;
+	set displayDropDownMenu(val){
+		this.navMenu.displayDropDownMenu = val;
 	}
 
 	/*
 	* DropDownMenu Getters/Setters
 	*/
-	get dropDownTitle() {
-		return this.dropDownMenu.items[this.dropDownMenu.activeIndex];
+	get dropDownMenuTitle() {
+		if (this.dropDownMenu.active === -1){
+			return "My Goals";
+		}
+		return this.dropDownMenu.items[this.dropDownMenu.active];
 	}
 
-	get dropDownItems() {
+	get dropDownMenuItems() {
 		return this.dropDownMenu.items;
 	}
 
-	set dropDownActive(index){
-		this.dropDownMenu.activeIndex = index;
+	set dropDownMenuItems(items){
+		this.dropDownMenu.items = items;
 	}
 
-	get dropDownActive(){
-		return this.dropDownMenu.activeIndex;
+	set dropDownMenuActive(index){
+		this.dropDownMenu.active = index;
+	}
+
+	get dropDownMenuActive(){
+		return this.dropDownMenu.active;
 	}
 
 	/*
 	* NavMenu Getters and Setters
 	*/
-	set menu(route){
-		this.navMenu = route;
+	changeMenu(route, active, displayDropDownMenu=true){
+		this.navMenu.route = route;
+		this.navMenu.active = active;
+		this.navMenu.displayDropDownMenu = displayDropDownMenu;
 	}
 
 	get menu(){
-		switch(this.navMenu.active){
+		switch(this.navMenu.route){
 			case "login":
 				return <Login/>
 			case "register":
@@ -87,14 +96,14 @@ class UIStore {
 	/*
 	* General Functions
 	*/
-	getDropDownNavActive(index){
-		if (index === this.dropDownMenu.activeIndex)
+	isDropDownMenuItemActive(index){
+		if (index === this.dropDownMenu.active)
 			return "active";
 		return "";
 	}
 
-	getMainNavActive(index){
-		if (index === this.navMenu.activeIndex)
+	isNavMenuItemActive(index){
+		if (index === this.navMenu.active)
 			return "active";
 		return "";
 	}

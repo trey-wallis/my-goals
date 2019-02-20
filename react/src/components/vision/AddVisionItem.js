@@ -59,13 +59,13 @@ class AddVisionItem extends Component {
 			      			</div>
 			      			<h6>Vision Item</h6>
 							<div className="form-group">
-								<input type="text" className="form-control" value={this.domain.addVisionItemName} placeholder="Name" id="addCategoryName" onChange={ (e)=> {this.onNameChange(e)} }/>
+								<input type="text" className="form-control" value={this.domain.addVisionItemName} placeholder="Name" onChange={ (e)=> {this.onNameChange(e)} }/>
 							</div>
 							<div className="form-group">
-								<textarea className="form-control" value={this.domain.addVisionItemDescription} placeholder="Description" id="addCategoryName" onChange={ (e)=> {this.onDescriptionChange(e)} }></textarea>
+								<textarea className="form-control" value={this.domain.addVisionItemDescription} placeholder="Explain what your vision looks like. What do you want to accomplish?" onChange={ (e)=> {this.onDescriptionChange(e)} }></textarea>
 							</div>
 							<div className="form-group">
-								<input type="text" className="form-control" value={this.domain.addVisionItemUrl} placeholder="Url" id="addCategoryName" onChange={ (e)=> {this.onUrlChange(e)} }/>
+								<input type="text" className="form-control" value={this.domain.addVisionItemUrl} placeholder="Url" onChange={ (e)=> {this.onUrlChange(e)} }/>
 							</div>
 							<div className="text-danger mt-1">{this.domain.addVisionItemResponse}</div>
 						</div>

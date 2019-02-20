@@ -23,7 +23,7 @@ class AddVisionCategory extends Component {
 
 	render(){
 		return(
-			<div className="modal fade" id="modal-add-category" role="dialog">
+			<div className="modal fade" id="modal-add-vision-category" role="dialog">
 				<div className="modal-dialog" role="document">
 			    	<div className="modal-content">
 			    		<div className="modal-header">

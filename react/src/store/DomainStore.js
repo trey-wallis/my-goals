@@ -13,7 +13,7 @@ class DomainStore {
 		};
 
 		this.profile = {
-			id: 9,
+			id: -1,
 			display: ""
 		}
 
@@ -141,20 +141,12 @@ class DomainStore {
 	*/
 	login(){
 		this.connected = true;
-		this.root.store.ui.menu = {
-			brand: true,
-			active: "dash",
-			activeIndex: 0
-		}
+		this.root.store.ui.changeMenu("dash", 0, false);
 	}
 
 	logout = () => {
 		this.connected = false;
-		this.root.store.ui.menu = {
-			brand: true,
-			active: "title",
-			activeIndex: 0
-		}
+		this.root.store.ui.changeMenu("title", 0, false);
 	}
 
 	get loggedIn(){
@@ -198,8 +190,6 @@ class DomainStore {
 		 		this.loginForm.password = "";
 		 		this.loginForm.response = "";
 		 		this.getCategories();
-		 		console.log("Logged in. Profile:");
-		 		console.log(this.profile);
 		 	}
 		 })
 		 .catch(error => this.loginForm.response = "Unable to connect to api");
@@ -231,8 +221,6 @@ class DomainStore {
 		 		this.registrationForm.password = "";
 		 		this.registrationForm.passwordRepeat = "";
 		 		this.getCategories();
-		 		console.log("Logged in. Profile:");
-		 		console.log(this.profile);
 		 	}
 		 })
 		 .catch(error => this.registrationForm.response = "Unable to connect to api");
@@ -246,8 +234,6 @@ class DomainStore {
 		 .then(response => response.json())
 		 .then(response => {
 		 	this.visionData = response;
-		 	console.log("Loading resources. Categories:");
-		 	console.log(this.visionData);
 
 		 	//Instead of using selected
 		 	if (this.visionData.categories.length > 0){
@@ -321,10 +307,14 @@ class DomainStore {
 		 		this.addVisionItemForm.name = "";
 				this.addVisionItemForm.description = "";
 				this.addVisionItemForm.url = "";
-				this.addVIsionItemForm.response = "";
+				this.addVisionItemForm.response = "";
 		 	}
 		 })
 		 .catch(error => console.log);
+	}
+
+	fetch = async ()=> {
+		console.log("test");
 	}
 }
 

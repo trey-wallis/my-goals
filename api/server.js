@@ -15,10 +15,12 @@ const db = pgp(cn);
 /*
 * Middlewares for express
 */
+app.set('trust proxy', true);
 app.use(cors()); //Allow cross origin resource sharing
 app.use(bodyParser.json());
 app.use((req, res, next) => {
-	console.log("New request from client:", req.body);
+	//var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+	console.log(`\nNew request from ${req.headers.host}`, req.body);
 	next();
 });
 
@@ -29,7 +31,6 @@ app.get('/visionboard/:id', (req, res) => {
 	        then(categories => {
 	        	return t.any('SELECT title, description, url, categoryid FROM visionitem WHERE userid= $1', id).
 	        		then(items => {
-	        			console.log(items);
 	        			return { categories, items};
 	        		})
 	        	return {categories};
@@ -58,7 +59,6 @@ app.post('/addcategory', (req, res) => {
 		db.one("SELECT id, name FROM categories ORDER BY id DESC LIMIT 1").
 		then((data)=>{
 			res.status(200).json(data);
-			console.log(data);
 		}).catch((error) => {
 			console.log(error);
 		});
@@ -96,7 +96,7 @@ app.post('/addvisionitem', (req, res) => {
 
 app.post('/register', (req, res) => {
 	const {username, password, passwordRepeat} = req.body;
-	const usernameLowercase = username.toLowerCase();
+	const usernameLowercase = username.toLowerCase().trim();
 
 	if (username === '' || password === '' || passwordRepeat === ''){
 		res.status(400).json("Please fill out all fields");
@@ -115,7 +115,7 @@ app.post('/register', (req, res) => {
 					db.none('INSERT INTO users(name, hash) VALUES ($1, $2)', [usernameLowercase, hash])
 					.then(()=>{
 						res.status(200).json("Registered");
-						console.log("Registered", username);
+						console.log("Registered new user: ", username);
 					})
 					.catch((error)=>{
 						console.log(error);
@@ -129,7 +129,7 @@ app.post('/register', (req, res) => {
 
 app.post('/signin', (req, res) => {
 	const {username, password} = req.body;
-	const usernameLowercase = username.toLowerCase();
+	const usernameLowercase = username.toLowerCase().trim();
 
 	db.one('SELECT * FROM users WHERE name= $1', usernameLowercase)
     .then((data) => {
@@ -138,7 +138,7 @@ app.post('/signin', (req, res) => {
 		    	db.one('SELECT id, display FROM users WHERE name= $1', usernameLowercase).
 		    	then((data) => {
 		    		res.status(200).json(data);
-		    		console.log(username, "has successfully logged in");
+		    		console.log(username, " has successfully logged in");
 		    	}).catch((error) =>{
 		    		console.log(error);
 		    		res.status(400).json("An error occured while logging in");
@@ -149,8 +149,8 @@ app.post('/signin', (req, res) => {
 		});
     })
     .catch(error => {
-    	res.status(400).json("Account doesn't exist. Please register");
-        console.log(error);
+        //console.log(error);
+        res.status(400).json("Account doesn't exist. Please register then try again");
     });
 });
 
