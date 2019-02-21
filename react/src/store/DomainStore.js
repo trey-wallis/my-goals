@@ -46,8 +46,9 @@ class DomainStore {
 		this.settingsForm = {
 			profile : {
 				display: "",
-				password: "",
-				passwordRepeat: "",
+				currentPassword: "",
+				newPassword: "",
+				newPasswordRepeat: "",
 				response: "error"
 			}
 		}
@@ -149,6 +150,10 @@ class DomainStore {
 		return this.profile.display;
 	}
 
+	/*
+	* Settings menu
+	*/
+
 	set settingsDisplay(display){
 		this.settingsForm.profile.display = display;
 	}
@@ -157,24 +162,32 @@ class DomainStore {
 		return this.settingsForm.profile.display;
 	}
 
-	set settingsPassword(pass){
-		this.settingsForm.profile.password = pass;
+	set settingsNewPassword(pass){
+		this.settingsForm.profile.newPassword = pass;
 	}
 
-	get settingsPassword(){
-		return this.settingsForm.profile.password;
+	get settingsNewPassword(){
+		return this.settingsForm.profile.newPassword;
 	}
 
-	set settingsPasswordRepeat(repeat){
-		this.settingsForm.profile.passwordRepeat = repeat;
+	set settingsNewPasswordRepeat(repeat){
+		this.settingsForm.profile.newPasswordRepeat = repeat;
 	}
 
-	get settingsPasswordRepeat(){
-		return this.settingsForm.profile.passwordRepeat;
+	get settingsNewPasswordRepeat(){
+		return this.settingsForm.profile.newPasswordRepeat;
 	}
 
 	get settingsProfileResponse (){
 		return this.settingsForm.profile.response;
+	}
+
+	get settingsCurrentPassword(){
+		return this.settingsForm.profile.currentPassword;
+	}
+
+	set settingsCurrentPassword(pass){
+		this.settingsForm.profile.currentPassword = pass;
 	}
 
 	/*
@@ -402,7 +415,29 @@ class DomainStore {
 	}
 
 	postSettingsProfile = () => {
-		console.log("posting settings profile");
+		let successful = false;
+		 fetch('http://localhost:3006/settingsprofile', {
+		 	method: 'post',
+		 	headers: {'Content-Type': 'application/json'},
+		 	body: JSON.stringify({
+		 		uid: this.profile.uid,
+		 		display: this.settingsForm.profile.display,
+		 		currentPassword: this.settingsForm.profile.currentPassword,
+		 		newPassword: this.settingsForm.profile.newPassword,
+		 		newPasswordRepeat: this.settingsForm.profile.newPasswordRepeat
+		 	})
+		 }).then(response => {
+		 	if (response.status === 200){
+		 		successful = true;
+		 	}
+		 	return response.json();
+		 }).then(response => {
+		 	if (!successful){
+		 		this.settingsForm.profile.response = response;
+		 	} else {
+		 		this.profile = response;
+		 	}
+		 }).catch(error => console.log);
 	}
 }
 
@@ -411,6 +446,7 @@ decorate(DomainStore, {
 	registrationForm: observable,
 	addVisionCategoryForm: observable,
 	addVisionItemForm: observable,
+	settingsForm: observable,
 	connected: observable,
 	visionData: observable,
 	visionCategories: computed,

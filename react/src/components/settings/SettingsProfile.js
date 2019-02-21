@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+import {observer} from 'mobx-react';
 import RootStore from '../../store/RootStore';
 
 class SettingsProfile extends Component {
@@ -15,15 +16,21 @@ class SettingsProfile extends Component {
 		this.domain.settingsDisplay = e.target.value;
 	}
 
-	onPassword = (e) => {
-		this.domain.settingsPassword = e.target.value;
+	onCurrentPassword = (e) => {
+		this.domain.settingsCurrentPassword = e.target.value;
 	}
 
-	onPasswordRepeat = (e) => {
-		this.domain.settingsPasswordRepeat = e.target.value;
+	onNewPassword = (e) => {
+		this.domain.settingsNewPassword = e.target.value;
+	}
+
+	onNewPasswordRepeat = (e) => {
+		this.domain.settingsNewPasswordRepeat = e.target.value;
 	}
 
 	onSave = () => {
+		if (this.domain.settingsDisplay === '')
+			this.domain.settingsDisplay = this.domain.displayName;
 		this.domain.postSettingsProfile();
 	}
 
@@ -33,22 +40,28 @@ class SettingsProfile extends Component {
 				<h5 className="card-title">Profile</h5>
 				<div className="card-body">
 					<div className="row">
-						<div className="col-3">Display Name</div>
-						<div className="col-9">
+						<div className="col-4">Display Name</div>
+						<div className="col-8">
 							<div className="form-group">
 								<input type="text" className="form-control form-control-sm" defaultValue={this.domain.displayName} placeholder="Display Name" onChange={this.onDisplay}/>
 							</div>
 						</div>
-						<div className="col-3">Password</div>
-						<div className="col-9">
+						<div className="col-4">Current Password</div>
+						<div className="col-8">
 							<div className="form-group">
-								<input type="password" className="form-control form-control-sm" placeholder="Password" onChange={this.onPassword}/>
+								<input type="password" className="form-control form-control-sm" placeholder="Current Password" onChange={this.onCurrentPassword}/>
 							</div>
 						</div>
-						<div className="col-3">Password Repeat</div>
-						<div className="col-9">
+						<div className="col-4">New Password</div>
+						<div className="col-8">
 							<div className="form-group">
-								<input type="password" className="form-control form-control-sm" placeholder="Password Repeat" onChange={this.onPasswordRepeat}/>
+								<input type="password" className="form-control form-control-sm" placeholder="New Password" onChange={this.onNewPassword}/>
+							</div>
+						</div>
+						<div className="col-4">New Password Repeat</div>
+						<div className="col-8">
+							<div className="form-group">
+								<input type="password" className="form-control form-control-sm" placeholder="New Password Repeat" onChange={this.onNewPasswordRepeat}/>
 							</div>
 						</div>
 						<div className="col-12 d-flex flex-column align-items-end">
@@ -61,4 +74,4 @@ class SettingsProfile extends Component {
 	}
 }
 
-export default SettingsProfile;
+export default observer(SettingsProfile);

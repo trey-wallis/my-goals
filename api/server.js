@@ -23,6 +23,7 @@ const routes = {
 	logOut: "/logout",
 	visionBoard: "/visionboard/:uid",
 	checkLogin: "/checkLogin",
+	settingsProfile: "/settingsProfile",
 }
 
 /*
@@ -122,32 +123,31 @@ app.post(routes.register, (req, res) => {
 */
 app.post(routes.checkLogin, (req, res) => {
 	const {uid} = req.body;
-	const username = users.uid;
 
 	db.one('SELECT uid, display, online FROM users WHERE uid= $1', uid).
 	then(user => {
 		if (user.online === true){
 			res.status(200).json(user);
-			console.log(`${routes.checkLogin} ${username}`, "success");
+			console.log(`${routes.checkLogin} ${uid}`, "success");
 		} else {
-			console.log(`${routes.checkLogin} ${username}`, "rejected login");
+			console.log(`${routes.checkLogin} ${uid}`, "rejected login");
 			res.status(400).json("Rejected");
 		}
 	}).catch(error => {
 		res.status(400).json("Error relogging in");
-		console.log(`${routes.checkLogin} ${username}`, error);
+		console.log(`${routes.checkLogin} ${uid}`, error);
 	});
 });
 
 app.post(routes.logOut, (req, res) => {
 	const {uid} = req.body;
-	const username = users.uid;
+
 	db.none("UPDATE users SET online=$1 WHERE uid=$2", [false, uid]).
 	then(()=>{
 		res.status(200).json("Successfully logged out");
-		console.log(`${routes.logOut} ${username}`, "success");
+		console.log(`${routes.logOut} ${uid}`, "success");
 	}).catch((error) => {
-		console.log(`${routes.logOut} ${username}`, error);
+		console.log(`${routes.logOut} ${uid}`, error);
 	});
 });
 
@@ -156,7 +156,6 @@ app.post(routes.logOut, (req, res) => {
 */
 app.post(routes.addVisionCategory, (req, res) => {
 	const {uid, name} = req.body;
-	const username = users.uid;
 
 	if (name === ''){
 		return res.status(400).json("Please enter a category name");
@@ -173,16 +172,15 @@ app.post(routes.addVisionCategory, (req, res) => {
 			})
 	}).then(data => {
 		res.status(200).json(data);
-		console.log(`${routes.addVisionCategory} ${username}`, "success");
+		console.log(`${routes.addVisionCategory} ${uid}`, "success");
 	}).catch(error => {
-		console.log(`${routes.addVisionCategory} ${username}`, error);
+		console.log(`${routes.addVisionCategory} ${uid}`, error);
 		res.status(400).json("An error occurred while adding category");
 	});
 });
 
 app.post(routes.addVisionItem, (req, res) => {
 	const {name, description, url, uid, categoryId } = req.body;
-	const username = users.uid;
 
 	if (name === ''){
 		return res.status(400).json("Please enter a name");
@@ -204,9 +202,9 @@ app.post(routes.addVisionItem, (req, res) => {
 			})
 	}).then(data => {
 		res.status(200).json(data);
-		console.log(`${routes.addVisionItem} ${username}`, "success"); 
+		console.log(`${routes.addVisionItem} ${uid}`, "success"); 
 	}).catch(error => {
-		console.log(`${routes.addVisionItem} ${username}`, error); 
+		console.log(`${routes.addVisionItem} ${uid}`, error); 
 		res.status(400).json("An error occurred while adding the vision item");  
 	});
 });
@@ -214,7 +212,6 @@ app.post(routes.addVisionItem, (req, res) => {
 
 app.get(routes.visionBoard, (req, res) => {
 	const {uid} = req.params;
-	const username = users.uid;
 
 	db.task(t => {
 	    return t.any('SELECT id, name FROM categories WHERE userid = $1', uid).
@@ -228,10 +225,39 @@ app.get(routes.visionBoard, (req, res) => {
 	})
 	.then(data => {
 		res.json(data);
-		console.log(`${routes.visionBoard} ${username}`, "success");   
+		console.log(`${routes.visionBoard} ${uid}`, "success");   
 	})
 	.catch(error => {
-		console.log(`${routes.visionBoard} ${username}`, error);   
+		console.log(`${routes.visionBoard} ${uid}`, error);   
+	});
+});
+
+/*
+* Check Logged In, Logout
+*/
+app.post(routes.settingsProfile, (req, res) => {
+	const {uid, display, currentPassword, newPassword, newPasswordRepeat} = req.body;
+
+	db.one('SELECT COUNT(*) FROM users WHERE uid= $1', uid).
+	then(data => {
+		if (data.count > 0){
+			if (display === '' || currentPassword === '' || newPassword === '' || newPasswordRepeat === ''){
+				res.status(400).json("Please fill out all fields");
+			} else if (newPassword.length < 8){
+				res.status(400).json("Your password must have at least 8 charcaters");
+			} else if (newPassword !== newPasswordRepeat){
+				res.status(400).json("Your passwords don't match");
+			} else {
+				res.status(400).json("Profile changing not fully implemented");
+				console.log(`${routes.settingsProfile} ${uid}`, "success");
+			}
+		} else {
+			res.status(400).json("No user found");
+			console.log(`${routes.settingsProfile} ${uid}`, "rejected");
+		}
+	}).catch(error => {
+		res.status(400).json("Error changing profile settings");
+		console.log(`${routes.settingsProfile} ${uid}`, error);
 	});
 });
 
