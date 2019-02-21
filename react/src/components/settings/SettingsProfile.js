@@ -36,8 +36,7 @@ class SettingsProfile extends Component {
 
 	render(){
 		return(
-			<div className="card" className="w-50 d-flex flex-column align-items-center">
-				<h5 className="card-title">Profile</h5>
+			<div className="card w-50 d-flex flex-column align-items-center p-2">
 				<div className="card-body">
 					<div className="row">
 						<div className="col-4">Display Name</div>
@@ -65,7 +64,7 @@ class SettingsProfile extends Component {
 							</div>
 						</div>
 						<div className="col-12 d-flex flex-column align-items-end">
-							<div className="text-danger">{this.domain.settingsProfileResponse}</div>
+							<div className="text-danger mb-1">{this.domain.settingsProfileResponse}</div>
 							<button className="btn btn-success" onClick={this.onSave}>Save Profile</button>
 						</div>
 					</div>

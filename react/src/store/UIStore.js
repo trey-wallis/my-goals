@@ -8,6 +8,8 @@ import VisionBoard from '../components/VisionBoard';
 import Goals from '../components/Goals';
 import Habits from '../components/Habits';
 import Settings from '../components/Settings';
+import DropDownMenuGoals from '../components/nav/DropDownMenuGoals';
+import DropDownMenuVision from '../components/nav/DropDownMenuVision';
 
 class UIStore {
 
@@ -16,18 +18,32 @@ class UIStore {
 
 		this.dropDownMenu = {
 			active: -1,
-			items: []
+			items: [],
+			route: "none",
+			title: "My Goals",
 		}
 
 		this.navMenu = {
-			displayDropDownMenu: true,
 			route: "title",
 			active: 0
 		}
 	}
 
-	get storage(){
-		return [this.dropDownMenu, this.navMenu];
+	changeDropDownMenu(route, title="My Goals", active=-1){
+		this.dropDownMenu.route = route;
+		this.dropDownMenu.title = title;
+		this.dropDownMenu.active = active;
+	}
+
+	get dropDown(){
+		switch(this.dropDownMenu.route){
+			case "vision":
+				return <DropDownMenuVision />;
+			case "goals":
+				return <DropDownMenuGoals />;
+			default:
+				return <div className="navbar-brand">My Goals</div>;
+		}
 	}
 
 	/*
@@ -41,12 +57,16 @@ class UIStore {
 		this.navMenu.displayDropDownMenu = val;
 	}
 
+	set dropDownMenuTitle(title){
+		this.dropDownMenuTitle = title;
+	}
+
 	/*
 	* DropDownMenu Getters/Setters
 	*/
 	get dropDownMenuTitle() {
 		if (this.dropDownMenu.active === -1){
-			return "My Goals";
+			return this.dropDownMenu.title;
 		}
 		return this.dropDownMenu.items[this.dropDownMenu.active];
 	}
@@ -73,10 +93,9 @@ class UIStore {
 	/*
 	* NavMenu Getters and Setters
 	*/
-	changeMenu(route, active, displayDropDownMenu=true){
+	changeMenu(route, active){
 		this.navMenu.route = route;
 		this.navMenu.active = active;
-		this.navMenu.displayDropDownMenu = displayDropDownMenu;
 	}
 
 	get menu(){

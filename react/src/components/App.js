@@ -5,7 +5,9 @@ import RootStore from '../store/RootStore';
 import Header from '../components/Header';
 import AddVisionCategory from '../components/vision/AddVisionCategory';
 import AddVisionItem from '../components/vision/AddVisionItem';
+import AddGoal from '../components/goal/AddGoal';
 import EditVision from '../components/vision/EditVision.js';
+import AddVisionNote from '../components/vision/AddVisionNote';
 
 class App extends Component {
 
@@ -24,6 +26,8 @@ class App extends Component {
 				{domain.loggedIn ? <AddVisionCategory /> : ''}
 				{domain.loggedIn ? <AddVisionItem /> : ''}
 				{domain.loggedIn ? <EditVision /> : ''}
+				{domain.loggedIn ? <AddGoal /> : ''}
+				{domain.loggedIn ? <AddVisionNote /> : ''}
 			</div>);
 	}
 }

@@ -11,6 +11,11 @@ class Login extends Component {
 		let {ui, domain} = RootStore.store;
 		this.ui = ui;
 		this.domain = domain;
+		
+		//Everytime we refresh we want to clear the form buffer
+		this.domain.loginUsername = "";
+		this.domain.loginPassword = "";
+		this.domain.loginResponse = "";
 	}
 
 	onSubmit = () => {

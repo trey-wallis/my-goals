@@ -7,6 +7,8 @@ class DomainStore {
 		this.root = root;
 		this.connected = false;
 
+		this.goalData = {};
+
 		this.visionData = {
 			categories: [],
 			items: []
@@ -49,9 +51,111 @@ class DomainStore {
 				currentPassword: "",
 				newPassword: "",
 				newPasswordRepeat: "",
-				response: "error"
+				response: ""
 			}
 		}
+
+		this.addGoalForm = {
+			categoryId: 0,
+			visionItemId: 0,
+			name: "",
+			description: "",
+			start: "",
+			end: "",
+			plans: "",
+			response: "",
+			note: "",
+		}
+
+		this.addVisionNoteForm = {
+			text: "",
+			response: "",
+			visionItemId: 0
+		}
+	}
+
+	/*
+	* Add Goal Form
+	*/
+
+	get addGoalNote(){
+		return this.addGoalForm.note;
+	}
+
+	set addGoalNote(note){
+		this.addGoalForm.note = note;
+	}
+	
+	get addGoalResponse(){
+		return this.addGoalForm.response;
+	}
+
+	set addGoalName(name){
+		this.addGoalForm.name = name;
+	}
+
+	set addGoalCategoryId(id){
+		this.addGoalForm.categoryId = id;
+	}
+
+	set addGoalVisionItemId(id){
+		this.addGoalForm.visionItemId = id;
+	}
+
+	get addGoalVisionItemId(){
+		return this.addGoalForm.visionItemId;
+	}
+
+	get addGoalCategoryId(){
+		return this.addGoalForm.categoryId;
+	}
+
+	set addGoalDescription(description){
+		this.addGoalForm.description = description;
+	}
+
+	set addGoalPlans(plans){
+		this.addGoalForm.plans = plans;
+	}
+
+	set addGoalStart(start){
+		this.addGoalForm.start = start;
+	}
+
+	set addGoalEnd(end){
+		this.addGoalForm.end = end;
+	}
+
+	get addGoalEnd(){
+		return this.addGoalForm.end;
+	}
+
+	/*
+	* Add Vision Note
+	*/
+	get addVisionNoteItemId(){
+		return this.addVisionNoteForm.visionItemId;
+	}
+
+	set addVisionNoteItemId(id){
+		this.addVisionNoteForm.visionItemId = id;
+	}
+
+	set addVisionNoteText(text){
+		this.addVisionNoteForm.text = text;
+	}
+
+	get addVisionNoteText(){
+		return this.addVisionNoteForm.text;
+	}
+
+	set addVisionNoteResponse(response){
+		this.addVisionNoteForm.response = response;
+	}
+
+
+	get addVisionNoteResponse(){
+		return this.addVisionNoteForm.response;
 	}
 
 	/*
@@ -195,7 +299,6 @@ class DomainStore {
 	*/
 	login(){
 		window.sessionStorage.setItem('uid', this.profile.uid);
-		console.log("Setting uid", this.profile.uid);
 		this.connected = true;
 		this.root.store.ui.changeMenu("dash", 0, false);
 	}
@@ -218,6 +321,9 @@ class DomainStore {
 		return this.visionData.items;
 	}
 
+	get goals(){
+		return this.goalData;
+	}
 
 	checkLogin = () => {
 		//Attempt to load id
@@ -272,9 +378,6 @@ class DomainStore {
 		 		this.loginForm.response = response;
 		 	} else {
 		 		this.profile = response;
-		 		this.loginForm.username = "";
-		 		this.loginForm.password = "";
-		 		this.loginForm.response = "";
 		 		this.getCategories();
 		 	}
 		 })
@@ -325,7 +428,40 @@ class DomainStore {
 		 	if (this.visionData.categories.length > 0){
 		 		this.addVisionItemForm.categoryId = this.visionData.categories[0].id;
 		 	}
+		 	this.getGoals();
+		 })
+		 .catch(error => console.log);
+	}
+
+	getGoals = () => {
+		fetch('http://localhost:3006/goals', {
+		 	method: 'post',
+		 	headers: {'Content-Type': 'application/json'},
+		 	body: JSON.stringify({
+		 		uid: this.profile.uid,
+		 	})
+		 })
+		 .then(response => response.json())
+		 .then(response => {
+		 	this.goalData = response;
 		 	this.login();
+		 })
+		 .catch(error => console.log);
+	}
+
+	getNote = () => {
+		fetch('http://localhost:3006/note', {
+		 	method: 'post',
+		 	headers: {'Content-Type': 'application/json'},
+		 	body: JSON.stringify({
+		 		uid: this.profile.uid,
+		 		visionItemId: this.addVisionNoteForm.visionItemId
+		 	})
+		 })
+		 .then(response => response.json())
+		 .then(response => {
+		 	this.addVisionNoteForm.text = response;
+		 	$("#modal-add-vision-note").modal('show');
 		 })
 		 .catch(error => console.log);
 	}
@@ -439,6 +575,56 @@ class DomainStore {
 		 	}
 		 }).catch(error => console.log);
 	}
+
+	postAddGoal = () => {
+		let successful = false;
+		 fetch('http://localhost:3006/addgoal', {
+		 	method: 'post',
+		 	headers: {'Content-Type': 'application/json'},
+		 	body: JSON.stringify({
+		 		uid: this.profile.uid,
+		 		visionItemId: this.addGoalForm.visionItemId,
+		 		name: this.addGoalForm.name,
+		 		description: this.addGoalForm.description,
+		 		plans: this.addGoalForm.plans,
+		 		start: this.addGoalForm.start,
+		 		end: this.addGoalForm.end
+		 	})
+		 }).then(response => {
+		 	if (response.status === 200){
+		 		successful = true;
+		 	}
+		 	return response.json();
+		 }).then(response => {
+		 	if (!successful){
+		 		this.addGoalForm.response = response;
+		 	} else {
+		 		this.root.store.domain.goalData.push(response);
+		 		$('#modal-add-goal').modal('hide');
+		 	}
+		 }).catch(error => console.log);
+	}
+
+	postAddVisionNote = () => {
+		 fetch('http://localhost:3006/addvisionnote', {
+		 	method: 'post',
+		 	headers: {'Content-Type': 'application/json'},
+		 	body: JSON.stringify({
+		 		uid: this.profile.uid,
+		 		visionItemId: this.addVisionNoteForm.visionItemId,
+		 		noteText: this.addVisionNoteForm.text
+		 	})
+		 }).then(response => response.json()
+		 ).then(response => {
+		 	this.addVisionNoteForm.response = response;
+		 	for (let i = 0; i < this.visionData.items.length; i++){
+		 		const item = this.visionData.items[i];
+		 		if (item.id === this.addVisionNoteForm.visionItemId){
+		 			item.notes = this.addVisionNoteForm.text;
+		 		}
+		 	}
+		 }).catch(error => console.log);
+	}
 }
 
 decorate(DomainStore, {
@@ -449,6 +635,9 @@ decorate(DomainStore, {
 	settingsForm: observable,
 	connected: observable,
 	visionData: observable,
+	goalData: observable,
+	addGoalForm: observable,
+	addVisionNoteForm: observable,
 	visionCategories: computed,
 	visionItems: computed,
 })

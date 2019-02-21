@@ -4,10 +4,16 @@
 }
 
 .Vision__card {
-	outline: 0;
-	border: 0 !important;
 }
 
 .Vision__card:hover {
 	background: rgba(0,0,0,0.1);
+}
+
+
+@media (max-width: 576px) {
+	.Vision__img {
+		max-width: 300px;
+		padding-top: 20px;
+	}
 }

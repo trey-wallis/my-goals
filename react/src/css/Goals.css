@@ -1,0 +1,34 @@
+.Goals__img {
+	width: 30px;
+	height: auto;
+}
+
+.Goals__icon {
+	border: 1px solid white;
+	transition: border 0.4s;
+	padding: 2px 5px;
+	width: 30px;
+	height: 30px;
+}
+
+.Goals__icon-item {
+	width: 20px;
+	height: 20px;
+}
+
+.Goals__icon:hover {
+	border: 1px solid rgba(0,0,0,0.2);
+}
+
+.Goals__text {
+	margin: 0;
+	padding: 0;
+}
+
+.Goal__text--lg {
+	font-size: 1rem;
+}
+
+.Goals__text--sm {
+	font-size: 0.9rem;
+}

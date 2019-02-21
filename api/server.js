@@ -24,6 +24,10 @@ const routes = {
 	visionBoard: "/visionboard/:uid",
 	checkLogin: "/checkLogin",
 	settingsProfile: "/settingsProfile",
+	goals: "/goals",
+	addVisionNote: "/addvisionnote",
+	addGoal: "/addgoal",
+	note: "/note",
 }
 
 /*
@@ -44,6 +48,9 @@ app.post(routes.signIn, (req, res) => {
 	const {username, password} = req.body;
 	const usernameLowercase = username.toLowerCase().trim();
 
+	if (username === '' || password === ''){
+		return res.status(400).json("Invalid username or password");
+	}
 	db.one('SELECT * FROM users WHERE name= $1', usernameLowercase)
     .then((data) => {
 	    bcrypt.compare(password, data.hash, (err, match) => {
@@ -95,7 +102,7 @@ app.post(routes.register, (req, res) => {
     	.catch(error => {
 			bcrypt.genSalt(10, function(err, salt) {
 				bcrypt.hash(password, salt, null, (err, hash) => {
-					db.none('INSERT INTO users(name, display, hash, uid) VALUES ($1, $2, $3)', [usernameLowercase, username, hash, genRandomUID()])
+					db.none('INSERT INTO users(name, display, hash, uid) VALUES ($1, $2, $3, $4)', [usernameLowercase, username, hash, genRandomUID()])
 					.then(()=>{
 				    	db.one('SELECT uid, display FROM users WHERE name= $1', usernameLowercase).
 				    	then((data) => {
@@ -194,7 +201,7 @@ app.post(routes.addVisionItem, (req, res) => {
 	db.task(t=>{
 		return t.none('INSERT INTO visionitem(title, description, url, userid, categoryid) VALUES ($1, $2, $3, $4, $5)', [name, description, url, uid, categoryId]).
 			then(()=>{
-				return t.one("SELECT title, description, url, categoryid FROM visionitem ORDER BY id DESC LIMIT 1").
+				return t.one("SELECT id, title, description, url, categoryid, notes FROM visionitem ORDER BY id DESC LIMIT 1").
 					then(item => {
 						return item;
 					});
@@ -209,6 +216,32 @@ app.post(routes.addVisionItem, (req, res) => {
 	});
 });
 
+app.post(routes.addGoal, (req, res) => {
+	const {uid, visionItemId, name, description, plans, start, end} = req.body;
+
+	if (name === '' || description === '' || start === '' || end === ''){
+		return res.status(400).json("Please fill out all fields");
+	} 
+
+	db.none('INSERT INTO goals(name, description, visionid, userid, starttime, endtime, plans) VALUES ($1, $2, $3, $4, $5, $6, $7)', [name, description, visionItemId, uid, start, end, plans]).
+	then(() => {
+		const newGoal = {
+			name: name,
+			description: description,
+			progress: 0,
+			starttime: start,
+			endtime: end,
+			plans: plans,
+			visionid: visionItemId
+		}
+		res.status(200).json(newGoal);
+		console.log(`${routes.addGoal} ${uid}`, "success"); 
+	}).catch(error => {
+		console.log(`${routes.addGoal} ${uid}`, error); 
+		res.status(400).json("An error occurred while adding the goal");  
+	});
+});
+
 
 app.get(routes.visionBoard, (req, res) => {
 	const {uid} = req.params;
@@ -216,7 +249,7 @@ app.get(routes.visionBoard, (req, res) => {
 	db.task(t => {
 	    return t.any('SELECT id, name FROM categories WHERE userid = $1', uid).
 	        then(categories => {
-	        	return t.any('SELECT title, description, url, categoryid FROM visionitem WHERE userid= $1', uid).
+	        	return t.any('SELECT id, title, description, url, categoryid, notes FROM visionitem WHERE userid= $1', uid).
 	        		then(items => {
 	        			return { categories, items};
 	        		})
@@ -229,6 +262,51 @@ app.get(routes.visionBoard, (req, res) => {
 	})
 	.catch(error => {
 		console.log(`${routes.visionBoard} ${uid}`, error);   
+	});
+});
+
+
+app.post(routes.note, (req, res) => {
+	const {uid, visionItemId} = req.body;
+
+	db.one('SELECT notes FROM visionitem WHERE userid = $1 AND id = $2', [uid, visionItemId])
+	.then(data => {
+		res.json(data.notes);
+		console.log(`${routes.note} ${uid}`, "success");   
+	})
+	.catch(error => {
+		console.log(`${routes.note} ${uid}`, error);   
+	});
+});
+
+app.post(routes.goals, (req, res) => {
+	const {uid} = req.body;
+
+	db.task(t => {
+	    return t.any('SELECT name, description, progress, starttime, endtime, plans, visionid FROM goals WHERE userid = $1', [uid, 'pst']).
+	        then(goals => {
+	        	return goals;
+	        });    
+	})
+	.then(data => {
+		res.json(data);
+		console.log(`${routes.goals} ${uid}`, "success");   
+	})
+	.catch(error => {
+		console.log(`${routes.goals} ${uid}`, error);   
+	});
+});
+
+app.post(routes.addVisionNote, (req, res) => {
+	const {uid, visionItemId, noteText} = req.body;
+
+	db.none('UPDATE visionitem SET notes = $3 WHERE id= $2 AND userid = $1', [uid, visionItemId, noteText])
+	.then(() => {
+		res.status(200).json("Note saved");
+		console.log(`${routes.addVisionNote} ${uid}`, "success");   
+	})
+	.catch(error => {
+		console.log(`${routes.addVisionNote} ${uid}`, error);   
 	});
 });
 

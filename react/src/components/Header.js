@@ -1,7 +1,6 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {observer} from 'mobx-react';
 
-import Scrollable from '../components/Scrollable';
 import RootStore from '../store/RootStore';
 
 class Header extends Component {
@@ -37,12 +36,14 @@ class Header extends Component {
 	*/
 
 	onDashBoard = () => {
-		this.ui.changeMenu("dash", 0, false);
+		this.ui.changeMenu("dash", 0);
+		this.ui.changeDropDownMenu("brand");
 	}
 
 	onVisionBoard = () => {
 		this.ui.updateDropDownMenu();
 		this.ui.changeMenu("vision", 1);
+		this.ui.changeDropDownMenu("vision", "My Vision");
 	}
 
 	onViewAll = () => {
@@ -51,47 +52,33 @@ class Header extends Component {
 
 	onGoals = () => {
 		this.ui.changeMenu("goals", 2);
+		this.ui.changeDropDownMenu("goals", "My Goals");
+		
+		if (this.domain.visionCategories.length > 0){
+			this.domain.addGoalCategoryId = this.domain.visionCategories[0].id;
+		}
+		const items = this.domain.visionItems.filter(item => {
+			return item.categoryid === this.domain.addGoalCategoryId;
+		});
+		if (items.length > 0){
+			this.domain.addGoalVisionItemId = items[0].id;
+		}
 	}
 
 	onHabits= () => {
 		this.ui.changeMenu("habits", 3);
+		this.ui.changeDropDownMenu("habits", "My Habits");
 	}
 
 	onSettings = () => {
 		this.ui.changeMenu("settings", 4);
-	}
-
-	renderDropDownMenu(){
-			return (<div className="btn-group">
-					<button type="button" className="btn btn--reset dropdown-toggle" data-toggle="dropdown" id="navbar-dropdown">{this.ui.dropDownMenuTitle}</button>
-					<div className="dropdown-menu">
-						{
-							this.domain.visionCategories.length > 0 ?
-								<Scrollable height="100px">
-								{
-									this.ui.dropDownMenuItems.map((item, i) => {
-										return <button key={i} className={this.ui.isDropDownMenuItemActive(i) + " dropdown-item"} onClick={()=>{this.ui.dropDownMenuActive = i}}>{this.ui.dropDownMenuItems[i]}</button>
-									})
-								}
-								</Scrollable> : ''
-						}
-						<div className="dropdown-divider"></div>
-						<button type="button" className="dropdown-item" onClick={this.onViewAll}>View All</button>
-				    	<div className="dropdown-divider"></div>
-				    	<button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-add-vision-category">Add Category</button>
-				    	<button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-add-vision-item">Add Vision Item</button>
-				    	<button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-edit">Edit</button>
-					</div>
-				</div>);
+		this.ui.changeDropDownMenu("brand");
 	}
 
 	renderLoggedIn(){
 		return(
 			<nav className="navbar navbar-expand-md navbar-dark bg-primary" id="navbar-top">
-
-				{this.ui.displayDropDownMenu ? this.renderDropDownMenu() : 
-					<button className="navbar-brand btn--reset" onClick={this.onDashBoard}>My Goals</button>}
-				<span className="lead">{this.domain.displayName}</span>
+				{this.ui.dropDown}
 				<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main">
     				<span className="navbar-toggler-icon"></span>
   				</button>
@@ -141,13 +128,12 @@ class Header extends Component {
 	}
 
 	render() {
-		const {ui, domain} = RootStore.store;
 		return (
-			<div className="Header">
+			<Fragment>
 			{
-				(domain.loggedIn ? this.renderLoggedIn() : this.renderLoggedOut())
+				(this.domain.loggedIn ? this.renderLoggedIn() : this.renderLoggedOut())
 			}
-			</div>
+			</Fragment>
 		);
 	}
 }
