@@ -5,7 +5,8 @@ class Scrollable extends Component {
 
 	render(){
 		const styleScrollable = {
-			maxHeight: this.props.height
+			maxHeight: this.props.maxHeight,
+			height: this.props.height,
 		}
 
 		return(

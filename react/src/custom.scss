@@ -1,24 +1,23 @@
 // Override default variables before the import
-$body-bg: #ecf0f1;
-$light: #A2B9BC;
+$body-bg: #D3DEED;
+$body-color: #333333;
+
+$theme-colors: (
+  "primary": #2C6DCE,
+  "tertiary": #B6D1F8,
+  "secondary": #033174,
+  "black": #000000,
+  "dark": #333333,
+  "dark-secondary": #6C6C6C,
+  "light": #D3DEED,
+  "white": #FFFFFF,
+);
 
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';
 
-body > #root {
-	height: 100vh;
-}
-
-.App {
-	height: 100%;
-}
-
-.menu {
-	height: calc(100% - 56px);
-}
-
-.wrapper {
-	height: 100%;
+.container-fluid--full {
+	min-height: calc(100vh - 56px);
 }
 
 .btn--reset {

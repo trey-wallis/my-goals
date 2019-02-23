@@ -40,7 +40,7 @@ class VisionBoard extends Component {
 				if(i === this.ui.dropDownMenuActive || this.ui.dropDownMenuActive === -1){
 					return(
 						<div key={i}>
-							<h3 className="text-center my-5">{category.name}</h3>
+							<h3 className="text-center text-dark mb-4">{category.name}</h3>
 							<div className="row justify-content-center">
 								{this.renderItems(category.id)}
 							</div>
@@ -52,19 +52,19 @@ class VisionBoard extends Component {
 		} else {
 			return (
 			<React.Fragment>
-			<h3 className="text-center my-5">My Vision Board</h3>
-			<div className="text-center">
-			<p>There are no categories to display.<br/>
-			Would you like to <span className="text-danger" data-toggle="modal" data-target="#modal-add-vision-category">add</span> a category?</p>
-			</div>
+				<h3 className="text-center my-5">My Vision Board</h3>
+				<div className="text-center">
+				<p>There are no categories to display.<br/>
+				Would you like to <span className="text-danger" data-toggle="modal" data-target="#modal-add-vision-category">add</span> a category?</p>
+				</div>
 			</React.Fragment>);
 		}
 	}
 
 	render(){
 		return(
-			<div className="menu">
-				<div className="container h-100">
+			<div className="container-fluid--full">
+				<div className="container bg-white h-100 p-5">
 					{this.renderCategories()}
 				</div>
 			</div>);

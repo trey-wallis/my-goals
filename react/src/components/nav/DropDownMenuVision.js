@@ -15,7 +15,7 @@ class DropDownMenuVision extends Component {
 	render(){	
 		return (
 			<div className="btn-group">
-				<button type="button" className="btn btn--reset dropdown-toggle" data-toggle="dropdown" id="navbar-dropdown">{this.ui.dropDownMenuTitle}</button>
+				<button type="button" className="btn btn--reset dropdown-toggle text-tertiary" data-toggle="dropdown" id="navbar-dropdown">{this.ui.dropDownMenuTitle}</button>
 				<div className="dropdown-menu">
 					{
 					this.domain.visionCategories.length > 0 ?

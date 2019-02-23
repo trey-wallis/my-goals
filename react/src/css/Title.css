@@ -1,0 +1,7 @@
+.Title__top {
+	height: calc(65vh - 56px);
+}
+
+.Title__bottom {
+	height: 35vh;
+}
