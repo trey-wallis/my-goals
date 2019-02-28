@@ -1,0 +1,57 @@
+// Override default variables before the import
+$body-bg: #D3DEED;
+$body-color: #333333;
+
+$theme-colors: (
+  "primary": #2C6DCE,
+  "tertiary": #B6D1F8,
+  "secondary": #033174,
+  "black": #000000,
+  "dark": #333333,
+  "dark-secondary": #6C6C6C,
+  "light": #D3DEED,
+  "white": #FFFFFF,
+);
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
+
+.container-fluid--full {
+	min-height: calc(100vh - 56px);
+}
+
+.btn--reset {
+	background: inherit;
+	border: 0;
+}
+
+.btn--reset:focus {
+	outline: 0;
+}
+
+.bg--inherit {
+	background: inherit;
+}
+
+.btn--reset:active {
+	outline: 0;
+}
+
+#navbar-dropdown {
+	font-size: 1.3rem;
+}
+
+#navbar-top {
+	height: auto;
+}
+
+@media (min-width: 576px) {
+	#navbar-top {
+		height: 56px;
+	}
+}
+
+.icon--small {
+	height: 25px;
+	width: auto;
+}

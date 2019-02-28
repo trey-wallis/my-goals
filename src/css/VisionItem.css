@@ -1,0 +1,30 @@
+.Vision__img {
+	width: 350px;
+	height: 150px;
+	border-radius-top: 6px;
+}
+
+.Vision__card {
+	height: 325px;
+}
+
+.Vision__card:hover {
+	background: rgba(0,0,255,0.1);
+}
+
+.Vision__description {
+	font-size: 0.9rem;
+}
+
+.Vision__card-body {
+	overflow: hidden;
+}
+
+
+@media (max-width: 576px) {
+	.Vision__img {
+		width: 300px;
+		height: 300px;
+		padding-top: 20px;
+	}
+}
