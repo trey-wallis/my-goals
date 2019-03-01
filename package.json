@@ -2,6 +2,7 @@
   "name": "my-goals-react",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "https://wallisinnovations.com/my-goals",
   "dependencies": {
     "bootstrap": "^4.2.1",
     "jquery": "^3.3.1",
