@@ -14,8 +14,6 @@ import App from './components/App';
 */
 import 'bootstrap';
 
-test
-
 /*
 * Import custom bootstrap
 */
