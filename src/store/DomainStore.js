@@ -4,6 +4,8 @@ import $ from 'jquery';
 class DomainStore {
 
 	constructor(root){
+		this.server = "https://my-goals-api.herokuapp.com";
+
 		this.root = root;
 		this.connected = false;
 
@@ -329,7 +331,7 @@ class DomainStore {
 		//Attempt to load id
 		let successful = false;
 		if (window.sessionStorage.getItem('uid') > 0) {
-		 	fetch('http://localhost:3006/checklogin', {
+		 	fetch(`${this.server}/checkLogin`, {
 		 		method: 'post',
 		 		headers: {'Content-Type': 'application/json'},
 		 		body: JSON.stringify({
@@ -359,7 +361,7 @@ class DomainStore {
 	*/
 	connectLogin = () => {
 		let successful = false;
-		 fetch('http://localhost:3006/signin', {
+		 fetch(`${this.server}/signin`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
@@ -386,7 +388,7 @@ class DomainStore {
 
 	connectRegister = () => {
 		let successful = false;
-		 fetch('http://localhost:3006/register', {
+		 fetch(`${this.server}/register`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
@@ -419,7 +421,7 @@ class DomainStore {
 	* Get resource methods
 	*/
 	getCategories = () => {
-		 fetch('http://localhost:3006/visionboard/' + this.profile.uid)
+		 fetch(`${this.server}/visionboard/` + this.profile.uid)
 		 .then(response => response.json())
 		 .then(response => {
 		 	this.visionData = response;
@@ -434,7 +436,7 @@ class DomainStore {
 	}
 
 	getGoals = () => {
-		fetch('http://localhost:3006/goals', {
+		fetch(`${this.server}/goals`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
@@ -450,7 +452,7 @@ class DomainStore {
 	}
 
 	getNote = () => {
-		fetch('http://localhost:3006/note', {
+		fetch(`${this.server}/note`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
@@ -471,7 +473,7 @@ class DomainStore {
 	*/
 	postAddCategory = () => {
 		let successful = false;
-		fetch('http://localhost:3006/addvisioncategory', {
+		fetch(`${this.server}/addvisioncategory`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
@@ -503,7 +505,7 @@ class DomainStore {
 
 	postAddVisionItem = () => {
 		let successful = false;
-		fetch('http://localhost:3006/addvisionitem', {
+		fetch(`${this.server}/addvisionitem`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
@@ -536,7 +538,7 @@ class DomainStore {
 	}
 
 	postLogout = () => {
-		fetch('http://localhost:3006/logout', {
+		fetch(`${this.server}/logout`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
@@ -552,7 +554,7 @@ class DomainStore {
 
 	postSettingsProfile = () => {
 		let successful = false;
-		 fetch('http://localhost:3006/settingsprofile', {
+		 fetch(`${this.server}/settingsprofile`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
@@ -578,7 +580,7 @@ class DomainStore {
 
 	postAddGoal = () => {
 		let successful = false;
-		 fetch('http://localhost:3006/addgoal', {
+		 fetch(`${this.server}/addgoal`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
@@ -606,7 +608,7 @@ class DomainStore {
 	}
 
 	postAddVisionNote = () => {
-		 fetch('http://localhost:3006/addvisionnote', {
+		 fetch(`${this.server}/addvisionnote`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
