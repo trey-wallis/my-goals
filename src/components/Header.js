@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {observer} from 'mobx-react';
+import $ from 'jquery';
 
 import RootStore from '../store/RootStore';
 
@@ -21,14 +22,17 @@ class Header extends Component {
 
 	onLogin = () => {
 		this.ui.changeMenu("login", 1);
+		$('.navbar-collapse').collapse('hide');
 	}
 
 	onRegister = () => {
 		this.ui.changeMenu("register", 2);
+		$('.navbar-collapse').collapse('hide');
 	}
 
 	onLogout = () => {
 		this.domain.postLogout();
+		$('.navbar-collapse').collapse('hide');
 	}
 
 	/*
@@ -38,12 +42,14 @@ class Header extends Component {
 	onDashBoard = () => {
 		this.ui.changeMenu("dash", 0);
 		this.ui.changeDropDownMenu("brand");
+		$('.navbar-collapse').collapse('hide');
 	}
 
 	onVisionBoard = () => {
 		this.ui.updateDropDownMenu();
 		this.ui.changeMenu("vision", 1);
 		this.ui.changeDropDownMenu("vision", "My Vision");
+		$('.navbar-collapse').collapse('hide');
 	}
 
 	onViewAll = () => {
@@ -63,16 +69,19 @@ class Header extends Component {
 		if (items.length > 0){
 			this.domain.addGoalVisionItemId = items[0].id;
 		}
+		$('.navbar-collapse').collapse('hide');
 	}
 
 	onHabits= () => {
 		this.ui.changeMenu("habits", 3);
 		this.ui.changeDropDownMenu("habits", "My Habits");
+		$('.navbar-collapse').collapse('hide');
 	}
 
 	onSettings = () => {
 		this.ui.changeMenu("settings", 4);
 		this.ui.changeDropDownMenu("brand");
+		$('.navbar-collapse').collapse('hide');
 	}
 
 	renderLoggedIn(){

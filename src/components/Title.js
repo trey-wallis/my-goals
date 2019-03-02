@@ -17,7 +17,7 @@ class Title extends Component {
 						<p className="lead w-50 text-tertiary">Meet the dynamic way and responsive way to expand your vision and track your SMART goals</p>
 					</div>
 				</div>
-				<div className="Title__bottom row no-gutters align-items-center bg-white">
+				<div className="Title__bottom row no-gutters align-items-center bg-white py-4">
 					<div className="col-sm-4 d-flex flex-column align-items-center">
 						<img src={DocumentIcon} className="mb-2 icon--small" alt="new document"/>
 						<h6 className="text-dark">Vision Board</h6>
