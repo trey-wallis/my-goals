@@ -4,7 +4,7 @@ import $ from 'jquery';
 class DomainStore {
 
 	constructor(root){
-		this.server = "https://my-goals-api.herokuapp.com";
+		this.hostname = "https://my-goals-api.herokuapp.com";
 
 		this.root = root;
 		this.connected = false;
@@ -296,15 +296,6 @@ class DomainStore {
 		this.settingsForm.profile.currentPassword = pass;
 	}
 
-	/*
-	* UI Methods
-	*/
-	login(){
-		window.sessionStorage.setItem('uid', this.profile.uid);
-		this.connected = true;
-		this.root.store.ui.changeMenu("dash", 0, false);
-	}
-
 	logout = () => {
 		window.sessionStorage.setItem('uid', 0);
 		this.connected = false;
@@ -331,7 +322,7 @@ class DomainStore {
 		//Attempt to load id
 		let successful = false;
 		if (window.sessionStorage.getItem('uid') > 0) {
-		 	fetch(`${this.server}/checkLogin`, {
+		 	fetch(`${this.hostname}/checkLogin`, {
 		 		method: 'post',
 		 		headers: {'Content-Type': 'application/json'},
 		 		body: JSON.stringify({
@@ -360,8 +351,8 @@ class DomainStore {
 	* Connection Methods
 	*/
 	connectLogin = () => {
-		let successful = false;
-		 fetch(`${this.server}/signin`, {
+		let status;
+		 fetch(`${this.hostname}/signin`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
@@ -370,25 +361,24 @@ class DomainStore {
 		 	})
 		 })
 		 .then(response => {
-		 	if (response.status === 200){
-		 		successful = true;
-		 	}
+		 	status = response.status;
 		 	return response.json();
 		 })
 		 .then(response => {
-		 	if (!successful){
-		 		this.loginForm.response = response;
-		 	} else {
+		 	if(status === 200){
 		 		this.profile = response;
-		 		this.getCategories();
+		 		window.sessionStorage.setItem('uid', this.profile.uid);
+				this.connected = true;
+		 	} else {
+		 		this.loginForm.response = response;
 		 	}
 		 })
-		 .catch(error => this.loginForm.response = "Unable to connect to api");
+		 .catch(err => this.loginForm.response = "Unable to connect to api");
 	}
 
 	connectRegister = () => {
-		let successful = false;
-		 fetch(`${this.server}/register`, {
+		let status;
+		 fetch(`${this.hostname}/register`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
@@ -398,30 +388,26 @@ class DomainStore {
 		 	})
 		 })
 		 .then(response => {
-		 	if (response.status === 200){
-		 		successful = true;
-		 	}
+		 	status = response.status;
 		 	return response.json();
 		 })
 		 .then(response => {
-		 	if (!successful){
-		 		this.registrationForm.response = response;
-		 	} else {
+		 	if (status === 200){
 		 		this.profile = response;
-		 		this.registrationForm.username = "";
-		 		this.registrationForm.password = "";
-		 		this.registrationForm.passwordRepeat = "";
-		 		this.getCategories();
+		 		window.sessionStorage.setItem('uid', this.profile.uid);
+				this.connected = true;
+		 	} else {
+		 		this.registrationForm.response = response;
 		 	}
 		 })
-		 .catch(error => this.registrationForm.response = "Unable to connect to api");
+		 .catch(err => this.registrationForm.response = "Unable to connect to api");
 	}
 
 	/*
 	* Get resource methods
 	*/
 	getCategories = () => {
-		 fetch(`${this.server}/visionboard/` + this.profile.uid)
+		 fetch(`${this.hostname}/visionboard/` + this.profile.uid)
 		 .then(response => response.json())
 		 .then(response => {
 		 	this.visionData = response;
@@ -436,7 +422,7 @@ class DomainStore {
 	}
 
 	getGoals = () => {
-		fetch(`${this.server}/goals`, {
+		fetch(`${this.hostname}/goals`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
@@ -452,7 +438,7 @@ class DomainStore {
 	}
 
 	getNote = () => {
-		fetch(`${this.server}/note`, {
+		fetch(`${this.hostname}/note`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
@@ -473,7 +459,7 @@ class DomainStore {
 	*/
 	postAddCategory = () => {
 		let successful = false;
-		fetch(`${this.server}/addvisioncategory`, {
+		fetch(`${this.hostname}/addvisioncategory`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
@@ -505,7 +491,7 @@ class DomainStore {
 
 	postAddVisionItem = () => {
 		let successful = false;
-		fetch(`${this.server}/addvisionitem`, {
+		fetch(`${this.hostname}/addvisionitem`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
@@ -538,7 +524,7 @@ class DomainStore {
 	}
 
 	postLogout = () => {
-		fetch(`${this.server}/logout`, {
+		fetch(`${this.hostname}/logout`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
@@ -554,7 +540,7 @@ class DomainStore {
 
 	postSettingsProfile = () => {
 		let successful = false;
-		 fetch(`${this.server}/settingsprofile`, {
+		 fetch(`${this.hostname}/settingsprofile`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
@@ -580,7 +566,7 @@ class DomainStore {
 
 	postAddGoal = () => {
 		let successful = false;
-		 fetch(`${this.server}/addgoal`, {
+		 fetch(`${this.hostname}/addgoal`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
@@ -608,7 +594,7 @@ class DomainStore {
 	}
 
 	postAddVisionNote = () => {
-		 fetch(`${this.server}/addvisionnote`, {
+		 fetch(`${this.hostname}/addvisionnote`, {
 		 	method: 'post',
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({

@@ -5,7 +5,9 @@ import {observer} from 'mobx-react';
 import RootStore from '../store/RootStore';
 import ProgressBar from './goal/ProgressBar.js';
 import ViewList from '../icons/view-list.svg';
+import AddGoal from '../components/goal/AddGoal';
 
+import $ from 'jquery';
 import '../css/Goals.css'
 
 class Goals extends Component {
@@ -15,6 +17,10 @@ class Goals extends Component {
 		const {ui, domain} = RootStore.store;
 		this.ui = ui;
 		this.domain = domain;
+	}
+
+	componentDidMount(){
+		$('.navbar-collapse').collapse('hide');
 	}
 
 	renderGoals(){
@@ -91,12 +97,15 @@ class Goals extends Component {
 
 	render(){
 		return(
+			<div className="Goals">
 				<div className="container-fluid--full container px-5 bg-white">
 					<h3 className="py-5 text-center">Goals</h3>
 					<div className="row">
 						{this.renderGoals()}
 					</div>
-				</div>);
+				</div>
+				<AddGoal />
+			</div>);
 	}
 }
 
