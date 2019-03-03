@@ -45,39 +45,37 @@ class VisionBoard extends Component {
 	}
 
 	renderCategories(){
-		if (this.domain.visionCategories.length > 0){
-			return this.domain.visionCategories.map((category, i) => {
-				if(i === this.ui.dropDownMenuActive || this.ui.dropDownMenuActive === -1){
-					return(
-						<div key={i}>
-							<h3 className="text-center text-dark mb-4">{category.name}</h3>
-							<div className="row justify-content-center">
-								{this.renderItems(category.id)}
-							</div>
+		return this.domain.visionCategories.map((category, i) => {
+			if(i === this.ui.dropDownMenuActive || this.ui.dropDownMenuActive === -1){
+				return(
+					<div key={i}>
+						<h3 className="text-center text-dark p-4">{category.name}</h3>
+						<div className="row justify-content-center">
+							{this.renderItems(category.id)}
 						</div>
-					);
-				}
-				return '';
-			});
-		} else {
-			return (
-			<React.Fragment>
-				<h3 className="text-center my-5">My Vision Board</h3>
+					</div>
+				);
+			}
+			return '';
+		});
+	}
+
+	renderCategoryMessage = () => {
+		return (
+			<div className="p-4">
+				<h3 className="text-center">My Vision Board</h3>
 				<div className="text-center">
 				<p>There are no categories to display.<br/>
-				Would you like to <span className="text-danger" data-toggle="modal" data-target="#modal-add-vision-category">add</span> a category?</p>
+				Would you like to <span className="text-primary" data-toggle="modal" data-target="#modal-add-vision-category">add</span> a category?</p>
 				</div>
-			</React.Fragment>);
-		}
+			</div>);
 	}
 
 	render(){
 		return(
 			<div className="VisionBoard">
-				<div className="container-fluid--full">
-					<div className="container bg-white h-100 p-5">
-						{this.renderCategories()}
-					</div>
+				<div className="container bg-white h-100">
+					{this.domain.visionCategories.length > 0 ? this.renderCategories() : this.renderCategoryMessage()}
 				</div>
 				<EditVision />
 				<AddVisionItem />

@@ -43,7 +43,7 @@ class Register extends Component {
 
 	render(){
 		return(
-			<div className="container-fluid--full d-flex justify-content-center align-items-center">
+			<div className="container d-flex justify-content-center align-items-center">
 				<div className="Registration__wrapper">
 					<h4 className="text-center text-dark">Register</h4>
 					<div className="form-group">

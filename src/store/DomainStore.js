@@ -9,7 +9,7 @@ class DomainStore {
 		this.root = root;
 		this.connected = false;
 
-		this.goalData = {};
+		this.goalData = [];
 
 		this.visionData = {
 			categories: [],
@@ -296,12 +296,6 @@ class DomainStore {
 		this.settingsForm.profile.currentPassword = pass;
 	}
 
-	logout = () => {
-		window.sessionStorage.setItem('uid', 0);
-		this.connected = false;
-		this.root.store.ui.changeMenu("title", 0, false);
-	}
-
 	get loggedIn(){
 		return this.connected;
 	}
@@ -319,8 +313,7 @@ class DomainStore {
 	}
 
 	checkLogin = () => {
-		//Attempt to load id
-		let successful = false;
+		let status;
 		if (window.sessionStorage.getItem('uid') > 0) {
 		 	fetch(`${this.hostname}/checkLogin`, {
 		 		method: 'post',
@@ -330,17 +323,15 @@ class DomainStore {
 		 		})
 		 	})
 		 .then(response => {
-		 	if (response.status === 200){
-		 		successful = true;
-		 	}
+		 	status = response.status;
 		 	return response.json();
 		 })
 		 .then(response => {
-		 	if (!successful){
-		 		console.log(response);
-		 	} else {
+		 	if (status === 200){
 		 		this.profile = response;
-		 		this.getCategories();
+		 		this.connected = true;
+		 	} else {
+		 		console.log(response);
 		 	}
 		 })
 		 .catch(error => console.log);
@@ -533,7 +524,8 @@ class DomainStore {
 		 })
 		 .then(response => response.json())
 		 .then(response => {
-		 	this.logout()
+			window.sessionStorage.setItem('uid', 0);
+			this.connected = false;
 		 })
 		 .catch(error => console.log);
 	}

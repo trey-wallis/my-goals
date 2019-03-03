@@ -23,7 +23,7 @@ class VisionItem extends Component {
 	render(){
 		return(
 			<div className="col-sm-6 col-lg-4 mb-3">
-				<div className="Vision__card card d-flex flex-column align-items-center" onClick={() => {this.onCardClick(this.props.itemId)}}>
+				<div className="Vision__card card d-flex flex-column align-items-center border-0" onClick={() => {this.onCardClick(this.props.itemId)}}>
 					<img className="Vision__img card-img-top" src={this.props.img} alt="img"/>
   					<div className="Vision__card-body card-body">
 	    				<h6 className="text-center text-primary">{this.props.title}</h6>

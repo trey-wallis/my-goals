@@ -12,7 +12,6 @@ import VisionBoard from '../components/VisionBoard';
 import Goals from '../components/Goals';
 import Habits from '../components/Habits';
 import Settings from '../components/Settings';
-import Logout from '../components/Logout';
 
 class App extends Component {
 
@@ -24,7 +23,7 @@ class App extends Component {
 	}
 
 	componentDidMount(){
-		//this.domain.checkLogin();
+		this.domain.checkLogin();
 	}
 
 	render(){
@@ -40,15 +39,15 @@ class App extends Component {
 							<Route path="/goals" component={Goals}/>
 							<Route path="/habits" component={Habits}/>
 							<Route path="/settings" component={Settings}/>
-							<Route path="/logout" component={Logout}/>
 							{this.domain.connected ?
 							<Redirect to="/dashboard" push={true} /> : ''}
 						</Switch> : 
-						<React.Fragment>
+						<Switch>
 							<Route exact={true} path="/" component={Title}/>
 							<Route path="/login" component={Login}/>
 							<Route path="/register" component={Register}/>
-						</React.Fragment>}
+							<Redirect to="/" push={true} />
+						</Switch>}
 				</div>
 			</Router>);
 	}
@@ -78,7 +77,7 @@ const HeaderLoggedIn = (ui, domain) => {
         			<Link to={'/settings'} className="nav-link">Settings</Link>
 	      		</li>
 	      		<li className="nav-item ml-auto">
-        			<Link to={'/logout'} className="nav-link">Logout</Link>
+        			<a className="nav-link" onClick={domain.postLogout}>Logout</a>
 	      		</li>
     		</ul>
    		</div>

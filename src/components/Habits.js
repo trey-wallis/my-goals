@@ -10,7 +10,13 @@ class Habits extends Component {
 
 	render(){
 		return(
-			<div>Habits</div>);
+			<div className="Habits">
+				<div className="container bg-white h-100">
+					<div className="p-4">
+						<h3 className="text-center">Habits</h3>
+					</div>
+				</div>
+			</div>);
 	}
 }
 

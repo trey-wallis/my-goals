@@ -5,7 +5,8 @@
 }
 
 .Vision__card {
-	height: 325px;
+	border: 0;
+	height: 300px;
 }
 
 .Vision__card:hover {
@@ -14,10 +15,6 @@
 
 .Vision__description {
 	font-size: 0.9rem;
-}
-
-.Vision__card-body {
-	overflow: hidden;
 }
 
 

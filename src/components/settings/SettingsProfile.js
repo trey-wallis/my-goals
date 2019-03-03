@@ -36,7 +36,7 @@ class SettingsProfile extends Component {
 
 	render(){
 		return(
-			<div className="card w-50 d-flex flex-column align-items-center p-2">
+			<div className="w-50 d-flex flex-column align-items-center p-2">
 				<div className="card-body">
 					<div className="row">
 						<div className="col-4">Display Name</div>

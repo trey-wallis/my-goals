@@ -24,7 +24,6 @@ class Goals extends Component {
 	}
 
 	renderGoals(){
-		if (this.domain.goals.length > 0){
 			return this.domain.goals.map((goal, i) => {
 				let visionItemName =  "";
 				for (let i = 0; i < this.domain.visionItems.length; i++){
@@ -86,22 +85,25 @@ class Goals extends Component {
   					</div>
 				</div>);
 			});
-		} else {
-			return (
-				<div className="text-center col-12">
-					<p>There are no goals to display<br/>
-					Would you like to <span className="text-danger" data-toggle="modal" data-target="#modal-add-goal">add</span> a goal?</p>
-				</div>);
-		}
+	}
+
+	renderMessage = () => {
+		return(
+			<p className="text-center">There are no goals to display<br/>
+			Would you like to <span className="text-primary" data-toggle="modal" data-target="#modal-add-goal">add</span> a goal?</p>
+		);
 	}
 
 	render(){
 		return(
 			<div className="Goals">
-				<div className="container-fluid--full container px-5 bg-white">
-					<h3 className="py-5 text-center">Goals</h3>
-					<div className="row">
-						{this.renderGoals()}
+				<div className="container bg-white">
+					<div className="p-4">
+						<h3 className="text-center">Goals</h3>
+						{this.domain.goals.length > 0 ? this.renderGoals() : this.renderMessage()}
+						<div className="row">
+							{this.renderGoals()}
+						</div>
 					</div>
 				</div>
 				<AddGoal />

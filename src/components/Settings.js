@@ -19,9 +19,9 @@ class Settings extends Component {
 
 	render(){
 		return(
-			<div className="menu">
-				<div className="container h-100 d-flex flex-column align-items-center">
-					<h3 className="my-5">Settings</h3>
+			<div className="Settings">
+				<div className="container h-100 d-flex flex-column align-items-center bg-white p-4">
+					<h3 className="mb-3">Settings</h3>
 					<SettingsProfile />
 				</div>
 			</div>);
