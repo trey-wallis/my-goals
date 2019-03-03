@@ -5,18 +5,18 @@ class Scrollable extends Component {
 
 	render(){
 		const styleScrollable = {
-			position: "absolute",
 			width: "250px",
-			maxHeight: this.props.maxHeight,
 			height: this.props.height,
-			overflowY: "hidden",
+			overflow: "hidden",
+			paddingRight: "5px",
 		}
 
 		const styleScrollableContainer = {
-			position: "absolute",
 			width: "100%",
 			height: "100%",
-			overflowY: "auto"
+			overflow: "auto",
+			margin: "0px 17px",
+			paddingRight: "5px",
 		}
 
 		return(

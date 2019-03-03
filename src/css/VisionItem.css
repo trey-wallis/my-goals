@@ -6,7 +6,7 @@
 
 .Vision__card {
 	border: 0;
-	height: 300px;
+	overflow: hidden;
 }
 
 .Vision__card:hover {
