@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 
-import Scrollable from '../Scrollable';
 import RootStore from '../../store/RootStore';
 
 class EditVisionItem extends Component {
@@ -13,25 +12,15 @@ class EditVisionItem extends Component {
 		this.domain = domain;
 
 		this.domain.editVisionItemForm.categoryId = this.domain.visionCategories[0].id;
-
 		for (let i = 0; i < this.domain.visionItems.length; i++){
 			const item = this.domain.visionItems[i];
-			if (item.categoryid === this.domain.editVisionItemForm.categoryId){
-				this.domain.editVisionItemForm.visionItems.push({
+			this.domain.editVisionItemForm.visionItems.push({
+					category: item.categoryid,
 					id: item.id,
 					title: item.title,
 					description: item.description,
 					url: item.url,
 					newCategory: item.categoryid,
-				});
-			}
-		}
-		if (this.domain.editVisionItemForm === []){
-			this.domain.editVisionItemForm.push({
-				id: "",
-				title: "",
-				description: "",
-				url: "",
 			})
 		}
 	}
@@ -44,7 +33,7 @@ class EditVisionItem extends Component {
 		this.domain.editVisionItemForm.categoryId = parseInt(e.target.value);
 	}
 
-	onGoalChange = (e) => {
+	onItemChange = (e) => {
 		this.domain.editVisionItemForm.itemIndex = parseInt(e.target.value);
 	}
 
@@ -54,9 +43,11 @@ class EditVisionItem extends Component {
 		});
 	}
 
-	renderGoalOptions = () => {
+	renderItemOptions = () => {
 		return this.domain.editVisionItemForm.visionItems.map((item, i) => {
-			return <option key={i} value={i}>{item.title}</option>;
+			if(item.category === this.domain.editVisionItemForm.categoryId)
+				return <option key={i} value={i}>{item.title}</option>;
+			return ''; 
 		});
 	}
 
@@ -99,9 +90,9 @@ class EditVisionItem extends Component {
 				      		<select className="form-control form-control-sm mb-2" onChange={(e) => {this.onCategoryChange(e)}}>
 				      			{this.renderCategoryOptions()}
 							</select>
-							<h6>Goal</h6>
-							<select className="form-control form-control-sm mb-3" onChange={(e) => {this.onGoalChange(e)}}>
-				      			{this.renderGoalOptions()}
+							<h6>Vision Item</h6>
+							<select className="form-control form-control-sm mb-3" onChange={(e) => {this.onItemChange(e)}}>
+				      			{this.renderItemOptions()}
 							</select>
 							<div className="form-group">
 								<input type="text" className="form-control" value={this.domain.editVisionItemForm.visionItems[this.domain.editVisionItemForm.itemIndex].title} placeholder="Name" onChange={ (e)=> {this.onItemTitleChange(e)} }/>

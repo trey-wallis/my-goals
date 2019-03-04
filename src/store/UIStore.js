@@ -1,5 +1,5 @@
 import React from 'react';
-import { observable, decorate, computed} from 'mobx';
+import { observable, decorate} from 'mobx';
 import DropDownGoals from '../components/dropdown/DropDownGoals';
 import DropDownVision from '../components/dropdown/DropDownVision';
 
@@ -19,7 +19,7 @@ class UIStore {
 
 	isNavItemActive(index){
 		if (this.navItemActive === index)
-			return " " + "active";
+			return " active";
 		return "";
 	}
 
@@ -29,7 +29,7 @@ class UIStore {
 
 	isDropDownItemActive(index){
 		if (index === this.dropDown.active)
-			return " " + "active";
+			return " active";
 		return '';
 	}
 

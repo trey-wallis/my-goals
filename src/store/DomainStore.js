@@ -648,7 +648,7 @@ class DomainStore {
 		 	if (status === 200){
 		 		for (let i = 0; i < this.visionData.categories.length; i++){
 		 			if (this.visionData.categories[i].id === this.editCategoryForm.id){
-		 				if (this.editCategoryForm.deleteId != -1){
+		 				if (this.editCategoryForm.deleteId !== -1){
 		 					this.visionData.categories.splice(i);
 		 					this.editCategoryForm.deleteId = -1;
 		 				} else {

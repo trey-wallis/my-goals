@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
 import RootStore from '../store/RootStore';
-import SettingsProfile from '../components/settings/SettingsProfile';
 import $ from 'jquery';
 
 class Settings extends Component {

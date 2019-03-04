@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 
-import Scrollable from '../Scrollable';
 import RootStore from '../../store/RootStore';
 
 class EditVisionCategory extends Component {

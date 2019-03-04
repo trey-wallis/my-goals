@@ -77,7 +77,7 @@ const HeaderLoggedIn = (ui, domain) => {
         			<Link to={'/settings'} className={"nav-link" + ui.isNavItemActive(4)}>Settings</Link>
 	      		</li>
 	      		<li className="nav-item ml-auto">
-        			<a className="nav-link" onClick={domain.postLogout}>Logout</a>
+        			<button className="nav-link btn--reset" onClick={domain.postLogout}>Logout</button>
 	      		</li>
     		</ul>
    		</div>
