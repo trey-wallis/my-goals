@@ -42,11 +42,11 @@ class App extends Component {
 							{this.domain.connected ?
 							<Redirect to="/dashboard" push={true} /> : ''}
 						</Switch> : 
-						<Switch>
+						<div>
 							<Route exact={true} path={`${process.env.PUBLIC_URL}/`}  component={Title}/>
-							<Route path="/login" component={Login}/>
-							<Route path="/register" component={Register}/>
-						</Switch>}
+							<Route path={`${process.env.PUBLIC_URL}/login`} component={Login}/>
+							<Route path={`${process.env.PUBLIC_URL}/register`} component={Register}/>
+						</div>}
 				</div>
 			</Router>);
 	}
