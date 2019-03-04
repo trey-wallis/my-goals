@@ -11,8 +11,6 @@ import EditVisionCategory from '../components/vision/EditVisionCategory.js';
 import AddVisionNote from '../components/vision/AddVisionNote';
 import VisionItem from './vision/VisionItem';
 
-import '../css/VisionBoard.css';
-
 class VisionBoard extends Component {
 
 	constructor(){

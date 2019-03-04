@@ -24,9 +24,7 @@ class VisionItem extends Component {
 		return(
 			<div className="col-sm-6 col-lg-4 no-gutters">
 				<div className="Vision__card card d-flex flex-column align-items-center border-0" onClick={() => {this.onCard(this.props.itemId)}}>
-					<div className="Vision__crop">
 						<img className="Vision__img card-img-top" src={this.props.img} alt="img"/>
-					</div>
   					<div className="Vision__card-body card-body">
 	    				<h6 className="text-center text-primary">{this.props.title}</h6>
 	    				<Scrollable height="110px" width="280px" margin="0px 17px">

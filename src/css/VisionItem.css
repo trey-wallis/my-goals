@@ -1,15 +1,7 @@
-.Vision__crop {
-	width: 350px;
-	height: 150px;
-	border-radius-top: 6px;
-	overflow: hidden;
-}
-
 .Vision__img {
-	width: 400px;
-	height: auto;
-	margin: -50px 0px 0px 0px;
-
+	width: 350px;
+	height: 200px;
+	object-fit: cover;
 }
 
 .Vision__card {
@@ -28,8 +20,6 @@
 
 @media (max-width: 576px) {
 	.Vision__img {
-		width: 300px;
-		height: 300px;
 		padding-top: 20px;
 	}
 }
