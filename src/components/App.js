@@ -43,7 +43,7 @@ class App extends Component {
 							<Redirect to="/dashboard" push={true} /> : ''}
 						</Switch> : 
 						<Switch>
-							<Route exact={true} path="/" component={Title}/>
+							<Route exact={true} path={`${process.env.PUBLIC_URL}/`}  component={Title}/>
 							<Route path="/login" component={Login}/>
 							<Route path="/register" component={Register}/>
 						</Switch>}
