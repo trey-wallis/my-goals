@@ -11,6 +11,7 @@ class EditVisionItem extends Component {
 		this.ui = ui;
 		this.domain = domain;
 
+		this.domain.editVisionItemForm.visionItems = [];
 		this.domain.editVisionItemForm.categoryId = this.domain.visionCategories[0].id;
 		for (let i = 0; i < this.domain.visionItems.length; i++){
 			const item = this.domain.visionItems[i];
