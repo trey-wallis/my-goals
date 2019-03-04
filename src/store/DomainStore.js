@@ -32,6 +32,7 @@ class DomainStore {
 			categoryId: -1,
 			visionItems: [],
 			delete: [],
+			itemIndex: 0,
 			response: "",
 		}
 
@@ -628,7 +629,29 @@ class DomainStore {
 	}
 
 	editVisionCategory = () => {
-		console.log("editting category");
+		let status;
+		 fetch(`${this.hostname}/editvisioncategory`, {
+		 	method: 'post',
+		 	headers: {'Content-Type': 'application/json'},
+		 	body: JSON.stringify({
+		 		uid: this.profile.uid,
+		 		id: this.editVisionCategory.id,
+		 		name: this.editVisionCategory.name,
+		 		delete: this.editVisionCategory.delete,
+		 	})
+		 })
+		 .then(response => {
+		 	status = response.status;
+		 	return response.json();
+		 })
+		 .then(response => {
+		 	if (status === 200){
+		 		this.editVisionCategory.response = response;
+		 	} else {
+		 		this.editVisonCategory.response = response;
+		 	}
+		 })
+		 .catch(err => this.editVisionCategory.response = "Unable to connect to api");
 	}
 
 	editVisionItem = () => {

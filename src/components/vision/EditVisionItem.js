@@ -35,50 +35,39 @@ class EditVisionItem extends Component {
 		this.domain.editVisionItemForm.categoryId = parseInt(e.target.value);
 	}
 
+	onGoalChange = (e) => {
+		this.domain.editVisionItemForm.itemIndex = parseInt(e.target.value);
+	}
+
 	renderCategoryOptions = () => {
 		return this.domain.visionCategories.map((category, i) => {
 			return <option key={i} value={category.id}>{category.name}</option>;
 		});
 	}
 
-	onItemTitleChange = (i, e) => {
-		this.domain.editVisionItemForm.visionItems[i].title = e.target.value;
+	renderGoalOptions = () => {
+		return this.domain.editVisionItemForm.visionItems.map((item, i) => {
+			return <option key={i} value={i}>{item.title}</option>;
+		});
 	}
 
-	onItemDescriptionChange = (i, e) => {
-		this.domain.editVisionItemForm.visionItems[i].description = e.target.value;
+	onItemTitleChange = (e) => {
+		this.domain.editVisionItemForm.visionItems[this.domain.editVisionItemForm.itemIndex].title = e.target.value;
 	}
 
-	onItemUrlChange = (i, e) => {
-		this.domain.editVisionItemForm.visionItems[i].url = e.target.value;
+	onItemDescriptionChange = (e) => {
+		this.domain.editVisionItemForm.visionItems[this.domain.editVisionItemForm.itemIndex].description = e.target.value;
 	}
 
-	onItemDelete = (i) => {
-		const id = this.domain.editVisionItemForm.visionItems[i].id;
-		if (this.domain.editVisionItemForm.delete.contains(id)){
+	onItemUrlChange = (e) => {
+		this.domain.editVisionItemForm.visionItems[this.domain.editVisionItemForm.itemIndex].url = e.target.value;
+	}
+
+	onItemDelete = () => {
+		const id = this.domain.editVisionItemForm.visionItems[this.domain.editVisionItemForm.itemIndex].id;
+		if (this.domain.editVisionItemForm.delete.includes(id)){
 			this.domain.editVisionItemForm.delete.push(id);
 		}
-	}
-
-	renderVisionItems = () => {
-		return this.domain.visionItems.map((item, i) => {
-				return(
-				<div className="mt-2" key={i}>
-					<h6>Vision Item {i}</h6>
-					<div className="form-group">
-						<input type="text" className="form-control" value={this.domain.editVisionItemForm.visionItems[i].title} placeholder="Name" onChange={ (e)=> {this.onItemTitleChange(i, e)} }/>
-					</div>
-					<div className="form-group">
-						<textarea className="form-control" value={this.domain.editVisionItemForm.visionItems[i].description} placeholder="Explain what your vision looks like. What do you want to accomplish?" onChange={ (e)=> {this.onItemDescriptionChange(i, e)} }></textarea>
-					</div>
-					<div className="form-group">
-						<input type="text" className="form-control" value={this.domain.editVisionItemForm.visionItems[i].url} placeholder="URL" onChange={ (e)=> {this.onItemUrlChange(i, e)} }/>
-					</div>
-					<div className="d-flex w-100 justify-content-end">
-						<button className="btn btn-danger" onClick={() => {this.onItemDelete(i)}}>Delete</button>
-					</div>
-				</div>);
-		});
 	}
 
 	render(){
@@ -97,9 +86,22 @@ class EditVisionItem extends Component {
 				      		<select className="form-control form-control-sm mb-2" onChange={(e) => {this.onCategoryChange(e)}}>
 				      			{this.renderCategoryOptions()}
 							</select>
-							<Scrollable height="255px">
-								{this.renderVisionItems()}
-							</Scrollable>
+							<h6>Goal</h6>
+							<select className="form-control form-control-sm mb-3" onChange={(e) => {this.onGoalChange(e)}}>
+				      			{this.renderGoalOptions()}
+							</select>
+							<div className="form-group">
+								<input type="text" className="form-control" value={this.domain.editVisionItemForm.visionItems[this.domain.editVisionItemForm.itemIndex].title} placeholder="Name" onChange={ (e)=> {this.onItemTitleChange(e)} }/>
+							</div>
+							<div className="form-group">
+								<textarea className="form-control" rows="4" value={this.domain.editVisionItemForm.visionItems[this.domain.editVisionItemForm.itemIndex].description} placeholder="Explain what your vision looks like. What do you want to accomplish?" onChange={ (e)=> {this.onItemDescriptionChange(e)} }></textarea>
+							</div>
+							<div className="form-group">
+								<input type="text" className="form-control" value={this.domain.editVisionItemForm.visionItems[this.domain.editVisionItemForm.itemIndex].url} placeholder="URL" onChange={ (e)=> {this.onItemUrlChange(e)} }/>
+							</div>
+							<div className="d-flex w-100 justify-content-end">
+								<button className="btn btn-danger" onClick={() => {this.onItemDelete(this.domain.editVisionItemForm.itemIndex)}}>Delete</button>
+							</div>
 			      		</div>
 			      		<div className="modal-footer justify-content-between">
 			      			<div className="text-danger">{this.domain.editCategoryForm.response}</div>

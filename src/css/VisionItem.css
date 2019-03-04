@@ -1,7 +1,15 @@
-.Vision__img {
+.Vision__crop {
 	width: 350px;
 	height: 150px;
 	border-radius-top: 6px;
+	overflow: hidden;
+}
+
+.Vision__img {
+	width: 400px;
+	height: auto;
+	margin: -50px 0px 0px 0px;
+
 }
 
 .Vision__card {
