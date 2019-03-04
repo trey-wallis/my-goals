@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {observer} from 'mobx-react';
-import {BrowserRouter as Router, Link, Route, Redirect, Switch} from 'react-router-dom';
+import {HashRouter as Router, Link, Route, Redirect, Switch} from 'react-router-dom';
 
 import RootStore from '../store/RootStore';
 
@@ -43,8 +43,8 @@ class App extends Component {
 							<Redirect to="/dashboard" push={true} /> : ''}
 						</Switch> : 
 						<div>
-							<Route exact={true} path={`${process.env.PUBLIC_URL}/`}  component={Title}/>
-							<Route path={`${process.env.PUBLIC_URL}/login`} component={Login}/>
+							<Route exact={true} path={'/'}  component={Title}/>
+							<Route path={`/login`} component={Login}/>
 							<Route path={`${process.env.PUBLIC_URL}/register`} component={Register}/>
 						</div>}
 				</div>
