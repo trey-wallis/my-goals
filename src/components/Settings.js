@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import RootStore from '../store/RootStore';
 import SettingsProfile from '../components/settings/SettingsProfile';
+import $ from 'jquery';
 
 class Settings extends Component {
 
@@ -10,6 +11,10 @@ class Settings extends Component {
 		const {domain, ui} = RootStore.store;
 		this.ui = ui;
 		this.domain = domain;
+	}
+
+	componentDidMount(){
+		$('.navbar-collapse').collapse('hide');
 	}
 
 	render(){

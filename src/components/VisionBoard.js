@@ -2,6 +2,12 @@ import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import VisionItem from './vision/VisionItem';
 import RootStore from '../store/RootStore';
+import AddVisionCategory from './vision/AddVisionCategory';
+import AddVisionItem from './vision/AddVisionItem';
+import EditVision from '../components/vision/EditVision.js';
+import AddVisionNote from '../components/vision/AddVisionNote';
+
+import $ from 'jquery';
 
 import '../css/VisionBoard.css';
 
@@ -12,6 +18,10 @@ class VisionBoard extends Component {
 		const {ui, domain} = RootStore.store;
 		this.ui = ui;
 		this.domain = domain;
+	}
+
+	componentDidMount(){
+		$('.navbar-collapse').collapse('hide');
 	}
 
 	renderItems(category){
@@ -63,10 +73,16 @@ class VisionBoard extends Component {
 
 	render(){
 		return(
-			<div className="container-fluid--full">
-				<div className="container bg-white h-100 p-5">
-					{this.renderCategories()}
+			<div className="VisionBoard">
+				<div className="container-fluid--full">
+					<div className="container bg-white h-100 p-5">
+						{this.renderCategories()}
+					</div>
 				</div>
+				<EditVision />
+				<AddVisionItem />
+				<AddVisionCategory />
+				<AddVisionNote />
 			</div>);
 	}
 }

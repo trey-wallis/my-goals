@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
 
 import '../css/DashBoard.css';
+
+import $ from 'jquery';
 import RootStore from '../store/RootStore';
 class DashBoard extends Component {
+
+	componentDidMount(){
+		$('.navbar-collapse').collapse('hide');
+	}
 
 	render(){
 		return(

@@ -115,36 +115,6 @@ class Header extends Component {
     			</div>
     		</nav>);
 	}
-
-	renderLoggedOut(){
-		return(
-			<nav className="navbar navbar-expand-md navbar-dark bg-primary" id="navbar-top">
-			    <button className="navbar-brand btn--reset" onClick={this.onHome}>My Goals</button>
-				<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main">
-    				<span className="navbar-toggler-icon"></span>
-  				</button>
-  				<div className="collapse navbar-collapse" id="navbar-main">
-    				<ul className="navbar-nav ml-auto">
-      					<li className={this.ui.isNavMenuItemActive(1) + " nav-item ml-auto"}>
-        					<button className="nav-link btn--reset" onClick={this.onLogin}>Login</button>
-      					</li>
-      					<li className={this.ui.isNavMenuItemActive(2) + " nav-item ml-auto"}>
-        					<button className="nav-link btn--reset" onClick={this.onRegister}>Register</button>
-      					</li>
-    				</ul>
-    			</div>
-    		</nav>);
-	}
-
-	render() {
-		return (
-			<Fragment>
-			{
-				(this.domain.loggedIn ? this.renderLoggedIn() : this.renderLoggedOut())
-			}
-			</Fragment>
-		);
-	}
 }
 
 export default observer(Header);

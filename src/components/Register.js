@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
+import $ from 'jquery';
 
 import '../css/Registration.css';
 import RootStore from '../store/RootStore';
@@ -11,6 +12,16 @@ class Register extends Component {
 		let {ui, domain} = RootStore.store;
 		this.ui = ui;
 		this.domain = domain;
+
+		//Reset inputs on refresh
+		this.domain.registrationUsername = "";
+		this.domain.registrationPassword = "";
+		this.domain.registrationPasswordRepeat = "";
+		this.domain.registrationResponse = "";
+	}
+
+	componentDidMount(){
+		$('.navbar-collapse').collapse('hide');
 	}
 
 	onSubmit = () => {

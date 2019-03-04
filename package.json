@@ -2,7 +2,7 @@
   "name": "my-goals-react",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "https://wallisinnovations.com/my-goals",
+  "homepage": "https://wallisinnovations.com/my-goals",
   "dependencies": {
     "bootstrap": "^4.2.1",
     "jquery": "^3.3.1",
@@ -12,6 +12,7 @@
     "popper.js": "^1.14.7",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1"
   },
   "scripts": {

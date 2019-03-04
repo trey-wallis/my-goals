@@ -2,15 +2,19 @@ import React, {Component} from 'react';
 import DocumentIcon from '../icons/document-new.svg'
 import GraphicIcon from '../icons/graph-bar.svg';
 import HeartIcon from '../icons/heart.svg';
+import $ from 'jquery';
 
 import '../css/Title.css';
 
 class Title extends Component {
 
+	componentDidMount(){
+		$('.navbar-collapse').collapse('hide');
+	}
 
 	render(){
 		return(
-			<React.Fragment>
+			<div className="Title">
 				<div className="Title__top bg-primary d-flex align-items-center justify-content-center">
 					<div className="jumbotron bg--inherit m4 d-flex flex-column align-items-center">
 						<h1 className="display-4 text-center text-white">What are my goals?</h1>
@@ -35,7 +39,7 @@ class Title extends Component {
 						<p className="w-50 text-center text-dark">Track and develop healthy habits that will help you achieve your goals</p>
 					</div>
 				</div>
-			</React.Fragment>);
+			</div>);
 	}
 }
 

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
+import $ from 'jquery';
 
 import '../css/Login.css';
 import RootStore from '../store/RootStore';
@@ -16,6 +17,10 @@ class Login extends Component {
 		this.domain.loginUsername = "";
 		this.domain.loginPassword = "";
 		this.domain.loginResponse = "";
+	}
+
+	componentDidMount(){
+		$('.navbar-collapse').collapse('hide');
 	}
 
 	onSubmit = () => {
