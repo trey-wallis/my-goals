@@ -37,9 +37,7 @@ class Goals extends Component {
 	}
 
 	increaseProgress = (id) => {
-		const goal = this.domain.goals.filter(goal => {
-			return goal.id === id;
-		})
+		const goal = this.domain.goals.filter(goal => goal.id === id)[0];
 		const progress = goal.progress;
 		if (progress === 100)
 			return;
@@ -47,9 +45,7 @@ class Goals extends Component {
 	}
 
 	decreaseProgress = (id) => {
-		const goal = this.domain.goals.filter(goal => {
-			return goal.id === id;
-		})
+		const goal = this.domain.goals.filter(goal => goal.id === id)[0];
 		const progress = goal.progress;
 		if (progress === 0)
 			return;
