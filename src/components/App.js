@@ -28,7 +28,7 @@ class App extends Component {
 
 	render(){
 		return (
-			<Router basename={'/my-goals'}>
+			<Router>
 				<div className="App">
 					{this.domain.loggedIn ? 
 						HeaderLoggedIn(this.ui, this.domain): HeaderLoggedOut(this.ui)}
@@ -45,7 +45,7 @@ class App extends Component {
 						<div>
 							<Route exact={true} path={'/'}  component={Title}/>
 							<Route path={`/login`} component={Login}/>
-							<Route path={`${process.env.PUBLIC_URL}/register`} component={Register}/>
+							<Route path={`/register`} component={Register}/>
 						</div>}
 				</div>
 			</Router>);
