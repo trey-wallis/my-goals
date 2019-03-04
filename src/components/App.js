@@ -46,7 +46,6 @@ class App extends Component {
 							<Route exact={true} path="/" component={Title}/>
 							<Route path="/login" component={Login}/>
 							<Route path="/register" component={Register}/>
-							<Redirect to="/" push={true} />
 						</Switch>}
 				</div>
 			</Router>);
