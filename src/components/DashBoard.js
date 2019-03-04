@@ -15,6 +15,8 @@ class DashBoard extends Component {
 
 	componentDidMount(){
 		$('.navbar-collapse').collapse('hide');
+		this.ui.navItemActive = 0;
+		this.ui.changeDropDownMenu("brandbar", "My Goals");
 		this.domain.getCategories();
 		this.domain.getGoals();
 	}

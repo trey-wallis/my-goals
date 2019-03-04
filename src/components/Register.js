@@ -22,9 +22,11 @@ class Register extends Component {
 
 	componentDidMount(){
 		$('.navbar-collapse').collapse('hide');
+		this.ui.navItemActive = 2;
 	}
 
 	onSubmit = () => {
+		this.domain.registerResponse = "Registering account...";
 		this.domain.connectRegister();
 	}
 

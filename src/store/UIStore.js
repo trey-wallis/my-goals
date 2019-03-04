@@ -8,12 +8,24 @@ class UIStore {
 	constructor(root){
 		this.root = root;
 
+		this.navItemActive = 0;
+
 		this.dropDownMenu = {
 			active: -1,
 			items: [],
 			route: "none",
 			title: "My Goals",
 		}
+	}
+
+	isNavItemActive(index){
+		if (this.navItemActive === index)
+			return " " + "active";
+		return "";
+	}
+
+	set itemActive(index){
+		this.navItemActive = index;
 	}
 
 	changeDropDownMenu(route, title="My Goals", active=-1){
@@ -79,7 +91,7 @@ class UIStore {
 
 decorate(UIStore, {
 	dropDownMenu: observable,
-	visionMenu: observable,
+	navItemActive: observable,
 })
 
 export default UIStore;

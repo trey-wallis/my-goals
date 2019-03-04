@@ -21,9 +21,11 @@ class Login extends Component {
 
 	componentDidMount(){
 		$('.navbar-collapse').collapse('hide');
+		this.ui.navItemActive = 1;
 	}
 
 	onSubmit = () => {
+		this.domain.loginResponse = "Logging in...";
 		this.domain.connectLogin();
 	}
 

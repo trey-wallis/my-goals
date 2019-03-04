@@ -10,6 +10,7 @@ class Title extends Component {
 
 	componentDidMount(){
 		$('.navbar-collapse').collapse('hide');
+
 	}
 
 	render(){

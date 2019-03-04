@@ -31,7 +31,7 @@ class App extends Component {
 			<Router>
 				<div className="App">
 					{this.domain.loggedIn ? 
-						HeaderLoggedIn(this.ui, this.domain): HeaderLoggedOut()}
+						HeaderLoggedIn(this.ui, this.domain): HeaderLoggedOut(this.ui)}
 					{this.domain.loggedIn ?
 						<Switch>
 							<Route path="/dashboard" component={DashBoard}/>
@@ -62,19 +62,19 @@ const HeaderLoggedIn = (ui, domain) => {
   		<div className="collapse navbar-collapse" id="navbar-main">
     		<ul className="navbar-nav ml-auto">
 	      		<li className="nav-item ml-auto">
-        			<Link to={'/dashboard'} className="nav-link">Dashboard</Link>
+        			<Link to={'/dashboard'} className={"nav-link" + ui.isNavItemActive(0)}>Dashboard</Link>
 	      		</li>
 	      		<li className="nav-item ml-auto">
-        			<Link to={'/visionboard'} className="nav-link">Vision Board</Link>
+        			<Link to={'/visionboard'} className={"nav-link" + ui.isNavItemActive(1)}>Vision Board</Link>
 	      		</li>
 	      		<li className="nav-item ml-auto">
-        			<Link to={'/goals'} className="nav-link">Goals</Link>
+        			<Link to={'/goals'} className={"nav-link" + ui.isNavItemActive(2)}>Goals</Link>
 	      		</li>
 	      		<li className="nav-item ml-auto">
-        			<Link to={'/habits'} className="nav-link">Habits</Link>
+        			<Link to={'/habits'} className={"nav-link" + ui.isNavItemActive(3)}>Habits</Link>
 	      		</li>
 	      		<li className="nav-item ml-auto">
-        			<Link to={'/settings'} className="nav-link">Settings</Link>
+        			<Link to={'/settings'} className={"nav-link" + ui.isNavItemActive(4)}>Settings</Link>
 	      		</li>
 	      		<li className="nav-item ml-auto">
         			<a className="nav-link" onClick={domain.postLogout}>Logout</a>
@@ -84,7 +84,7 @@ const HeaderLoggedIn = (ui, domain) => {
   	</nav>);
 };
 
-const HeaderLoggedOut = () => (
+const HeaderLoggedOut = (ui) => (
 	<nav className="navbar navbar-expand-md navbar-dark bg-primary" id="navbar-top">
 		<Link to={'/'} className="navbar-brand">My Goals</Link>
 		<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main">
@@ -93,10 +93,10 @@ const HeaderLoggedOut = () => (
   		<div className="collapse navbar-collapse" id="navbar-main">
     		<ul className="navbar-nav ml-auto">
       			<li className="nav-item ml-auto">
-      				<Link to={'/login'} className="nav-link">Login</Link>
+      				<Link to={'/login'} className={"nav-link" + ui.isNavItemActive(1)}>Login</Link>
       			</li>
       			<li className="nav-item ml-auto">
-        			<Link to={'/register'} className="nav-link">Register</Link>
+        			<Link to={'/register'} className={"nav-link" + ui.isNavItemActive(2)}>Register</Link>
       			</li>
     		</ul>
     	</div>

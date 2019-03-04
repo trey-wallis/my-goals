@@ -15,6 +15,8 @@ class Settings extends Component {
 
 	componentDidMount(){
 		$('.navbar-collapse').collapse('hide');
+		this.ui.navItemActive = 4;
+		this.ui.changeDropDownMenu("settings", "My Settings");
 	}
 
 	render(){

@@ -20,7 +20,19 @@ class Goals extends Component {
 	}
 
 	componentDidMount(){
+		this.ui.changeDropDownMenu("goals", "My Goals");
+		
+		if (this.domain.visionCategories.length > 0){
+			this.domain.addGoalCategoryId = this.domain.visionCategories[0].id;
+		}
+		const items = this.domain.visionItems.filter(item => {
+			return item.categoryid === this.domain.addGoalCategoryId;
+		});
+		if (items.length > 0){
+			this.domain.addGoalVisionItemId = items[0].id;
+		}
 		$('.navbar-collapse').collapse('hide');
+		this.ui.navItemActive = 2;
 	}
 
 	renderGoals(){
