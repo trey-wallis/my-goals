@@ -22,7 +22,7 @@ class DashBoard extends Component {
 	}
 
 	render(){
-		const categoriesCount = this.domain.visionCategories.length;
+		const visionItemCount = this.domain.visionItems.length;
 		const goalCount = this.domain.goals.length;
 
 		return(
@@ -34,16 +34,16 @@ class DashBoard extends Component {
 				</div>
 				<div className="row w-100 my-2">
 					<div className="col-4">
-						<div className="display-4 text-center">{categoriesCount}</div>
-						<h5 className="text-black text-center">Current Categories</h5>
+						<div className="display-4 text-center">{visionItemCount}</div>
+						<h5 className="text-black text-center">Vision Items</h5>
 					</div>
 					<div className="col-4">
 						<div className="display-4 text-center">{goalCount}</div>
-						<h5 className="text-black text-center">Current Goals</h5>
+						<h5 className="text-black text-center">Goals</h5>
 					</div>
 					<div className="col-4">
 						<div className="display-4 text-center">0</div>
-						<h5 className="text-black text-center">Current Habits</h5>
+						<h5 className="text-black text-center">Habits</h5>
 					</div>
 				</div>
 			</div>

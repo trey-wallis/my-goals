@@ -22,8 +22,17 @@ class EditVisionItem extends Component {
 					title: item.title,
 					description: item.description,
 					url: item.url,
+					newCategory: item.categoryid,
 				});
 			}
+		}
+		if (this.domain.editVisionItemForm === []){
+			this.domain.editVisionItemForm.push({
+				id: "",
+				title: "",
+				description: "",
+				url: "",
+			})
 		}
 	}
 
@@ -63,6 +72,10 @@ class EditVisionItem extends Component {
 		this.domain.editVisionItemForm.visionItems[this.domain.editVisionItemForm.itemIndex].url = e.target.value;
 	}
 
+	onCategorySelect = (e) => {
+		this.domain.editVisionItemForm.visionItems[this.domain.editVisionItemForm.itemIndex].newCategory = e.target.value;
+	}
+
 	onItemDelete = () => {
 		const id = this.domain.editVisionItemForm.visionItems[this.domain.editVisionItemForm.itemIndex].id;
 		if (this.domain.editVisionItemForm.delete.includes(id)){
@@ -99,12 +112,17 @@ class EditVisionItem extends Component {
 							<div className="form-group">
 								<input type="text" className="form-control" value={this.domain.editVisionItemForm.visionItems[this.domain.editVisionItemForm.itemIndex].url} placeholder="URL" onChange={ (e)=> {this.onItemUrlChange(e)} }/>
 							</div>
+							<div className="form-group">
+								<select className="form-control form-control-sm mb-2" onChange={(e) => {this.onCategorySelect(e)}}>
+									{this.renderCategoryOptions()}
+								</select>
+							</div>
 							<div className="d-flex w-100 justify-content-end">
 								<button className="btn btn-danger" onClick={() => {this.onItemDelete(this.domain.editVisionItemForm.itemIndex)}}>Delete</button>
 							</div>
 			      		</div>
 			      		<div className="modal-footer justify-content-between">
-			      			<div className="text-danger">{this.domain.editCategoryForm.response}</div>
+			      			<div className="text-danger">{this.domain.editVisionItemForm.response}</div>
 			      			<div>
 				      			<button type="button" className="btn btn-primary mr-2" onClick={this.onSaveChanges}>Save changes</button>
 				        		<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -40,7 +40,7 @@ class DropDownVision extends Component {
 					{
 					this.domain.visionCategories.length > 0 ?
 						<React.Fragment>
-							<Scrollable height="100px">
+							<Scrollable maxHeight="100px">
 								{ this.renderDropDownItems() }
 							</Scrollable>
 							<div className="dropdown-divider"></div>

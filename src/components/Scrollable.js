@@ -6,6 +6,7 @@ class Scrollable extends Component {
 		const styleScrollable = {
 			width: this.props.width,
 			height: this.props.height,
+			maxHeight: this.props.maxHeight,
 			overflow: "hidden",
 		}
 

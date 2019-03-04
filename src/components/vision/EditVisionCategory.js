@@ -30,7 +30,7 @@ class EditVisionCategory extends Component {
 	}
 
 	onCategoryDelete = () => {
-		this.domain.editCategoryForm.delete = this.domain.editCategoryForm.id;
+		this.domain.editCategoryForm.deleteId = this.domain.editCategoryForm.id;
 	}
 
 	renderCategoryOptions = () => {

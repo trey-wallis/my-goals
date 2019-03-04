@@ -5,6 +5,8 @@ import {observer} from 'mobx-react';
 import RootStore from '../store/RootStore';
 import ProgressBar from './goal/ProgressBar.js';
 import ViewList from '../icons/view-list.svg';
+import Plus from '../icons/plus.svg';
+import Minus from '../icons/minus.svg';
 import AddGoal from '../components/goal/AddGoal';
 
 import $ from 'jquery';
@@ -34,6 +36,26 @@ class Goals extends Component {
 		this.ui.dropDown.id = 2;
 	}
 
+	increaseProgress = (id) => {
+		const goal = this.domain.goals.filter(goal => {
+			return goal.id === id;
+		})
+		const progress = goal.progress;
+		if (progress === 100)
+			return;
+		this.domain.progress(id, progress + 10);
+	}
+
+	decreaseProgress = (id) => {
+		const goal = this.domain.goals.filter(goal => {
+			return goal.id === id;
+		})
+		const progress = goal.progress;
+		if (progress === 0)
+			return;
+		this.domain.progress(id, progress - 10);
+	}
+
 	renderGoals(){
 			let visionItemName = "";
 			let visionItemURL = "";
@@ -59,8 +81,16 @@ class Goals extends Component {
 									<h6 className="card-title text-white">{goal.name}</h6>
 									<div className="text-light">{visionItemName}</div>
 								</div>
-								<div className="Goals__icon">
-									<img src={ViewList} className="Goals__icon-item" alt="viewlist" data-toggle="collapse" data-target={"#goal-info-" + i}/>
+								<div className="d-flex justify-content-end">
+									<div className="Goals__icon">
+										<img src={Plus} className="Goals__icon-item" alt="plus" onClick={()=>{this.increaseProgress(goal.id)}}/>
+									</div>
+									<div className="Goals__icon">
+										<img src={Minus} className="Goals__icon-item" alt="minus" onClick={()=>{this.decreaseProgress(goal.id)}}/>
+									</div>
+									<div className="Goals__icon">
+										<img src={ViewList} className="Goals__icon-item" alt="viewlist" data-toggle="collapse" data-target={"#goal-info-" + i}/>
+									</div>
 								</div>
 							</div>
 							<div className="row mb-2">

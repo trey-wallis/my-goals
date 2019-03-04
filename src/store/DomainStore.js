@@ -24,7 +24,7 @@ class DomainStore {
 		this.editCategoryForm = {
 			id: -1,
 			name: "",
-			delete: -1,
+			deleteId: -1,
 			response: "",
 		}
 
@@ -635,9 +635,9 @@ class DomainStore {
 		 	headers: {'Content-Type': 'application/json'},
 		 	body: JSON.stringify({
 		 		uid: this.profile.uid,
-		 		id: this.editVisionCategory.id,
-		 		name: this.editVisionCategory.name,
-		 		delete: this.editVisionCategory.delete,
+		 		id: this.editCategoryForm.id,
+		 		name: this.editCategoryForm.name,
+		 		deleteId: this.editCategoryForm.deleteId,
 		 	})
 		 })
 		 .then(response => {
@@ -646,16 +646,84 @@ class DomainStore {
 		 })
 		 .then(response => {
 		 	if (status === 200){
-		 		this.editVisionCategory.response = response;
+		 		for (let i = 0; i < this.visionData.categories.length; i++){
+		 			if (this.visionData.categories[i].id === this.editCategoryForm.id){
+		 				if (this.editCategoryForm.deleteId != -1){
+		 					this.visionData.categories.splice(i);
+		 					this.editCategoryForm.deleteId = -1;
+		 				} else {
+		 					this.visionData.categories[i].name = this.editCategoryForm.name;
+		 				}
+		 			}
+		 		}
+		 		$("#modal-edit-vision-category").modal('hide');
 		 	} else {
-		 		this.editVisonCategory.response = response;
+		 		this.editCategoryForm.response = response;
 		 	}
 		 })
-		 .catch(err => this.editVisionCategory.response = "Unable to connect to api");
+		 .catch(err => this.editCategoryForm.response = "Unable to connect to api");
 	}
 
 	editVisionItem = () => {
-		console.log("editting vision item");
+		let status;
+		 fetch(`${this.hostname}/editvisionitem`, {
+		 	method: 'post',
+		 	headers: {'Content-Type': 'application/json'},
+		 	body: JSON.stringify({
+		 		uid: this.profile.uid,
+		 		visionItems: this.editVisionItemForm.visionItems,
+		 	})
+		 })
+		 .then(response => {
+		 	status = response.status;
+		 	return response.json();
+		 })
+		 .then(response => {
+		 	if (status === 200){
+		 		for (let i = 0; i < this.visionData.items.length; i++){
+		 			const item = this.visionData.items[i];
+		 			for (let j = 0; j < this.editVisionItemForm.visionItems.length; j++){
+		 				const innerItem = this.editVisionItemForm.visionItems[j];
+		 				if (item.id === innerItem.id){
+		 					item.title = innerItem.title;
+		 					item.description = innerItem.description;
+		 					item.url = innerItem.url;
+		 					item.categoryid = innerItem.newCategory;
+		 				}
+		 			}
+		 		}
+		 		$("#modal-edit-vision-item").modal('hide');
+		 	} else {
+		 		this.editVisionItemForm.response = response;
+		 	}
+		 })
+		 .catch(err => this.editVisionItemForm.response = "Unable to connect to api");
+	}
+
+	progress = (id, progress) => {
+		let status;
+		 fetch(`${this.hostname}/progress`, {
+		 	method: 'post',
+		 	headers: {'Content-Type': 'application/json'},
+		 	body: JSON.stringify({
+		 		uid: this.profile.uid,
+		 		id: id,
+		 		progress: progress
+		 	})
+		 })
+		 .then(response => {
+		 	status = response.status;
+		 	return response.json();
+		 })
+		 .then(response => {
+		 	if(status === 200){
+		 		const goal = this.goalData.filter(goal => {
+		 			return goal.id === id;
+		 		});
+		 		goal.progress = progress;
+		 	}
+		 })
+		 .catch(err => console.log);
 	}
 }
 
