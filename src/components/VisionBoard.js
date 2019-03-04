@@ -24,16 +24,15 @@ class VisionBoard extends Component {
 	componentDidMount(){
 		$('.navbar-collapse').collapse('hide');
 		this.ui.navItemActive = 1;
-		this.ui.changeDropDownMenu("vision", "My Vision");
+		this.ui.dropDown.id = 1;
 	}
 
-	renderItems(category){
+	renderItems(id){
 		const items = this.domain.visionItems.map((item, i) => {
-				if (item.categoryid === category){
-					return <VisionItem key={i} img={item.url} title={item.title} desc={item.description} itemId={item.id} />
-				}
-				return '';
-			});
+			if (item.categoryid === id)
+				return <VisionItem key={i} img={item.url} title={item.title} desc={item.description} itemId={item.id} />
+			return '';
+		});
 		if (items.length > 0){
 			return items;
 		} else {
@@ -48,10 +47,10 @@ class VisionBoard extends Component {
 
 	renderCategories(){
 		return this.domain.visionCategories.map((category, i) => {
-			if(i === this.ui.dropDownMenuActive || this.ui.dropDownMenuActive === -1){
+			if(this.ui.dropDown.active === i || this.ui.dropDown.active === -1){
 				return(
-					<div key={i} className="p-4">
-						<h3 className="text-center text-dark">{category.name}</h3>
+					<div key={i}>
+						<h3 className="text-center text-dark pt-4">{category.name}</h3>
 						<div className="row justify-content-center">
 							{this.renderItems(category.id)}
 						</div>

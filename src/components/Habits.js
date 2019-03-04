@@ -15,7 +15,7 @@ class Habits extends Component {
 	componentDidMount(){
 		$('.navbar-collapse').collapse('hide');
 		this.ui.navItemActive = 3;
-		this.ui.changeDropDownMenu("habits", "My Habits");
+		this.ui.dropDown.id = 3;
 	}
 
 	render(){

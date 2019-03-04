@@ -8,7 +8,7 @@ class DashBoard extends Component {
 
 	constructor(){
 		super();
-		const {ui, domain} = RootStore.store;
+		const{ui, domain} = RootStore.store;
 		this.ui = ui;
 		this.domain = domain;
 	}
@@ -16,12 +16,15 @@ class DashBoard extends Component {
 	componentDidMount(){
 		$('.navbar-collapse').collapse('hide');
 		this.ui.navItemActive = 0;
-		this.ui.changeDropDownMenu("brandbar", "My Goals");
+		this.ui.dropDown.id = 0;
 		this.domain.getCategories();
 		this.domain.getGoals();
 	}
 
 	render(){
+		const categoriesCount = this.domain.visionCategories.length;
+		const goalCount = this.domain.goals.length;
+
 		return(
 		<div className="DashBoard">
 			<div className="container bg-white d-flex flex-column align-items-center text-primary h-100">
@@ -31,11 +34,11 @@ class DashBoard extends Component {
 				</div>
 				<div className="row w-100 my-2">
 					<div className="col-4">
-						<div className="display-4 text-center">{this.domain.visionCategories.length}</div>
+						<div className="display-4 text-center">{categoriesCount}</div>
 						<h5 className="text-black text-center">Current Categories</h5>
 					</div>
 					<div className="col-4">
-						<div className="display-4 text-center">{this.domain.goals.length}</div>
+						<div className="display-4 text-center">{goalCount}</div>
 						<h5 className="text-black text-center">Current Goals</h5>
 					</div>
 					<div className="col-4">

@@ -55,7 +55,7 @@ class App extends Component {
 
 const HeaderLoggedIn = (ui, domain) => {
 		return (<nav className="navbar navbar-expand-md navbar-dark bg-primary" id="navbar-top">
-		{ui.dropDown}
+		{ui.renderDropDown}
 		<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main">
     		<span className="navbar-toggler-icon"></span>
   		</button>

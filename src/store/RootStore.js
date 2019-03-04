@@ -13,12 +13,14 @@ class RootStore {
 
 		this.store = {
 			ui: uiStore,
-			domain: domainStore
+			domain: domainStore,
 		}
 	}
 }
 
 //Intialize our root store
-const rootStore = window.root = new RootStore();
+const rootStore = new RootStore();
+window.ui = rootStore.store.ui;
+window.domain = rootStore.store.domain;
 
 export default rootStore;

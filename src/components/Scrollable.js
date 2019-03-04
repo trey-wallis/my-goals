@@ -13,7 +13,7 @@ class Scrollable extends Component {
 			width: "100%",
 			height: "100%",
 			overflow: "auto",
-			margin: "0px 17px",
+			margin: this.props.margin
 		}
 
 		return(

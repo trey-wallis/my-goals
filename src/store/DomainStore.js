@@ -21,6 +21,17 @@ class DomainStore {
 			display: "",
 		}
 
+		this.editCategoryForm = {
+			id: -1,
+			name: "",
+			delete: -1,
+			response: "",
+		}
+
+		this.editVisionItemForm = {
+			categoryId: -1
+		}
+
 		this.addVisionCategoryForm = {
 			name: "",
 			response: ""
@@ -312,6 +323,11 @@ class DomainStore {
 		return this.goalData;
 	}
 
+	visionCategoryName(id){
+		const category = this.visionData.categories.filter(category => category.id === id)[0];
+		return category.name;
+	}
+
 	checkLogin = () => {
 		let status;
 		if (window.sessionStorage.getItem('uid') > 0) {
@@ -439,7 +455,9 @@ class DomainStore {
 		 })
 		 .then(response => response.json())
 		 .then(response => {
-		 	this.addVisionNoteForm.text = response;
+		 	if (response !== null){
+		 		this.addVisionNoteForm.text = response;
+		 	}
 		 	$("#modal-add-vision-note").modal('show');
 		 })
 		 .catch(error => console.log);
@@ -605,6 +623,10 @@ class DomainStore {
 		 	}
 		 }).catch(error => console.log);
 	}
+
+	editVisionCategory = () => {
+		console.log("editting category");
+	}
 }
 
 decorate(DomainStore, {
@@ -618,6 +640,8 @@ decorate(DomainStore, {
 	goalData: observable,
 	addGoalForm: observable,
 	addVisionNoteForm: observable,
+	editCategoryForm: observable,
+	editVisionItemForm: observable,
 	visionCategories: computed,
 	visionItems: computed,
 })

@@ -4,13 +4,22 @@ import GraphicIcon from '../icons/graph-bar.svg';
 import HeartIcon from '../icons/heart.svg';
 import $ from 'jquery';
 
+import RootStore from '../store/RootStore';
+
 import '../css/Title.css';
 
 class Title extends Component {
 
+	constructor(){
+		super();
+		const {ui, domain} = RootStore.store;
+		this.ui = ui;
+		this.domain = domain;
+	}
+
 	componentDidMount(){
 		$('.navbar-collapse').collapse('hide');
-
+		this.ui.navItemActive = 0;
 	}
 
 	render(){

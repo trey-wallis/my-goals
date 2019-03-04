@@ -20,8 +20,6 @@ class Goals extends Component {
 	}
 
 	componentDidMount(){
-		this.ui.changeDropDownMenu("goals", "My Goals");
-		
 		if (this.domain.visionCategories.length > 0){
 			this.domain.addGoalCategoryId = this.domain.visionCategories[0].id;
 		}
@@ -33,14 +31,18 @@ class Goals extends Component {
 		}
 		$('.navbar-collapse').collapse('hide');
 		this.ui.navItemActive = 2;
+		this.ui.dropDown.id = 2;
 	}
 
 	renderGoals(){
+			let visionItemName = "";
+			let visionItemURL = "";
+
 			return this.domain.goals.map((goal, i) => {
-				let visionItemName =  "";
 				for (let i = 0; i < this.domain.visionItems.length; i++){
 					if (this.domain.visionItems[i].id === goal.visionid){
 						visionItemName = this.domain.visionItems[i].title;
+						visionItemURL = this.domain.visionItems[i].url;
 						break;
 					}
 				}
@@ -48,7 +50,7 @@ class Goals extends Component {
 				return(
 					<div key={i} className="col-12 mb-4">
 					<div className="media">
-					<img className="Goals__img" src="https://via.placeholder.com/64x64" alt="test"/>
+					<img className="Goals__img align-self-center mr-4" src={visionItemURL} alt={visionItemName}/>
 					<div className="media-body">
 					<div className="card bg-primary">
 						<div className="card-body">
@@ -112,10 +114,10 @@ class Goals extends Component {
 				<div className="container bg-white">
 					<div className="p-4">
 						<h3 className="text-center">Goals</h3>
-						{this.domain.goals.length > 0 ? this.renderGoals() : this.renderMessage()}
-						<div className="row">
-							{this.renderGoals()}
-						</div>
+						{this.domain.goals.length > 0 ? 
+							<div className="row">
+								{this.renderGoals()}
+							</div> : this.renderMessage()}
 					</div>
 				</div>
 				<AddGoal />

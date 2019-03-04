@@ -22,6 +22,9 @@ class Login extends Component {
 	componentDidMount(){
 		$('.navbar-collapse').collapse('hide');
 		this.ui.navItemActive = 1;
+		this.domain.loginUsername = "";
+		this.domain.loginPassword = "";
+		this.domain.loginResponse = "";
 	}
 
 	onSubmit = () => {

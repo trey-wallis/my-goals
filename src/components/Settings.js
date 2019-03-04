@@ -16,7 +16,7 @@ class Settings extends Component {
 	componentDidMount(){
 		$('.navbar-collapse').collapse('hide');
 		this.ui.navItemActive = 4;
-		this.ui.changeDropDownMenu("settings", "My Settings");
+		this.ui.dropDown.id = 4;
 	}
 
 	render(){
@@ -24,7 +24,6 @@ class Settings extends Component {
 			<div className="Settings">
 				<div className="container h-100 d-flex flex-column align-items-center bg-white p-4">
 					<h3 className="mb-3">Settings</h3>
-					<SettingsProfile />
 				</div>
 			</div>);
 	}

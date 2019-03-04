@@ -67,11 +67,13 @@ class AddVisionItem extends Component {
 							<div className="form-group">
 								<input type="text" className="form-control" value={this.domain.addVisionItemUrl} placeholder="URL" onChange={ (e)=> {this.onUrlChange(e)} }/>
 							</div>
-							<div className="text-danger mt-1">{this.domain.addVisionItemResponse}</div>
 						</div>
-			      		<div className="modal-footer">
-			      			<button type="button" className="btn btn-primary mr-2" onClick={this.onAdd}>Add Vision Item</button>
-			        		<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+			      		<div className="modal-footer justify-content-between">
+			      			<div className="text-danger">{this.domain.addVisionItemResponse}</div>
+			      			<div>
+			      				<button type="button" className="btn btn-primary mr-2" onClick={this.onAdd}>Add Vision Item</button>
+			        			<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+			      			</div>
 			      		</div>
 			    	</div>
 			  	</div>
