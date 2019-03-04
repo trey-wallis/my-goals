@@ -20,6 +20,7 @@ class App extends Component {
 		const {ui, domain} = RootStore.store;
 		this.ui = ui;
 		this.domain = domain;
+		this.folder = "/my-goals"
 	}
 
 	componentDidMount(){
@@ -31,28 +32,28 @@ class App extends Component {
 			<Router>
 				<div className="App">
 					{this.domain.loggedIn ? 
-						HeaderLoggedIn(this.ui, this.domain): HeaderLoggedOut(this.ui)}
+						HeaderLoggedIn(this.folder, this.ui, this.domain): HeaderLoggedOut(this.folder, this.ui)}
 					{this.domain.loggedIn ?
 						<Switch>
-							<Route path="/dashboard" component={DashBoard}/>
-							<Route path="/visionboard" component={VisionBoard}/>
-							<Route path="/goals" component={Goals}/>
-							<Route path="/habits" component={Habits}/>
-							<Route path="/settings" component={Settings}/>
+							<Route path={this.folder + "/dashboard"} component={DashBoard}/>
+							<Route path={this.folder + "/visionboard"} component={VisionBoard}/>
+							<Route path={this.folder + "/goals"} component={Goals}/>
+							<Route path={this.folder + "/habits"} component={Habits}/>
+							<Route path={this.folder + "/settings"} component={Settings}/>
 							{this.domain.connected ?
-							<Redirect to="/dashboard" push={true} /> : ''}
+							<Redirect to={this.folder + "/dashboard"} push={true} /> : ''}
 						</Switch> : 
-						<Switch>
-							<Route exact={true} path="/" component={Title}/>
-							<Route path="/login" component={Login}/>
-							<Route path="/register" component={Register}/>
-						</Switch>}
+						<div>
+							<Route exact={true} path={this.folder + "/"} component={Title}/>
+							<Route path={this.folder + "/login"} component={Login}/>
+							<Route path={this.folder + "/register"} component={Register}/>
+						</div>}
 				</div>
 			</Router>);
 	}
 }
 
-const HeaderLoggedIn = (ui, domain) => {
+const HeaderLoggedIn = (folder, ui, domain) => {
 		return (<nav className="navbar navbar-expand-md navbar-dark bg-primary" id="navbar-top">
 		{ui.renderDropDown}
 		<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main">
@@ -61,19 +62,19 @@ const HeaderLoggedIn = (ui, domain) => {
   		<div className="collapse navbar-collapse" id="navbar-main">
     		<ul className="navbar-nav ml-auto">
 	      		<li className="nav-item ml-auto">
-        			<Link to={'/dashboard'} className={"nav-link" + ui.isNavItemActive(0)}>Dashboard</Link>
+        			<Link to={folder + '/dashboard'} className={"nav-link" + ui.isNavItemActive(0)}>Dashboard</Link>
 	      		</li>
 	      		<li className="nav-item ml-auto">
-        			<Link to={'/visionboard'} className={"nav-link" + ui.isNavItemActive(1)}>Vision Board</Link>
+        			<Link to={folder + '/visionboard'} className={"nav-link" + ui.isNavItemActive(1)}>Vision Board</Link>
 	      		</li>
 	      		<li className="nav-item ml-auto">
-        			<Link to={'/goals'} className={"nav-link" + ui.isNavItemActive(2)}>Goals</Link>
+        			<Link to={folder + '/goals'} className={"nav-link" + ui.isNavItemActive(2)}>Goals</Link>
 	      		</li>
 	      		<li className="nav-item ml-auto">
-        			<Link to={'/habits'} className={"nav-link" + ui.isNavItemActive(3)}>Habits</Link>
+        			<Link to={folder + '/habits'} className={"nav-link" + ui.isNavItemActive(3)}>Habits</Link>
 	      		</li>
 	      		<li className="nav-item ml-auto">
-        			<Link to={'/settings'} className={"nav-link" + ui.isNavItemActive(4)}>Settings</Link>
+        			<Link to={folder + '/settings'} className={"nav-link" + ui.isNavItemActive(4)}>Settings</Link>
 	      		</li>
 	      		<li className="nav-item ml-auto">
         			<button className="nav-link btn--reset" onClick={domain.postLogout}>Logout</button>
@@ -83,19 +84,19 @@ const HeaderLoggedIn = (ui, domain) => {
   	</nav>);
 };
 
-const HeaderLoggedOut = (ui) => (
+const HeaderLoggedOut = (folder, ui) => (
 	<nav className="navbar navbar-expand-md navbar-dark bg-primary" id="navbar-top">
-		<Link to={'/'} className="navbar-brand">My Goals</Link>
+		<Link to={folder + '/'} className="navbar-brand">My Goals</Link>
 		<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main">
     		<span className="navbar-toggler-icon"></span>
   		</button>
   		<div className="collapse navbar-collapse" id="navbar-main">
     		<ul className="navbar-nav ml-auto">
       			<li className="nav-item ml-auto">
-      				<Link to={'/login'} className={"nav-link" + ui.isNavItemActive(1)}>Login</Link>
+      				<Link to={folder + '/login'} className={"nav-link" + ui.isNavItemActive(1)}>Login</Link>
       			</li>
       			<li className="nav-item ml-auto">
-        			<Link to={'/register'} className={"nav-link" + ui.isNavItemActive(2)}>Register</Link>
+        			<Link to={folder + '/register'} className={"nav-link" + ui.isNavItemActive(2)}>Register</Link>
       			</li>
     		</ul>
     	</div>
