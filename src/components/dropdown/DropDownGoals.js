@@ -29,7 +29,6 @@ class DropDownGoals extends Component {
 				<button type="button" className="btn btn--reset dropdown-toggle text-tertiary" data-toggle="dropdown" id="navbar-dropdown">My Goals</button>
 				<div className="dropdown-menu">
 				    <button type="button" className="dropdown-item" onClick={this.onAddGoal}>Add Goal</button>
-				    <button type="button" className="dropdown-item" data-toggle="modal" data-target="">Edit Goals</button>
 				</div>
 			</div>);
 	}

@@ -29,7 +29,10 @@ class DomainStore {
 		}
 
 		this.editVisionItemForm = {
-			categoryId: -1
+			categoryId: -1,
+			visionItems: [],
+			delete: [],
+			response: "",
 		}
 
 		this.addVisionCategoryForm = {
@@ -626,6 +629,10 @@ class DomainStore {
 
 	editVisionCategory = () => {
 		console.log("editting category");
+	}
+
+	editVisionItem = () => {
+		console.log("editting vision item");
 	}
 }
 

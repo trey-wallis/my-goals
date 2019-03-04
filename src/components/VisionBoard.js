@@ -6,7 +6,8 @@ import $ from 'jquery';
 
 import AddVisionCategory from './vision/AddVisionCategory';
 import AddVisionItem from './vision/AddVisionItem';
-import EditVision from '../components/vision/EditVision.js';
+import EditVisionItem from '../components/vision/EditVisionItem.js';
+import EditVisionCategory from '../components/vision/EditVisionCategory.js';
 import AddVisionNote from '../components/vision/AddVisionNote';
 import VisionItem from './vision/VisionItem';
 
@@ -78,10 +79,11 @@ class VisionBoard extends Component {
 				<div className="container bg-white h-100">
 					{this.domain.visionCategories.length > 0 ? this.renderCategories() : this.renderCategoryMessage()}
 				</div>
-				<EditVision />
-				<AddVisionItem />
-				<AddVisionCategory />
-				<AddVisionNote />
+				<AddVisionItem/>
+				<AddVisionCategory/>
+				<EditVisionCategory/>
+				<EditVisionItem/>
+				<AddVisionNote/>
 			</div>);
 	}
 }

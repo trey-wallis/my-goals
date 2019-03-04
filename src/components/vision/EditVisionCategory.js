@@ -4,7 +4,7 @@ import {observer} from 'mobx-react';
 import Scrollable from '../Scrollable';
 import RootStore from '../../store/RootStore';
 
-class EditVision extends Component {
+class EditVisionCategory extends Component {
 
 	constructor(){
 		super();
@@ -41,7 +41,7 @@ class EditVision extends Component {
 
 	render(){
 		return(
-			<div className="modal fade" id="modal-edit" role="dialog">
+			<div className="modal fade" id="modal-edit-vision-category" role="dialog">
 				<div className="modal-dialog" role="document">
 			    	<div className="modal-content">
 			    		<div className="modal-header">
@@ -79,4 +79,4 @@ class EditVision extends Component {
 	}
 }
 
-export default observer(EditVision);
+export default observer(EditVisionCategory);

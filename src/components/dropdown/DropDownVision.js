@@ -49,8 +49,9 @@ class DropDownVision extends Component {
 					<button type="button" className={"dropdown-item" + this.ui.isDropDownItemActive(-1)} onClick={this.onViewAllClick}>View All</button>
 				    <div className="dropdown-divider"></div>
 				    <button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-add-vision-category">Add Category</button>
-				    <button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-add-vision-item">Add Vision Item</button>
-				    <button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-edit">Edit</button>
+				    <button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-add-vision-item">Add Item</button>
+				    <button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-edit-vision-category">Edit Categories</button>
+				  	<button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-edit-vision-item">Edit Items</button>
 				</div>
 			</div>);
 	}
