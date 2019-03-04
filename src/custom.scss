@@ -16,7 +16,7 @@ $theme-colors: (
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';
 
-.container-fluid--full {
+.container {
 	min-height: calc(100vh - 56px);
 }
 

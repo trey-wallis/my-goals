@@ -5,6 +5,8 @@ import {observer} from 'mobx-react';
 import RootStore from '../store/RootStore';
 import ProgressBar from './goal/ProgressBar.js';
 import ViewList from '../icons/view-list.svg';
+import Plus from '../icons/plus.svg';
+import Minus from '../icons/minus.svg';
 import AddGoal from '../components/goal/AddGoal';
 
 import $ from 'jquery';
@@ -20,16 +22,49 @@ class Goals extends Component {
 	}
 
 	componentDidMount(){
+		if (this.domain.visionCategories.length > 0){
+			this.domain.addGoalCategoryId = this.domain.visionCategories[0].id;
+		}
+		const items = this.domain.visionItems.filter(item => {
+			return item.categoryid === this.domain.addGoalCategoryId;
+		});
+		if (items.length > 0){
+			this.domain.addGoalVisionItemId = items[0].id;
+		}
 		$('.navbar-collapse').collapse('hide');
+		this.ui.navItemActive = 2;
+		this.ui.dropDown.id = 2;
+	}
+
+	increaseProgress = (id) => {
+		const goal = this.domain.goals.filter(goal => {
+			return goal.id === id;
+		})
+		const progress = goal.progress;
+		if (progress === 100)
+			return;
+		this.domain.progress(id, progress + 10);
+	}
+
+	decreaseProgress = (id) => {
+		const goal = this.domain.goals.filter(goal => {
+			return goal.id === id;
+		})
+		const progress = goal.progress;
+		if (progress === 0)
+			return;
+		this.domain.progress(id, progress - 10);
 	}
 
 	renderGoals(){
-		if (this.domain.goals.length > 0){
+			let visionItemName = "";
+			let visionItemURL = "";
+
 			return this.domain.goals.map((goal, i) => {
-				let visionItemName =  "";
 				for (let i = 0; i < this.domain.visionItems.length; i++){
 					if (this.domain.visionItems[i].id === goal.visionid){
 						visionItemName = this.domain.visionItems[i].title;
+						visionItemURL = this.domain.visionItems[i].url;
 						break;
 					}
 				}
@@ -37,7 +72,7 @@ class Goals extends Component {
 				return(
 					<div key={i} className="col-12 mb-4">
 					<div className="media">
-					<img className="Goals__img" src="https://via.placeholder.com/64x64" alt="test"/>
+					<img className="Goals__img align-self-center mr-4" src={visionItemURL} alt={visionItemName}/>
 					<div className="media-body">
 					<div className="card bg-primary">
 						<div className="card-body">
@@ -46,8 +81,16 @@ class Goals extends Component {
 									<h6 className="card-title text-white">{goal.name}</h6>
 									<div className="text-light">{visionItemName}</div>
 								</div>
-								<div className="Goals__icon">
-									<img src={ViewList} className="Goals__icon-item" alt="viewlist" data-toggle="collapse" data-target={"#goal-info-" + i}/>
+								<div className="d-flex justify-content-end">
+									<div className="Goals__icon">
+										<img src={Plus} className="Goals__icon-item" alt="plus" onClick={()=>{this.increaseProgress(goal.id)}}/>
+									</div>
+									<div className="Goals__icon">
+										<img src={Minus} className="Goals__icon-item" alt="minus" onClick={()=>{this.decreaseProgress(goal.id)}}/>
+									</div>
+									<div className="Goals__icon">
+										<img src={ViewList} className="Goals__icon-item" alt="viewlist" data-toggle="collapse" data-target={"#goal-info-" + i}/>
+									</div>
 								</div>
 							</div>
 							<div className="row mb-2">
@@ -86,22 +129,25 @@ class Goals extends Component {
   					</div>
 				</div>);
 			});
-		} else {
-			return (
-				<div className="text-center col-12">
-					<p>There are no goals to display<br/>
-					Would you like to <span className="text-danger" data-toggle="modal" data-target="#modal-add-goal">add</span> a goal?</p>
-				</div>);
-		}
+	}
+
+	renderMessage = () => {
+		return(
+			<p className="text-center">There are no goals to display<br/>
+			Would you like to <span className="text-primary" data-toggle="modal" data-target="#modal-add-goal">add</span> a goal?</p>
+		);
 	}
 
 	render(){
 		return(
 			<div className="Goals">
-				<div className="container-fluid--full container px-5 bg-white">
-					<h3 className="py-5 text-center">Goals</h3>
-					<div className="row">
-						{this.renderGoals()}
+				<div className="container bg-white">
+					<div className="p-4">
+						<h3 className="text-center">Goals</h3>
+						{this.domain.goals.length > 0 ? 
+							<div className="row">
+								{this.renderGoals()}
+							</div> : this.renderMessage()}
 					</div>
 				</div>
 				<AddGoal />

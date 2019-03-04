@@ -36,11 +36,13 @@ class AddVisionCategory extends Component {
 							<div className="form-group">
 								<input type="text" className="form-control" placeholder="Name" id="add-vision-category-name" onChange={ (e)=> {this.onNameChange(e)} }/>
 							</div>
-							<div className="text-danger mt-1">{this.domain.addVisionCategoryResponse}</div>
 						</div>
-			      		<div className="modal-footer">
-			      			<button type="button" className="btn btn-primary mr-2" onClick={this.onAdd}>Add Category</button>
-			        		<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+			      		<div className="modal-footer justify-content-between">
+			      			<div className="text-danger">{this.domain.addVisionCategoryResponse}</div>
+			      			<div>
+			      				<button type="button" className="btn btn-primary mr-2" onClick={this.onAdd}>Add Category</button>
+			        			<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+			        		</div>
 			      		</div>
 			    	</div>
 			  	</div>

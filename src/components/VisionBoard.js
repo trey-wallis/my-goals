@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
-import VisionItem from './vision/VisionItem';
+
 import RootStore from '../store/RootStore';
+import $ from 'jquery';
+
 import AddVisionCategory from './vision/AddVisionCategory';
 import AddVisionItem from './vision/AddVisionItem';
-import EditVision from '../components/vision/EditVision.js';
+import EditVisionItem from '../components/vision/EditVisionItem.js';
+import EditVisionCategory from '../components/vision/EditVisionCategory.js';
 import AddVisionNote from '../components/vision/AddVisionNote';
-
-import $ from 'jquery';
+import VisionItem from './vision/VisionItem';
 
 import '../css/VisionBoard.css';
 
@@ -22,67 +24,66 @@ class VisionBoard extends Component {
 
 	componentDidMount(){
 		$('.navbar-collapse').collapse('hide');
+		this.ui.navItemActive = 1;
+		this.ui.dropDown.id = 1;
 	}
 
-	renderItems(category){
-		const filtered = this.domain.visionItems.filter((item, i) => {
-			return (item.categoryid === category);
+	renderItems(id){
+		const items = this.domain.visionItems.map((item, i) => {
+			if (item.categoryid === id)
+				return <VisionItem key={i} img={item.url} title={item.title} desc={item.description} itemId={item.id} />
+			return '';
 		});
-		if (filtered.length > 0){
-			return this.domain.visionItems.map((item, i) => {
-				if (item.categoryid === category){
-					return <VisionItem key={i} img={item.url} title={item.title} desc={item.description} itemId={item.id} />
-				}
-				return '';
-		});
+		if (items.length > 0){
+			return items;
 		} else {
-			return (
-			<div className="VisionBoard__display-no-item">
-				<p>There are no items to display.<br/>
-				Would you like to <span className="text-danger" data-toggle="modal" data-target="#modal-add-vision-item">add</span> items?</p>
-			</div>);
+			return this.renderItemMessage();
 		}
+	}
+
+	renderItemMessage = () => {
+		return (<p>There are no items to display.<br/>
+				Would you like to <span className="text-primary" data-toggle="modal" data-target="#modal-add-vision-item">add</span> items?</p>);
 	}
 
 	renderCategories(){
-		if (this.domain.visionCategories.length > 0){
-			return this.domain.visionCategories.map((category, i) => {
-				if(i === this.ui.dropDownMenuActive || this.ui.dropDownMenuActive === -1){
-					return(
-						<div key={i}>
-							<h3 className="text-center text-dark mb-4">{category.name}</h3>
-							<div className="row justify-content-center">
-								{this.renderItems(category.id)}
-							</div>
+		return this.domain.visionCategories.map((category, i) => {
+			if(this.ui.dropDown.active === i || this.ui.dropDown.active === -1){
+				return(
+					<div key={i}>
+						<h3 className="text-center text-dark pt-4">{category.name}</h3>
+						<div className="row justify-content-center">
+							{this.renderItems(category.id)}
 						</div>
-					);
-				}
-				return '';
-			});
-		} else {
-			return (
-			<React.Fragment>
-				<h3 className="text-center my-5">My Vision Board</h3>
+					</div>
+				);
+			}
+			return '';
+		});
+	}
+
+	renderCategoryMessage = () => {
+		return (
+			<div className="p-4">
+				<h3 className="text-center">My Vision Board</h3>
 				<div className="text-center">
 				<p>There are no categories to display.<br/>
-				Would you like to <span className="text-danger" data-toggle="modal" data-target="#modal-add-vision-category">add</span> a category?</p>
+				Would you like to <span className="text-primary" data-toggle="modal" data-target="#modal-add-vision-category">add</span> a category?</p>
 				</div>
-			</React.Fragment>);
-		}
+			</div>);
 	}
 
 	render(){
 		return(
 			<div className="VisionBoard">
-				<div className="container-fluid--full">
-					<div className="container bg-white h-100 p-5">
-						{this.renderCategories()}
-					</div>
+				<div className="container bg-white h-100">
+					{this.domain.visionCategories.length > 0 ? this.renderCategories() : this.renderCategoryMessage()}
 				</div>
-				<EditVision />
-				<AddVisionItem />
-				<AddVisionCategory />
-				<AddVisionNote />
+				<AddVisionItem/>
+				<AddVisionCategory/>
+				<EditVisionCategory/>
+				<EditVisionItem/>
+				<AddVisionNote/>
 			</div>);
 	}
 }

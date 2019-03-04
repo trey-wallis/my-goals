@@ -9,7 +9,7 @@ class DomainStore {
 		this.root = root;
 		this.connected = false;
 
-		this.goalData = {};
+		this.goalData = [];
 
 		this.visionData = {
 			categories: [],
@@ -19,6 +19,21 @@ class DomainStore {
 		this.profile = {
 			uid: 0,
 			display: "",
+		}
+
+		this.editCategoryForm = {
+			id: -1,
+			name: "",
+			deleteId: -1,
+			response: "",
+		}
+
+		this.editVisionItemForm = {
+			categoryId: -1,
+			visionItems: [],
+			delete: [],
+			itemIndex: 0,
+			response: "",
 		}
 
 		this.addVisionCategoryForm = {
@@ -296,12 +311,6 @@ class DomainStore {
 		this.settingsForm.profile.currentPassword = pass;
 	}
 
-	logout = () => {
-		window.sessionStorage.setItem('uid', 0);
-		this.connected = false;
-		this.root.store.ui.changeMenu("title", 0, false);
-	}
-
 	get loggedIn(){
 		return this.connected;
 	}
@@ -318,9 +327,13 @@ class DomainStore {
 		return this.goalData;
 	}
 
+	visionCategoryName(id){
+		const category = this.visionData.categories.filter(category => category.id === id)[0];
+		return category.name;
+	}
+
 	checkLogin = () => {
-		//Attempt to load id
-		let successful = false;
+		let status;
 		if (window.sessionStorage.getItem('uid') > 0) {
 		 	fetch(`${this.hostname}/checkLogin`, {
 		 		method: 'post',
@@ -330,17 +343,15 @@ class DomainStore {
 		 		})
 		 	})
 		 .then(response => {
-		 	if (response.status === 200){
-		 		successful = true;
-		 	}
+		 	status = response.status;
 		 	return response.json();
 		 })
 		 .then(response => {
-		 	if (!successful){
-		 		console.log(response);
-		 	} else {
+		 	if (status === 200){
 		 		this.profile = response;
-		 		this.getCategories();
+		 		this.connected = true;
+		 	} else {
+		 		console.log(response);
 		 	}
 		 })
 		 .catch(error => console.log);
@@ -448,7 +459,9 @@ class DomainStore {
 		 })
 		 .then(response => response.json())
 		 .then(response => {
-		 	this.addVisionNoteForm.text = response;
+		 	if (response !== null){
+		 		this.addVisionNoteForm.text = response;
+		 	}
 		 	$("#modal-add-vision-note").modal('show');
 		 })
 		 .catch(error => console.log);
@@ -533,7 +546,8 @@ class DomainStore {
 		 })
 		 .then(response => response.json())
 		 .then(response => {
-		 	this.logout()
+			window.sessionStorage.setItem('uid', 0);
+			this.connected = false;
 		 })
 		 .catch(error => console.log);
 	}
@@ -613,6 +627,104 @@ class DomainStore {
 		 	}
 		 }).catch(error => console.log);
 	}
+
+	editVisionCategory = () => {
+		let status;
+		 fetch(`${this.hostname}/editvisioncategory`, {
+		 	method: 'post',
+		 	headers: {'Content-Type': 'application/json'},
+		 	body: JSON.stringify({
+		 		uid: this.profile.uid,
+		 		id: this.editCategoryForm.id,
+		 		name: this.editCategoryForm.name,
+		 		deleteId: this.editCategoryForm.deleteId,
+		 	})
+		 })
+		 .then(response => {
+		 	status = response.status;
+		 	return response.json();
+		 })
+		 .then(response => {
+		 	if (status === 200){
+		 		for (let i = 0; i < this.visionData.categories.length; i++){
+		 			if (this.visionData.categories[i].id === this.editCategoryForm.id){
+		 				if (this.editCategoryForm.deleteId != -1){
+		 					this.visionData.categories.splice(i);
+		 					this.editCategoryForm.deleteId = -1;
+		 				} else {
+		 					this.visionData.categories[i].name = this.editCategoryForm.name;
+		 				}
+		 			}
+		 		}
+		 		$("#modal-edit-vision-category").modal('hide');
+		 	} else {
+		 		this.editCategoryForm.response = response;
+		 	}
+		 })
+		 .catch(err => this.editCategoryForm.response = "Unable to connect to api");
+	}
+
+	editVisionItem = () => {
+		let status;
+		 fetch(`${this.hostname}/editvisionitem`, {
+		 	method: 'post',
+		 	headers: {'Content-Type': 'application/json'},
+		 	body: JSON.stringify({
+		 		uid: this.profile.uid,
+		 		visionItems: this.editVisionItemForm.visionItems,
+		 	})
+		 })
+		 .then(response => {
+		 	status = response.status;
+		 	return response.json();
+		 })
+		 .then(response => {
+		 	if (status === 200){
+		 		for (let i = 0; i < this.visionData.items.length; i++){
+		 			const item = this.visionData.items[i];
+		 			for (let j = 0; j < this.editVisionItemForm.visionItems.length; j++){
+		 				const innerItem = this.editVisionItemForm.visionItems[j];
+		 				if (item.id === innerItem.id){
+		 					item.title = innerItem.title;
+		 					item.description = innerItem.description;
+		 					item.url = innerItem.url;
+		 					item.categoryid = innerItem.newCategory;
+		 				}
+		 			}
+		 		}
+		 		$("#modal-edit-vision-item").modal('hide');
+		 	} else {
+		 		this.editVisionItemForm.response = response;
+		 	}
+		 })
+		 .catch(err => this.editVisionItemForm.response = "Unable to connect to api");
+	}
+
+	progress = (id, progress) => {
+		let status;
+		 fetch(`${this.hostname}/progress`, {
+		 	method: 'post',
+		 	headers: {'Content-Type': 'application/json'},
+		 	body: JSON.stringify({
+		 		uid: this.profile.uid,
+		 		id: id,
+		 		progress: progress
+		 	})
+		 })
+		 .then(response => {
+		 	status = response.status;
+		 	return response.json();
+		 })
+		 .then(response => {
+		 	if(status === 200){
+		 		const goal = this.goalData.filter(goal => {
+		 			return goal.id === id;
+		 		});
+		 		goal.progress = progress;
+		 	}
+		 })
+		 .catch(err => console.log);
+	}
 }
 
 decorate(DomainStore, {
@@ -626,6 +738,8 @@ decorate(DomainStore, {
 	goalData: observable,
 	addGoalForm: observable,
 	addVisionNoteForm: observable,
+	editCategoryForm: observable,
+	editVisionItemForm: observable,
 	visionCategories: computed,
 	visionItems: computed,
 })

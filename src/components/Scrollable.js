@@ -1,17 +1,27 @@
 import React, {Component} from 'react';
-import "../css/Scrollable.css";
 
 class Scrollable extends Component {
 
 	render(){
 		const styleScrollable = {
-			maxHeight: this.props.maxHeight,
+			width: this.props.width,
 			height: this.props.height,
+			maxHeight: this.props.maxHeight,
+			overflow: "hidden",
+		}
+
+		const styleScrollableContainer = {
+			width: "100%",
+			height: "100%",
+			overflow: "auto",
+			margin: this.props.margin
 		}
 
 		return(
 			<div className="Scrollable" style={styleScrollable}>
-				{this.props.children}
+				<div className="Scrollable__container" style={styleScrollableContainer}>
+					{this.props.children}
+				</div>
 			</div>);
 	}
 

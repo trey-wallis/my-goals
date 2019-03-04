@@ -1,8 +1,7 @@
 .Goals__img {
-	width: 64px;
-	height: 64px;
+	width: 128px;
+	height: auto;
 	border-radius: 6px;
-	margin: 40px 30px;
 }
 
 .Goals__icon {

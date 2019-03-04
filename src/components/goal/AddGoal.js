@@ -107,7 +107,6 @@ class AddGoal extends Component {
 						<label>End</label>
 						<input type="date" className="form-control form-control-sm" onChange={this.onEndChange}/>
 					</div>
-					<div className="text-danger mt-1">{this.domain.addGoalResponse}</div>
 				</Scrollable>);
 	}
 
@@ -129,8 +128,9 @@ class AddGoal extends Component {
 			      			</div>
 			      		</div>
 			      		<div className="modal-footer justify-content-between">
-			      			<button type="button" className="btn btn-success" data-toggle="collapse" data-target="#add-goal-text-notes">View Note</button>
+			      			<div className="text-danger">{this.domain.addGoalResponse}</div>
 			      			<div className="button__wrapper">
+			      				<button type="button" className="btn btn-success mr-2" data-toggle="collapse" data-target="#add-goal-text-notes">View Note</button>
 				      			<button type="button" className="btn btn-primary mr-2" onClick={this.onAddGoal}>Add Goal</button>
 				        		<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
 			        		</div>
