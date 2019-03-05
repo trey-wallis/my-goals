@@ -12,17 +12,19 @@ class EditVisionItem extends Component {
 		this.domain = domain;
 
 		this.domain.editVisionItemForm.visionItems = [];
-		this.domain.editVisionItemForm.categoryId = this.domain.visionCategories[0].id;
-		for (let i = 0; i < this.domain.visionItems.length; i++){
-			const item = this.domain.visionItems[i];
-			this.domain.editVisionItemForm.visionItems.push({
-					category: item.categoryid,
-					id: item.id,
-					title: item.title,
-					description: item.description,
-					url: item.url,
-					newCategory: item.categoryid,
-			})
+
+		if (this.domain.visionItems.length > 0){
+			this.domain.editVisionItemForm.categoryId = this.domain.visionCategories[0].id;
+			this.domain.visionItems.forEach(item => {
+				this.domain.editVisionItemForm.visionItems.push({
+						id: item.id,
+						title: item.title,
+						description: item.description,
+						url: item.url,
+						category: item.categoryid,
+						categorySelectedId: item.categoryid,
+				})
+			});
 		}
 	}
 

@@ -17,8 +17,6 @@ class DashBoard extends Component {
 		$('.navbar-collapse').collapse('hide');
 		this.ui.navItemActive = 0;
 		this.ui.dropDown.id = 0;
-		this.domain.getCategories();
-		this.domain.getGoals();
 	}
 
 	render(){

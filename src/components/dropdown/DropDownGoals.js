@@ -28,7 +28,8 @@ class DropDownGoals extends Component {
 			<div className="btn-group">
 				<button type="button" className="btn btn--reset dropdown-toggle text-tertiary" data-toggle="dropdown" id="navbar-dropdown">My Goals</button>
 				<div className="dropdown-menu">
-				    <button type="button" className="dropdown-item" onClick={this.onAddGoal}>Add Goal</button>
+					{this.domain.visionItems.length > 0 ?
+				    <button type="button" className="dropdown-item" onClick={this.onAddGoal}>Add Goal</button> : ''}
 				</div>
 			</div>);
 	}

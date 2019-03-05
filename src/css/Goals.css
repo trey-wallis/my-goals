@@ -24,3 +24,13 @@
 .Goals__text--sm {
 	font-size: 0.9rem
 }
+
+.Goals__side {
+	display: none;
+}
+
+@media (min-width: 768px) {
+	.Goals__side {
+		display: block;
+	}
+}

@@ -35,6 +35,7 @@ class VisionBoard extends Component {
 		if (items.length > 0){
 			return items;
 		} else {
+		this.domain.editVisionItemForm.visionItems = [];
 			return this.renderItemMessage();
 		}
 	}
@@ -74,13 +75,13 @@ class VisionBoard extends Component {
 	render(){
 		return(
 			<div className="VisionBoard">
-				<div className="container bg-white h-100">
+				<div className="container bg-white">
 					{this.domain.visionCategories.length > 0 ? this.renderCategories() : this.renderCategoryMessage()}
 				</div>
 				<AddVisionItem/>
 				<AddVisionCategory/>
-				<EditVisionCategory/>
-				<EditVisionItem/>
+				{this.domain.visionCategories.length > 0 ? <EditVisionCategory/> : ''}
+				{this.domain.visionItems.length > 0 ? <EditVisionItem/> : ''}
 				<AddVisionNote/>
 			</div>);
 	}

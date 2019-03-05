@@ -13,6 +13,8 @@ import Goals from '../components/Goals';
 import Habits from '../components/Habits';
 import Settings from '../components/Settings';
 
+import '../css/App.css';
+
 class App extends Component {
 
 	constructor(){
@@ -24,6 +26,8 @@ class App extends Component {
 
 	componentDidMount(){
 		this.domain.checkLogin();
+		this.domain.getCategories();
+		this.domain.getGoals();
 	}
 
 	render(){
@@ -46,7 +50,8 @@ class App extends Component {
 							<Route exact={true} path={'/'}  component={Title}/>
 							<Route path={`/login`} component={Login}/>
 							<Route path={`/register`} component={Register}/>
-						</div>}
+							<Redirect to={'/'} push={true} />
+					</div>}
 				</div>
 			</Router>);
 	}

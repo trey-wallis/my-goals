@@ -11,8 +11,10 @@ class EditVisionCategory extends Component {
 		this.ui = ui;
 		this.domain = domain;
 
-		this.domain.editCategoryForm.id = this.domain.visionCategories[0].id;
-		this.domain.editCategoryForm.name = this.domain.visionCategories[0].name;
+		if (this.domain.visionCategories.length > 0){
+			this.domain.editCategoryForm.id = this.domain.visionCategories[0].id;
+			this.domain.editCategoryForm.name = this.domain.visionCategories[0].name;
+		}
 	}
 
 	onCategoryNameChange = (e) => {

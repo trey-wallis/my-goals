@@ -68,7 +68,7 @@ class Goals extends Component {
 				return(
 					<div key={i} className="col-12 mb-4">
 					<div className="media">
-					<img className="Goals__img align-self-center mr-4" src={visionItemURL} alt={visionItemName}/>
+					<img className="Goals__side Goals__img align-self-center mr-4" src={visionItemURL} alt={visionItemName}/>
 					<div className="media-body">
 					<div className="card bg-primary">
 						<div className="card-body">
@@ -90,13 +90,13 @@ class Goals extends Component {
 								</div>
 							</div>
 							<div className="row mb-2">
-								<div className="col-4 col-lg-2 align-self-end">
+								<div className="col-md-4 col-lg-2 align-self-end">
 									<div className="text-light">{goal.starttime.substring(0,10)}</div>
 								</div>
-								<div className="col-4 col-lg-2 align-self-end">
+								<div className="col-md-4 col-lg-2 align-self-end">
 									<div className="text-light">{goal.endtime.substring(0,10)}</div>
 								</div>
-								<div className="col-4 col-lg-2 align-self-end">
+								<div className="col-md-4 col-lg-2 align-self-end">
 									<div className="text-light">{goal.progress}%</div>
 								</div>
 							</div>
@@ -127,11 +127,27 @@ class Goals extends Component {
 			});
 	}
 
-	renderMessage = () => {
+	renderGoalNotification = () => {
 		return(
 			<p className="text-center">There are no goals to display<br/>
 			Would you like to <span className="text-primary" data-toggle="modal" data-target="#modal-add-goal">add</span> a goal?</p>
 		);
+	}
+
+	renderCategoryNotification = () => {
+		return(
+			<p className="text-center">There are no goals to display</p>
+		);
+	}
+
+	renderBoard = () => {
+		if(this.domain.goals.length > 0){
+			return (<div className="row">
+				{this.renderGoals()}
+			</div>);
+		} else {
+			return this.renderGoalNotification()
+		}
 	}
 
 	render(){
@@ -140,10 +156,8 @@ class Goals extends Component {
 				<div className="container bg-white">
 					<div className="p-4">
 						<h3 className="text-center">Goals</h3>
-						{this.domain.goals.length > 0 ? 
-							<div className="row">
-								{this.renderGoals()}
-							</div> : this.renderMessage()}
+						{this.domain.visionItems.length > 0 ?
+							this.renderBoard() : this.renderCategoryNotification()}
 					</div>
 				</div>
 				<AddGoal />

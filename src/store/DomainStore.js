@@ -332,6 +332,7 @@ class DomainStore {
 		return category.name;
 	}
 
+
 	checkLogin = () => {
 		let status;
 		if (window.sessionStorage.getItem('uid') > 0) {
@@ -350,6 +351,8 @@ class DomainStore {
 		 	if (status === 200){
 		 		this.profile = response;
 		 		this.connected = true;
+		 		this.getCategories();
+		 		this.getGoals();
 		 	} else {
 		 		console.log(response);
 		 	}
@@ -380,6 +383,8 @@ class DomainStore {
 		 		this.profile = response;
 		 		window.sessionStorage.setItem('uid', this.profile.uid);
 				this.connected = true;
+				this.getCategories();
+				this.getGoals();
 		 	} else {
 		 		this.loginForm.response = response;
 		 	}
@@ -407,6 +412,8 @@ class DomainStore {
 		 		this.profile = response;
 		 		window.sessionStorage.setItem('uid', this.profile.uid);
 				this.connected = true;
+				this.getCategories();
+				this.getGoals();
 		 	} else {
 		 		this.registrationForm.response = response;
 		 	}
@@ -422,12 +429,10 @@ class DomainStore {
 		 .then(response => response.json())
 		 .then(response => {
 		 	this.visionData = response;
-
 		 	//Instead of using selected
 		 	if (this.visionData.categories.length > 0){
 		 		this.addVisionItemForm.categoryId = this.visionData.categories[0].id;
 		 	}
-		 	this.getGoals();
 		 })
 		 .catch(error => console.log);
 	}
@@ -443,7 +448,6 @@ class DomainStore {
 		 .then(response => response.json())
 		 .then(response => {
 		 	this.goalData = response;
-		 	this.login();
 		 })
 		 .catch(error => console.log);
 	}

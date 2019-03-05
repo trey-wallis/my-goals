@@ -40,7 +40,7 @@ class DropDownVision extends Component {
 					{
 					this.domain.visionCategories.length > 0 ?
 						<React.Fragment>
-							<Scrollable height="100px">
+							<Scrollable minHeight="0px" maxHeight="100px">
 								{ this.renderDropDownItems() }
 							</Scrollable>
 							<div className="dropdown-divider"></div>
@@ -50,8 +50,10 @@ class DropDownVision extends Component {
 				    <div className="dropdown-divider"></div>
 				    <button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-add-vision-category">Add Category</button>
 				    <button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-add-vision-item">Add Item</button>
-				    <button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-edit-vision-category">Edit Categories</button>
-				  	<button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-edit-vision-item">Edit Items</button>
+				    {this.domain.visionCategories.length > 0 ? 
+				    <button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-edit-vision-category">Edit Categories</button> : ''}
+				    {this.domain.visionItems.length > 0 ?
+				  	<button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-edit-vision-item">Edit Items</button> : ''}
 				</div>
 			</div>);
 	}
