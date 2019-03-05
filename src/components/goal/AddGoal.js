@@ -97,7 +97,7 @@ class AddGoal extends Component {
 						<textarea className="form-control form-control-sm" placeholder="What do you want to do? How will this help you progress towards your vision?" onChange={this.onDescriptionChange}/>
 					</div>
 					<div className="form-group">
-						<textarea className="form-control form-control-sm" placeholder="What are your plans to achieve your goal?" onChange={this.onPlansChange}/>
+						<textarea className="form-control form-control-sm" rows="4" placeholder="What are your plans to achieve your goal?" onChange={this.onPlansChange}/>
 					</div>
 					<div className="form-group">
 						<label>Start</label>

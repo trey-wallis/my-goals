@@ -68,14 +68,16 @@ class Goals extends Component {
 				return(
 					<div key={i} className="col-12 mb-4">
 					<div className="media">
-					<img className="Goals__side Goals__img align-self-center mr-4" src={visionItemURL} alt={visionItemName}/>
+					<div className="Goals__side align-self-center">
+					<img className="Goals__img mr-4" src={visionItemURL} alt={visionItemName}/>
+						<p className="Goals__vision-text text-center text-primary">{visionItemName}</p>
+					</div>
 					<div className="media-body">
-					<div className="card bg-primary">
+					<div className="card border-0">
 						<div className="card-body">
 							<div className="d-flex justify-content-between">
 								<div className="wrapper">	
-									<h6 className="card-title text-white">{goal.name}</h6>
-									<div className="text-light">{visionItemName}</div>
+									<h6 className="card-title text-primary">{goal.name}</h6>
 								</div>
 								<div className="d-flex justify-content-end">
 									<div className="Goals__icon">
@@ -90,35 +92,35 @@ class Goals extends Component {
 								</div>
 							</div>
 							<div className="row mb-2">
-								<div className="col-md-4 col-lg-2 align-self-end">
-									<div className="text-light">{goal.starttime.substring(0,10)}</div>
+								<div className="col-6 col-md-4 col-lg-2 align-self-end">
+									<div className="text-dark">{goal.starttime.substring(0,10)}</div>
+								</div>
+								<div className="col-6 col-md-4 col-lg-2 align-self-end">
+									<div className="text-dark">{goal.endtime.substring(0,10)}</div>
 								</div>
 								<div className="col-md-4 col-lg-2 align-self-end">
-									<div className="text-light">{goal.endtime.substring(0,10)}</div>
-								</div>
-								<div className="col-md-4 col-lg-2 align-self-end">
-									<div className="text-light">{goal.progress}%</div>
+									<div className="text-dark">{goal.progress}%</div>
 								</div>
 							</div>
-							<ProgressBar width={goal.progress} height='5'/>
+							<ProgressBar width={goal.progress} height='15'/>
 						</div>
 					</div>
 					<ul id={"goal-info-" + i} className="list-group list-group-flush collapse">
-					    <li className="list-group-item bg-tertiary">
-    						<div className="text-secondary">Description</div>
-    						<div className="text-secondary Goals__text--sm">{goal.description}</div>
+					    <li className="list-group-item bg-light border-0">
+    						<div className="text-primary">Description</div>
+    						<div className="text-dark Goals__text--sm">{goal.description}</div>
     					</li>
-    					<li className="list-group-item bg-tertiary">
-    						<div className="text-secondary">Plans</div>
-    						<div className="text-secondary Goals__text--sm">{goal.plans}</div>
+    					<li className="list-group-item bg-white border-0">
+    						<div className="text-primary">Plans</div>
+    						<div className="text-dark Goals__text--sm">{goal.plans}</div>
     					</li>
-    					<li className="list-group-item bg-tertiary">
-    						<div className="text-secondary">Subgoals</div>
-    						<div className="text-secondary Goals__text--sm ">None</div>
+    					<li className="list-group-item bg-light border-0">
+    						<div className="text-primary">Subgoals</div>
+    						<div className="text-dark Goals__text--sm ">None</div>
     					</li>
-    					<li className="list-group-item bg-tertiary">
+    					<li className="list-group-item bg-white border-0">
     						<div className="text-secondary">Tasks</div>
-    						<div className="text-secondary Goals__text--sm">None</div>
+    						<div className="text-dark Goals__text--sm">None</div>
     					</li>
   					</ul>
   					</div>

@@ -12,6 +12,11 @@
 	height: 30px;
 }
 
+.Goals__vision-text {
+	width: 128px;
+	font-size: 0.75rem;
+}
+
 .Goals__icon-item {
 	width: 20px;
 	height: 20px;

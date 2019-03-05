@@ -31,7 +31,13 @@ class EditVisionCategory extends Component {
 	}
 
 	onCategoryDelete = () => {
-		this.domain.editCategoryForm.deleteId = this.domain.editCategoryForm.id;
+		if (this.domain.editCategoryForm.deleteId === -1){
+			this.domain.editCategoryForm.deleteId = this.domain.editCategoryForm.id;
+			this.domain.editCategoryForm.response = "Queued for deletion";
+		} else {
+			this.domain.editCategoryForm.deleteId = -1;
+			this.domain.editCategoryForm.response = "";
+		}
 	}
 
 	renderCategoryOptions = () => {
