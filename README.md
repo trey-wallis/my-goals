@@ -5,7 +5,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 This project includes a client (this project) and an API backend found <a href="https://github.com/trey-wallis/my-goals-api">here</a>
 
-## Vision Board ##
+### Vision Board ###
+<img src="https://github/trey-wallis/my-goals/readme-img/vision-board.png" width="100" height="100">
 ![Screenshot](readme-img/vision-board.png)
 <br/><br/>
 
