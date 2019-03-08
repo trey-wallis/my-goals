@@ -1,24 +1,20 @@
 ## Overview
-MyGoals is a responsive way to manage vision and SMART goals. It includes a local postgres database to save data and allows for multiple users to be added
+Serving a mission for the Church of Jesus Christ of Latter-day Saints, I became fascinated with the idea of creating and growing a vision. Our vision is really what we envision ourselves doing and becoming in the future. Essential to that creation is drafting and managing a vision board. In progressing towards accomplishing vision items, goals should be set that help one to make progress along the way. My Goals was made in an effort to reduce the headache in making a paper vision board out of images or magazine cut outs.
+
+## Copyright
+Anyone may use and distribute this code freely. This work is mainly as a resume piece, but also for needed experience in react/postgresql server database management
 
 ### Project Guide
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-To get started please do clone the file using `git clone {url}`<br/>
+This project includes a client (this project) and an API backend found <a href="https://github.com/trey-wallis/my-goals-api">here</a>
+For my project, I use hosting on heroku
 
-The github project contains both an api and react (client) folder <br/>
-Please install the local dependencies for both applications by doing `cd api` and `npm install` and then `cd react` and `npm install` <br/>
+####Vision Board####
+![Screenshot]("readme/vision-board.png")
 
-To install global server dependencies please execute `npm install -g nodemon`<br/>
+Add notes on your vision items
 
-<b>NPM Packages Client</b></br>
-react<br/>
-tachyons<br/>
-mobx</br>
+Set SMART goals
 
-<b>NPM Packages API</b><br/>
-express<br/>
-nodemon<br/>
-bodyparser<br/>
-cors<br/>
-bcrypt-nodejs
+Track progress
