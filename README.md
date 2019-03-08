@@ -6,19 +6,19 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 This project includes a client (this project) and an API backend found <a href="https://github.com/trey-wallis/my-goals-api">here</a>
 
 #### Vision Board ####
-![Screenshot](readme-img/vision-board.png)
+![Screenshot](readme/vision-board.png)
 <br/><br/>
 
 #### Add notes on your vision items ####
-![Screenshot](readme-img/vision-notes.png)
+![Screenshot](readme/vision-notes.png)
 <br/><br/>
 
 #### Track SMART goals ####
-![Screenshot](readme-img/goals.png)
+![Screenshot](readme/goals.png)
 <br/><br/>
 
 #### View progress ####
-![Screenshot](readme-img/progress.png)
+![Screenshot](readme/progress.png)
 <br/><br/>
 
 #### Copyright ####
