@@ -13,9 +13,9 @@ class EditVisionItem extends Component {
 
 		this.domain.editVisionItemForm.visionItems = [];
 
-		if (this.domain.visionItems.length > 0){
-			this.domain.editVisionItemForm.categoryId = this.domain.visionCategories[0].id;
-			this.domain.visionItems.forEach(item => {
+		if (this.domain.visionData.items.length > 0){
+			this.domain.editVisionItemForm.categoryId = this.domain.visionData.categories[0].id;
+			this.domain.visionData.items.forEach(item => {
 				this.domain.editVisionItemForm.visionItems.push({
 						id: item.id,
 						title: item.title,
@@ -41,7 +41,7 @@ class EditVisionItem extends Component {
 	}
 
 	renderCategoryOptions = () => {
-		return this.domain.visionCategories.map((category, i) => {
+		return this.domain.visionData.categories.map((category, i) => {
 			return <option key={i} value={category.id}>{category.name}</option>;
 		});
 	}

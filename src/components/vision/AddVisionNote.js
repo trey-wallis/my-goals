@@ -10,12 +10,12 @@ class AddVisionNote extends Component {
 		const {ui, domain} = RootStore.store;
 		this.ui = ui;
 		this.domain = domain;
-		this.domain.addVisionNoteText = "";
-		this.domain.addVisionNoteResponse = "";
+		this.domain.addVisionNoteForm.text = "";
+		this.domain.addVisionNoteForm.response = "";
 	}
 
 	onTextChange = (e) => {
-		this.domain.addVisionNoteText = e.target.value;
+		this.domain.addVisionNoteForm.text = e.target.value;
 	}
 
 	onSaveNote = () => {
@@ -35,11 +35,11 @@ class AddVisionNote extends Component {
 			      		</div>
 			      		<div className="modal-body">
 							<div className="form-group">
-								<textarea className="form-control" rows="5" placeholder="Ideas, goals, or plans about your vision item" onChange={this.onTextChange} value={this.domain.addVisionNoteText}/>
+								<textarea className="form-control" rows="5" placeholder="Ideas, goals, or plans about your vision item" onChange={this.onTextChange} value={this.domain.addVisionNoteForm.text}/>
 							</div>
 						</div>
 			      		<div className="modal-footer justify-content-between">
-			      			<div className="text-danger mt-1">{this.domain.addVisionNoteResponse}</div>
+			      			<div className="text-danger mt-1">{this.domain.addVisionNoteForm.response}</div>
 			      			<div>
 				      			<button type="button" className="btn btn-primary mr-2" onClick={this.onSaveNote}>Save Note</button>
 				        		<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>

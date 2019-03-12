@@ -20,8 +20,8 @@ class DashBoard extends Component {
 	}
 
 	render(){
-		const visionItemCount = this.domain.visionItems.length;
-		const goalCount = this.domain.goals.length;
+		const visionItemCount = this.domain.visionData.items.length;
+		const goalCount = this.domain.goalData.length;
 
 		return(
 		<div className="DashBoard">

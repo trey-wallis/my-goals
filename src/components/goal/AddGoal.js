@@ -14,42 +14,42 @@ class AddGoal extends Component {
 	}
 
 	onVisionItemChange = (e) => {
-		this.domain.addGoalVisionItemId = parseInt(e.target.value); //we need to parse int because select values are strings
+		this.domain.addGoalForm.visionItemId = parseInt(e.target.value); //we need to parse int because select values are strings
 
-		this.domain.visionItems.forEach(item => {
-			if(item.id  === this.domain.addGoalVisionItemId){
-				this.domain.addGoalNote = item.notes;
+		this.domain.visionData.items.forEach(item => {
+			if(item.id  === this.domain.addGoalForm.visionItemId){
+				this.domain.addGoalForm.note = item.notes;
 			}
 		});
 	}
 
 	onCategoryChange = (e) => {
-		this.domain.addGoalCategoryId = parseInt(e.target.value);
+		this.domain.addGoalForm.categoryId = parseInt(e.target.value);
 
-		for (let i = 0; i < this.domain.visionItems.length; i++){
-			const item = this.domain.visionItems[i];
-			if (item.categoryid === this.domain.addCategoryId){
-				this.domain.addGoalVisionId = item.id;
-				this.domain.addGoalNote = item.notes;
+		for (let i = 0; i < this.domain.visionData.items.length; i++){
+			const item = this.domain.visionData.items[i];
+			if (item.categoryid === this.domain.addGoalForm.categoryId){
+				this.domain.addGoalForm.visionItemId = item.id;
+				this.domain.addGoalForm.note = item.notes;
 				break;
 			}
 		}
 	}
 
 	onNameChange = (e) => {
-		this.domain.addGoalName = e.target.value;
+		this.domain.addGoalForm.name = e.target.value;
 	}
 
 	onDescriptionChange = (e) => {
-		this.domain.addGoalDescription = e.target.value;
+		this.domain.addGoalForm.description = e.target.value;
 	}
 
 	onStartChange = (e) => {
-		this.domain.addGoalStart = e.target.value;
+		this.domain.addGoalForm.start = e.target.value;
 	}
 
 	onEndChange = (e) => {
-		this.domain.addGoalEnd = e.target.value;
+		this.domain.addGoalForm.end = e.target.value;
 	}
 
 	onAddGoal = () => {
@@ -57,18 +57,18 @@ class AddGoal extends Component {
 	}
 
 	onPlansChange = (e) => {
-		this.domain.addGoalPlans = e.target.value;
+		this.domain.addGoalForm.plans = e.target.value;
 	}
 
 	renderCategories(){
-		return this.domain.visionCategories.map((category, i) => {
+		return this.domain.visionData.categories.map((category, i) => {
 			return <option key={i} value={category.id}>{category.name}</option>;
 		});
 	}
 
 	renderVisionItems(){
-		return this.domain.visionItems.map((item,i) => {
-			if (item.categoryid === this.domain.addGoalCategoryId){
+		return this.domain.visionData.items.map((item,i) => {
+			if (item.categoryid === this.domain.addGoalForm.categoryId){
 				return <option key={i} value={item.id}>{item.title}</option>;
 			}
 			return '';
@@ -124,11 +124,11 @@ class AddGoal extends Component {
 			      		<div className="modal-body">
 			      			{this.renderForm()}
 			      			<div className="form-group mt-2">
-			      				<textarea className="form-control collapse" id="add-goal-text-notes" rows="5" placeholder="Ideas, goals, or plans about your vision item" value={this.domain.addGoalNote} readOnly />
+			      				<textarea className="form-control collapse" id="add-goal-text-notes" rows="5" placeholder="Ideas, goals, or plans about your vision item" value={this.domain.addGoalForm.note} readOnly />
 			      			</div>
 			      		</div>
 			      		<div className="modal-footer justify-content-between">
-			      			<div className="text-danger">{this.domain.addGoalResponse}</div>
+			      			<div className="text-danger">{this.domain.addGoalForm.response}</div>
 			      			<div className="button__wrapper">
 			      				<button type="button" className="btn btn-success mr-2" data-toggle="collapse" data-target="#add-goal-text-notes">View Note</button>
 				      			<button type="button" className="btn btn-primary mr-2" onClick={this.onAddGoal}>Add Goal</button>

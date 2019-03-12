@@ -13,7 +13,7 @@ class AddVisionCategory extends Component {
 	}
 
 	onNameChange = (e) => {
-		this.domain.addVisionCategoryName = e.target.value;
+		this.domain.addVisionCategoryForm.name = e.target.value;
 	}
 
 
@@ -38,7 +38,7 @@ class AddVisionCategory extends Component {
 							</div>
 						</div>
 			      		<div className="modal-footer justify-content-between">
-			      			<div className="text-danger">{this.domain.addVisionCategoryResponse}</div>
+			      			<div className="text-danger">{this.domain.addVisionCategoryForm.response}</div>
 			      			<div>
 			      				<button type="button" className="btn btn-primary mr-2" onClick={this.onAdd}>Add Category</button>
 			        			<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>

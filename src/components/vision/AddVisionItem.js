@@ -13,19 +13,19 @@ class AddVisionItem extends Component {
 	}
 
 	onNameChange = (e) => {
-		this.domain.addVisionItemName = e.target.value;
+		this.domain.addVisionItemForm.name = e.target.value;
 	}
 
 	onDescriptionChange = (e) => {
-		this.domain.addVisionItemDescription = e.target.value;
+		this.domain.addVisionItemForm.description = e.target.value;
 	}
 
 	onUrlChange = (e) => {
-		this.domain.addVisionItemUrl = e.target.value;
+		this.domain.addVisionItemForm.url = e.target.value;
 	}
 
 	onCategoryChange = (e) => {
-		this.domain.addVisionItemCategoryId = e.target.value;
+		this.domain.addVisionItemForm.categoryId = e.target.value;
 	}
 
 
@@ -34,7 +34,7 @@ class AddVisionItem extends Component {
 	}
 
 	renderCategories(){
-		return this.domain.visionCategories.map((category, i) => {
+		return this.domain.visionData.categories.map((category, i) => {
 			return <option key={i} value={category.id}>{category.name}</option>;
 		});
 	}
@@ -59,17 +59,17 @@ class AddVisionItem extends Component {
 			      			</div>
 			      			<h6>Vision Item</h6>
 							<div className="form-group">
-								<input type="text" className="form-control" value={this.domain.addVisionItemName} placeholder="Name" onChange={ (e)=> {this.onNameChange(e)} }/>
+								<input type="text" className="form-control" value={this.domain.addVisionItemForm.name} placeholder="Name" onChange={ (e)=> {this.onNameChange(e)} }/>
 							</div>
 							<div className="form-group">
-								<textarea className="form-control" value={this.domain.addVisionItemDescription} placeholder="Explain what your vision looks like. What do you want to accomplish?" onChange={ (e)=> {this.onDescriptionChange(e)} }></textarea>
+								<textarea className="form-control" value={this.domain.addVisionItemForm.description} placeholder="Explain what your vision looks like. What do you want to accomplish?" onChange={ (e)=> {this.onDescriptionChange(e)} }></textarea>
 							</div>
 							<div className="form-group">
-								<input type="text" className="form-control" value={this.domain.addVisionItemUrl} placeholder="URL" onChange={ (e)=> {this.onUrlChange(e)} }/>
+								<input type="text" className="form-control" value={this.domain.addVisionItemForm.url} placeholder="URL" onChange={ (e)=> {this.onUrlChange(e)} }/>
 							</div>
 						</div>
 			      		<div className="modal-footer justify-content-between">
-			      			<div className="text-danger">{this.domain.addVisionItemResponse}</div>
+			      			<div className="text-danger">{this.domain.addVisionItemForm.response}</div>
 			      			<div>
 			      				<button type="button" className="btn btn-primary mr-2" onClick={this.onAdd}>Add Vision Item</button>
 			        			<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>

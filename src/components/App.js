@@ -26,32 +26,29 @@ class App extends Component {
 
 	componentDidMount(){
 		this.domain.checkLogin();
-		this.domain.getCategories();
-		this.domain.getGoals();
 	}
 
 	render(){
 		return (
 			<Router>
 				<div className="App">
-					{this.domain.loggedIn ? 
+					{this.domain.connected ? 
 						HeaderLoggedIn(this.ui, this.domain): HeaderLoggedOut(this.ui)}
-					{this.domain.loggedIn ?
+					{this.domain.connected ?
 						<Switch>
 							<Route path="/dashboard" component={DashBoard}/>
 							<Route path="/visionboard" component={VisionBoard}/>
 							<Route path="/goals" component={Goals}/>
 							<Route path="/habits" component={Habits}/>
 							<Route path="/settings" component={Settings}/>
-							{this.domain.connected ?
-							<Redirect to="/dashboard" push={true} /> : ''}
+							<Redirect to="/dashboard" push={true} />
 						</Switch> : 
-						<div>
+						<Switch>
 							<Route exact={true} path={'/'}  component={Title}/>
 							<Route path={`/login`} component={Login}/>
 							<Route path={`/register`} component={Register}/>
 							<Redirect to={'/'} push={true} />
-					</div>}
+					</Switch>}
 				</div>
 			</Router>);
 	}

@@ -15,9 +15,9 @@ class VisionItem extends Component {
 	}
 
 	onCard = (id) => {
-		this.domain.addVisionNoteItemId = id;
-		this.domain.addVisionNoteResponse = "";
-		this.domain.getNote();
+		this.domain.addVisionNoteForm.visionItemId = id;
+		this.domain.addVisionNoteForm.response = "";
+		this.domain.fetchNote();
 	}
 
 	render(){

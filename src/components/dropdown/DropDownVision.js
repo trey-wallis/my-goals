@@ -12,7 +12,7 @@ class DropDownVision extends Component {
 		this.ui = ui;
 		this.domain = domain;
 
-		this.ui.dropDown.items = this.domain.visionCategories.map((category, i) => {
+		this.ui.dropDown.items = this.domain.visionData.categories.map((category, i) => {
 			return category.name;
 		});
 	}
@@ -38,7 +38,7 @@ class DropDownVision extends Component {
 				<button type="button" className="btn btn--reset dropdown-toggle text-tertiary" data-toggle="dropdown" id="navbar-dropdown">My Vision</button>
 				<div className="dropdown-menu">
 					{
-					this.domain.visionCategories.length > 0 ?
+					this.domain.visionData.categories.length > 0 ?
 						<React.Fragment>
 							<Scrollable minHeight="0px" maxHeight="100px">
 								{ this.renderDropDownItems() }
@@ -50,9 +50,9 @@ class DropDownVision extends Component {
 				    <div className="dropdown-divider"></div>
 				    <button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-add-vision-category">Add Category</button>
 				    <button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-add-vision-item">Add Item</button>
-				    {this.domain.visionCategories.length > 0 ? 
+				    {this.domain.visionData.categories.length > 0 ? 
 				    <button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-edit-vision-category">Edit Categories</button> : ''}
-				    {this.domain.visionItems.length > 0 ?
+				    {this.domain.visionData.items.length > 0 ?
 				  	<button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-edit-vision-item">Edit Items</button> : ''}
 				</div>
 			</div>);
