@@ -27,7 +27,7 @@ class VisionBoard extends Component {
 	}
 
 	renderItems(id){
-		const items = this.domain.visionItems.map((item, i) => {
+		const items = this.domain.visionData.items.map((item, i) => {
 			if (item.categoryid === id)
 				return <VisionItem key={i} img={item.url} title={item.title} desc={item.description} itemId={item.id} />
 			return '';
@@ -35,7 +35,7 @@ class VisionBoard extends Component {
 		if (items.length > 0){
 			return items;
 		} else {
-		this.domain.editVisionItemForm.visionItems = [];
+			this.domain.editVisionItemForm.visionItems = [];
 			return this.renderItemMessage();
 		}
 	}
@@ -46,7 +46,7 @@ class VisionBoard extends Component {
 	}
 
 	renderCategories(){
-		return this.domain.visionCategories.map((category, i) => {
+		return this.domain.visionData.categories.map((category, i) => {
 			if(this.ui.dropDown.active === i || this.ui.dropDown.active === -1){
 				return(
 					<div key={i}>
@@ -76,12 +76,12 @@ class VisionBoard extends Component {
 		return(
 			<div className="VisionBoard">
 				<div className="container bg-white">
-					{this.domain.visionCategories.length > 0 ? this.renderCategories() : this.renderCategoryMessage()}
+					{this.domain.visionData.categories.length > 0 ? this.renderCategories() : this.renderCategoryMessage()}
 				</div>
 				<AddVisionItem/>
 				<AddVisionCategory/>
-				{this.domain.visionCategories.length > 0 ? <EditVisionCategory/> : ''}
-				{this.domain.visionItems.length > 0 ? <EditVisionItem/> : ''}
+				{this.domain.visionData.categories.length > 0 ? <EditVisionCategory/> : ''}
+				{this.domain.visionData.items.length > 0 ? <EditVisionItem/> : ''}
 				<AddVisionNote/>
 			</div>);
 	}

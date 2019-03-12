@@ -14,10 +14,10 @@ class Register extends Component {
 		this.domain = domain;
 
 		//Reset inputs on refresh
-		this.domain.registrationUsername = "";
-		this.domain.registrationPassword = "";
-		this.domain.registrationPasswordRepeat = "";
-		this.domain.registrationResponse = "";
+		this.domain.registrationForm.username = "";
+		this.domain.registrationForm.password = "";
+		this.domain.registrationForm.passwordRepeat = "";
+		this.domain.registrationForm.response = "";
 	}
 
 	componentDidMount(){
@@ -26,21 +26,21 @@ class Register extends Component {
 	}
 
 	onSubmit = () => {
-		this.domain.registerResponse = "Registering account...";
+		this.domain.registrationForm.response = "Registering account...";
 		this.domain.connectRegister();
 	}
 
 
 	onChangeUsername = (e) => {
-		this.domain.registrationUsername = e.target.value;
+		this.domain.registrationForm.username = e.target.value;
 	}
 
 	onChangePassword = (e) => {
-		this.domain.registrationPassword = e.target.value;
+		this.domain.registrationForm.password = e.target.value;
 	}
 
 	onChangePasswordRepeat = (e) =>  {
-		this.domain.registrationPasswordRepeat = e.target.value;
+		this.domain.registrationForm.passwordRepeat = e.target.value;
 	}
 
 	render(){
@@ -57,7 +57,7 @@ class Register extends Component {
 					<div className="form-group">
 						<input type="password" placeholder="Password Repeat" className="form-control" onChange={(e)=>{this.onChangePasswordRepeat(e)}}/>
 					</div>
-					<div className="text-danger Registration__response">{this.domain.registrationResponse}</div>
+					<div className="text-danger Registration__response">{this.domain.registrationForm.response}</div>
 					<button className="btn btn-primary" onClick={this.onSubmit}>Submit</button>
 				</div>
 			</div>);

@@ -14,30 +14,30 @@ class Login extends Component {
 		this.domain = domain;
 		
 		//Everytime we refresh we want to clear the form buffer
-		this.domain.loginUsername = "";
-		this.domain.loginPassword = "";
-		this.domain.loginResponse = "";
+		this.domain.loginForm.username = "";
+		this.domain.loginForm.password = "";
+		this.domain.loginForm.response = "";
 	}
 
 	componentDidMount(){
 		$('.navbar-collapse').collapse('hide');
 		this.ui.navItemActive = 1;
-		this.domain.loginUsername = "";
-		this.domain.loginPassword = "";
-		this.domain.loginResponse = "";
+		this.domain.loginForm.username = "";
+		this.domain.loginForm.password = "";
+		this.domain.loginForm.response = "";
 	}
 
 	onSubmit = () => {
-		this.domain.loginResponse = "Logging in...";
+		this.domain.loginForm.response = "Logging in...";
 		this.domain.connectLogin();
 	}
 
 	onChangeUsername = (e) => {
-		this.domain.loginUsername = e.target.value;
+		this.domain.loginForm.username = e.target.value;
 	}
 
 	onChangePassword = (e) => {
-		this.domain.loginPassword = e.target.value;
+		this.domain.loginForm.password = e.target.value;
 	}
 
 	render(){
@@ -51,7 +51,7 @@ class Login extends Component {
 					<div className="form-group">
 						<input type="password" placeholder="Password" className="form-control" onChange={(e)=>{this.onChangePassword(e)}}/>
 					</div>
-					<div className="text-danger Login__response">{this.domain.loginResponse}</div>
+					<div className="text-danger Login__response">{this.domain.loginForm.response}</div>
 					<button className="btn btn-primary" onClick={this.onSubmit}>Submit</button>
 				</div>
 			</div>);

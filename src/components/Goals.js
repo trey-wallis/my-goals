@@ -22,14 +22,14 @@ class Goals extends Component {
 	}
 
 	componentDidMount(){
-		if (this.domain.visionCategories.length > 0){
-			this.domain.addGoalCategoryId = this.domain.visionCategories[0].id;
+		if (this.domain.visionData.categories.length > 0){
+			this.domain.addGoalForm.categoryId = this.domain.visionData.categories[0].id;
 		}
-		const items = this.domain.visionItems.filter(item => {
+		const items = this.domain.visionData.items.filter(item => {
 			return item.categoryid === this.domain.addGoalCategoryId;
 		});
 		if (items.length > 0){
-			this.domain.addGoalVisionItemId = items[0].id;
+			this.domain.addGoalForm.visionItemId = items[0].id;
 		}
 		$('.navbar-collapse').collapse('hide');
 		this.ui.navItemActive = 2;
@@ -37,7 +37,7 @@ class Goals extends Component {
 	}
 
 	increaseProgress = (id) => {
-		const goal = this.domain.goals.filter(goal => goal.id === id)[0];
+		const goal = this.domain.goalData.filter(goal => goal.id === id)[0];
 		const progress = goal.progress;
 		if (progress === 100)
 			return;
@@ -45,7 +45,7 @@ class Goals extends Component {
 	}
 
 	decreaseProgress = (id) => {
-		const goal = this.domain.goals.filter(goal => goal.id === id)[0];
+		const goal = this.domain.goalData.filter(goal => goal.id === id)[0];
 		const progress = goal.progress;
 		if (progress === 0)
 			return;
@@ -56,11 +56,11 @@ class Goals extends Component {
 			let visionItemName = "";
 			let visionItemURL = "";
 
-			return this.domain.goals.map((goal, i) => {
-				for (let i = 0; i < this.domain.visionItems.length; i++){
-					if (this.domain.visionItems[i].id === goal.visionid){
-						visionItemName = this.domain.visionItems[i].title;
-						visionItemURL = this.domain.visionItems[i].url;
+			return this.domain.goalData.map((goal, i) => {
+				for (let i = 0; i < this.domain.visionData.items.length; i++){
+					if (this.domain.visionData.items[i].id === goal.visionid){
+						visionItemName = this.domain.visionData.items[i].title;
+						visionItemURL = this.domain.visionData.items[i].url;
 						break;
 					}
 				}
@@ -143,7 +143,7 @@ class Goals extends Component {
 	}
 
 	renderBoard = () => {
-		if(this.domain.goals.length > 0){
+		if(this.domain.goalData.length > 0){
 			return (<div className="row">
 				{this.renderGoals()}
 			</div>);
@@ -158,7 +158,7 @@ class Goals extends Component {
 				<div className="container bg-white">
 					<div className="p-4">
 						<h3 className="text-center">Goals</h3>
-						{this.domain.visionItems.length > 0 ?
+						{this.domain.visionData.items.length > 0 ?
 							this.renderBoard() : this.renderCategoryNotification()}
 					</div>
 				</div>

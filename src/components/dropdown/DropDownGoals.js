@@ -13,10 +13,10 @@ class DropDownGoals extends Component {
 	}
 
 	onAddGoal = () => {
-		for (let i = 0; i < this.domain.visionItems.length; i++){
-			const item = this.domain.visionItems[i];
-			if (item.categoryid === this.domain.addGoalCategory){
-				this.domain.addGoalNote = item.notes;
+		for (let i = 0; i < this.domain.visionData.items.length; i++){
+			const item = this.domain.visionData.items[i];
+			if (item.categoryid === this.domain.addGoalForm.categoryId){
+				this.domain.addGoalForm.note = item.notes;
 				break;
 			}
 		}
@@ -28,7 +28,7 @@ class DropDownGoals extends Component {
 			<div className="btn-group">
 				<button type="button" className="btn btn--reset dropdown-toggle text-tertiary" data-toggle="dropdown" id="navbar-dropdown">My Goals</button>
 				<div className="dropdown-menu">
-					{this.domain.visionItems.length > 0 ?
+					{this.domain.visionData.items.length > 0 ?
 				    <button type="button" className="dropdown-item" onClick={this.onAddGoal}>Add Goal</button> : ''}
 				</div>
 			</div>);
