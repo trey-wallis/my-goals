@@ -1,3 +1,5 @@
+import { observable, decorate} from 'mobx';
+
 class Connection {
 
 	constructor(){
@@ -63,5 +65,9 @@ class Connection {
 		return this.post(route, joined);
 	}
 }
+
+decorate(Connection, {
+	connected: observable
+})
 
 export default Connection;

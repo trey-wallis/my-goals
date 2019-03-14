@@ -15,8 +15,8 @@ class DropDownGoals extends Component {
 	onAddGoal = () => {
 		for (let i = 0; i < this.domain.visionData.items.length; i++){
 			const item = this.domain.visionData.items[i];
-			if (item.categoryid === this.domain.addGoalForm.categoryId){
-				this.domain.addGoalForm.note = item.notes;
+			if (item.categoryid === this.domain.addGoal.form.visionItem){
+				this.domain.addGoal.visionNote = item.notes;
 				break;
 			}
 		}

@@ -27,7 +27,7 @@ class VisionItem extends Component {
 						<img className="Vision__img card-img-top" src={this.props.img} alt="img"/>
   					<div className="Vision__card-body card-body">
 	    				<h6 className="text-center text-primary">{this.props.title}</h6>
-	    				<Scrollable height="110px" width="280px" margin="0px 17px">
+	    				<Scrollable height="110px" width="280px" margin="0px 17px" overflow="hidden">
 	    					<p className="Vision__description text-dark px-3">{this.props.desc}</p>
 	    				</Scrollable>
  	 				</div>

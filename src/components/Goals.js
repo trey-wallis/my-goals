@@ -23,13 +23,13 @@ class Goals extends Component {
 
 	componentDidMount(){
 		if (this.domain.visionData.categories.length > 0){
-			this.domain.addGoalForm.categoryId = this.domain.visionData.categories[0].id;
+			this.domain.addGoal.form.visionCategory = this.domain.visionData.categories[0].id;
 		}
 		const items = this.domain.visionData.items.filter(item => {
-			return item.categoryid === this.domain.addGoalCategoryId;
+			return item.categoryid === this.domain.addGoal.form.visionCategory;
 		});
 		if (items.length > 0){
-			this.domain.addGoalForm.visionItemId = items[0].id;
+			this.domain.addGoal.form.visionItem = items[0].id;
 		}
 		$('.navbar-collapse').collapse('hide');
 		this.ui.navItemActive = 2;
