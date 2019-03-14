@@ -2,7 +2,6 @@ import { observable, decorate, computed} from "mobx";
 
 import $ from 'jquery';
 import Connection from '../connection/Connection';
-import Profile from './Profile';
 
 class DomainStore {
 

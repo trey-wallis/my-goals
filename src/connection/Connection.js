@@ -6,7 +6,7 @@ class Connection {
 		this.localhost = true;
 	}
 
-	get domain = () => {
+	get domain() {
 		if (this.localhost)
 			return "http://localhost:3006";
 		else
@@ -23,11 +23,11 @@ class Connection {
 		window.sessionStorage.setItem('uid', 'undefined');
 	}
 
-	get uid = () => {
+	get uid() {
 		return parseInt(window.sessionStorage.getItem('uid'));
 	}
 
-	get sessionKey = () => {
+	get sessionKey() {
 		return window.sessionStorage.getItem('sessionKey');
 	}
 
