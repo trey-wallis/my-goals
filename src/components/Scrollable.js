@@ -8,7 +8,7 @@ class Scrollable extends Component {
 			height: this.props.height,
 			minHeight: this.props.minHeight,
 			maxHeight: this.props.maxHeight,
-			overflow: "hidden",
+			overflow: this.props.overflow,
 		}
 
 		const styleScrollableContainer = {

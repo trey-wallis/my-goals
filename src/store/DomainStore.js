@@ -349,7 +349,6 @@ decorate(DomainStore, {
 	registrationForm: observable,
 	addVisionCategoryForm: observable,
 	addVisionItemForm: observable,
-	connected: observable,
 	visionData: observable,
 	goalData: observable,
 	addGoalForm: observable,

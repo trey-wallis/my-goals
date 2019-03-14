@@ -28,7 +28,7 @@ class DashBoard extends Component {
 			<div className="container bg-white d-flex flex-column align-items-center text-primary h-100">
 				<div className="w-100 p-4 text-center mb-1">
 					<h3 className="text-dark">Dashboard</h3>
-					<h6 className="lead">Welcome {this.domain.displayName}</h6>
+					<h6 className="lead">Welcome {this.domain.profile.display}</h6>
 				</div>
 				<div className="row w-100 my-2">
 					<div className="col-4">
