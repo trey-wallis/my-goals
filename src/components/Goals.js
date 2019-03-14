@@ -38,18 +38,22 @@ class Goals extends Component {
 
 	increaseProgress = (id) => {
 		const goal = this.domain.goalData.filter(goal => goal.id === id)[0];
-		const progress = goal.progress;
-		if (progress === 100)
-			return;
-		this.domain.progress(id, progress + 10);
+		if (goal.progresstotal!== 0){
+			if (goal.progresscount < goal.progresstotal){
+				goal.progresscount += 1;
+				this.domain.postProgress(id, goal.progresscount);
+			}
+		}
 	}
 
 	decreaseProgress = (id) => {
 		const goal = this.domain.goalData.filter(goal => goal.id === id)[0];
-		const progress = goal.progress;
-		if (progress === 0)
-			return;
-		this.domain.progress(id, progress - 10);
+		if (goal.progresstotal!== 0){
+			if (goal.progresscount !== 0){
+				goal.progresscount -= 1;
+				this.domain.postProgress(id, goal.progresscount);
+			}
+		}
 	}
 
 	renderGoals(){
@@ -63,6 +67,11 @@ class Goals extends Component {
 						visionItemURL = this.domain.visionData.items[i].url;
 						break;
 					}
+				}
+
+				let goalProgress = 0;
+				if (goal.progresstotal!== 0){
+					goalProgress = parseInt((goal.progresscount / goal.progresstotal) * 100);
 				}
 
 				return(
@@ -99,10 +108,13 @@ class Goals extends Component {
 									<div className="text-dark">{goal.endtime.substring(0,10)}</div>
 								</div>
 								<div className="col-md-4 col-lg-2 align-self-end">
-									<div className="text-dark">{goal.progress}%</div>
+									<div className="text-dark">{goal.progresslabel}</div>
+								</div>
+								<div className="col-md-4 col-lg-2 align-self-end">
+									<div className="text-dark">{`${goal.progresscount} out of ${goal.progresstotal}`}</div>
 								</div>
 							</div>
-							<ProgressBar width={goal.progress} height='15'/>
+							<ProgressBar width={goalProgress} height='15'/>
 						</div>
 					</div>
 					<ul id={"goal-info-" + i} className="list-group list-group-flush collapse">

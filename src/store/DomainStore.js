@@ -208,6 +208,10 @@ class DomainStore {
 		.then(response => {
 			const {data} = response;
 			if (response.status === 200){
+				//When we first register an account, if we add a value, we need to update the default category Id
+				if (this.visionData.categories === 0){
+					this.addVisionItemForm.categoryId = this.data.categories[0].id;
+				}
 		 		this.visionData.categories.push(data);
 		 		$("#add-vision-category-name").val('');
 		 		$("#modal-add-vision-category").modal('hide');
@@ -335,15 +339,13 @@ class DomainStore {
 		.catch(error => console.log);
 	}
 
-	progress = (id, progress) => {
+	postProgress = (id, progressCount) => {
 		this.connection.postAuthorized("updateprogress", {
 			id: id,
-			progress: progress
+			progressCount: progressCount
 		})
 		.then(response => {
 		 	if (response.status === 200){
-		 		const goal = this.goalData.filter(goal => goal.id === id)[0];
-		 		goal.progress = progress;
 		 	} 
 		})
 		.catch(error => console.log);

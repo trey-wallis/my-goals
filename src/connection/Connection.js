@@ -5,7 +5,7 @@ class Connection {
 	constructor(){
 		this.connected = false;
 		this.error = null;
-		this.localhost = true;
+		this.localhost = false;
 	}
 
 	get domain() {
