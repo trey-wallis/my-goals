@@ -75,7 +75,7 @@ class DomainStore {
 				start: "",
 				end: "",
 				progressLabel: "",
-				progressCount: 0,
+				progressTotal: 0,
 			}
 
 		}

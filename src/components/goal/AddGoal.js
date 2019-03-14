@@ -13,6 +13,11 @@ class AddGoal extends Component {
 		this.domain = domain;
 	}
 
+	componentDidMount(){
+		this.domain.addGoal.form.start = this.currentDate();
+		this.domain.addGoal.form.end = this.currentDate();
+	}
+
 	/*
 	* On Change Handlers
 	*/
@@ -63,8 +68,8 @@ class AddGoal extends Component {
 		this.domain.addGoal.form.plans = e.target.value;
 	}
 
-	onProgressCountChange = (e) => {
-		this.domain.addGoal.form.progressCount = e.target.value;
+	onProgressTotalChange = (e) => {
+		this.domain.addGoal.form.progressTotal = e.target.value;
 	}
 
 	onProgressLabelChange = (e) => {
@@ -207,10 +212,10 @@ class AddGoal extends Component {
 			<React.Fragment>
 				<h6>Tracking progress</h6>
 				<div className="form-group">
-					<input type="text" className="form-control form-control-sm" placeholder="Task label" onChange={this.onProgressLabelChange}/>
+					<input type="text" className="form-control form-control-sm" placeholder="Progress label" onChange={this.onProgressLabelChange}/>
 				</div>
 				<div className="form-group">
-					<input type="number" className="form-control form-control-sm" placeholder="Number of tasks" onChange={this.onProgressCountChange}/>
+					<input type="number" className="form-control form-control-sm" placeholder="Number of tasks" onChange={this.onProgressTotalChange}/>
 				</div>
 			</React.Fragment>
 			);

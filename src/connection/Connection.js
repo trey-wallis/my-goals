@@ -1,4 +1,4 @@
-import { observable, decorate, computed} from "mobx";
+import { observable, decorate} from 'mobx';
 
 class Connection {
 
