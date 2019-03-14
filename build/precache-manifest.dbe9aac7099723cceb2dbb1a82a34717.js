@@ -4,12 +4,12 @@ self.__precacheManifest = [
     "url": "/my-goals/static/media/graph-bar.488cbc2a.svg"
   },
   {
-    "revision": "1d0995f63e42dfe90de0",
+    "revision": "d5745e2518f668398bed",
     "url": "/my-goals/static/css/main.54a5bba1.chunk.css"
   },
   {
-    "revision": "28fad327c0261e17248e",
-    "url": "/my-goals/static/js/1.28fad327.chunk.js"
+    "revision": "2782f155e42b80347781",
+    "url": "/my-goals/static/js/1.2782f155.chunk.js"
   },
   {
     "revision": "e6380dec47d4353fe7d4",
@@ -20,8 +20,8 @@ self.__precacheManifest = [
     "url": "/my-goals/static/media/document-new.92b3c93b.svg"
   },
   {
-    "revision": "1d0995f63e42dfe90de0",
-    "url": "/my-goals/static/js/main.1d0995f6.chunk.js"
+    "revision": "d5745e2518f668398bed",
+    "url": "/my-goals/static/js/main.d5745e25.chunk.js"
   },
   {
     "revision": "c0b54e95fdf246fa9b4a6e6a234105de",
@@ -40,7 +40,7 @@ self.__precacheManifest = [
     "url": "/my-goals/static/media/minus.23cad0b3.svg"
   },
   {
-    "revision": "39f1ae90f2946f142975a6641611f764",
+    "revision": "73a6131a92b44c7b3c910d5a1dab63fc",
     "url": "/my-goals/index.html"
   }
 ];

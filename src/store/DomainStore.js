@@ -346,6 +346,8 @@ class DomainStore {
 		})
 		.then(response => {
 		 	if (response.status === 200){
+		 		//const goal = this.goalData.filter(goal => goal.id === id)[0];
+		 		//goal.progress = progress;
 		 	} 
 		})
 		.catch(error => console.log);
