@@ -1,17 +1,34 @@
 class Connection {
 
-	constructor(profile){
-		this.profile = profile;
+	constructor(){
 		this.connected = false;
 		this.error = null;
 		this.localhost = true;
 	}
 
-	get domain(){
+	get domain = () => {
 		if (this.localhost)
 			return "http://localhost:3006";
 		else
 			return "https://my-goals-api.herokuapp.com";
+	}
+
+	saveProfile = (sessionKey, uid) => {
+		window.sessionStorage.setItem('sessionKey', sessionKey);
+		window.sessionStorage.setItem('uid', uid);
+	}
+
+	clearProfile = () => {
+		window.sessionStorage.setItem('sessionKey', 'undefined');
+		window.sessionStorage.setItem('uid', 'undefined');
+	}
+
+	get uid = () => {
+		return parseInt(window.sessionStorage.getItem('uid'));
+	}
+
+	get sessionKey = () => {
+		return window.sessionStorage.getItem('sessionKey');
 	}
 
 	post = (route, body) => {
@@ -34,8 +51,8 @@ class Connection {
 	}
 
 	postAuthorized = (route, body) => {
-		const sessionKey = this.profile.sessionKey;
-		const uid = this.profile.uid;
+		const sessionKey = this.sessionKey;
+		const uid = this.uid;
 
 		const session = {
 			sessionKey: sessionKey,

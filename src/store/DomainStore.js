@@ -9,8 +9,6 @@ class DomainStore {
 	constructor(root){
 		this.root = root;
 
-		this.displayName = "";
-
 		this.goalData = [];
 
 		this.visionData = {
@@ -18,8 +16,11 @@ class DomainStore {
 			items: []
 		};
 
-		this.profile = new Profile();
-		this.connection = new Connection(this.profile);
+		this.profile = {
+			displayName : ""
+		}
+
+		this.connection = new Connection();
 
 		this.editCategoryForm = {
 			id: -1,
@@ -90,8 +91,8 @@ class DomainStore {
 		this.connection.postAuthorized("logout")
 		.then(response => {
 			if (response.status === 200){
-				this.connected = false;
-				this.profile.clearProfile();
+				this.connection.connected = false;
+				this.connection.clearProfile();
 			}
 		})
 		.catch(err => console.log);
@@ -130,9 +131,9 @@ class DomainStore {
 		.catch(err => console.log);
 	}
 
-	login = (data) => {
-		this.displayName = data.display;
-		this.connected = true;
+	login = (profile) => {
+		this.profile = profile;
+		this.connection.connected = true;
 		this.fetchVisionBoard();
 		this.fetchGoals();
 	}
@@ -145,7 +146,7 @@ class DomainStore {
 		.then(response => {
 			const {data} = response;
 			if (response.status === 200){
-				this.profile.saveProfile(data.sessionkey, data.uid);
+				this.connection.saveProfile(data.sessionkey, data.uid);
 				this.login(data);
 			} else {
 				this.loginForm.response = data;
@@ -163,7 +164,7 @@ class DomainStore {
 		.then(response => {
 			const {data} = response;
 			if (response.status === 200){
-				this.profile.saveProfile(data.sessionkey, data.uid);
+				this.connection.saveProfile(data.sessionkey, data.uid);
 				this.login(data);
 			} else {
 				this.registrationForm.response = data;

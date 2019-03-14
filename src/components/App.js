@@ -32,9 +32,9 @@ class App extends Component {
 		return (
 			<Router>
 				<div className="App">
-					{this.domain.connected ? 
+					{this.domain.connection.connected ? 
 						HeaderLoggedIn(this.ui, this.domain): HeaderLoggedOut(this.ui)}
-					{this.domain.connected ?
+					{this.domain.connection.connected ?
 						<Switch>
 							<Route path="/dashboard" component={DashBoard}/>
 							<Route path="/visionboard" component={VisionBoard}/>
