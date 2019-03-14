@@ -27,7 +27,7 @@ class EditVisionCategory extends Component {
 
 	onCategoryChange = (e) => {
 		this.domain.editCategoryForm.id = parseInt(e.target.value);
-		this.domain.editCategoryForm.name = this.domain.visionCategoryName(parseInt(e.target.value));
+		this.domain.editCategoryForm.name = this.domain.visionCategoryName();
 	}
 
 	onCategoryDelete = () => {
