@@ -1,26 +1,25 @@
-import { observable, decorate, computed } from "mobx";
+import { observable, decorate, computed} from "mobx";
+
 import $ from 'jquery';
-import Profile from './Profile';
+import Connection from '../connection/Connection';
 
 class DomainStore {
 
 	constructor(root){
-		this.hostname = "https://my-goals-api.herokuapp.com"; //"http://localhost:3006"; 
-
 		this.root = root;
-		
-		this.connected = false;
 
 		this.goalData = [];
-
-		this.displayName = "";
 
 		this.visionData = {
 			categories: [],
 			items: []
 		};
 
-		this.profile = new Profile();
+		this.profile = {
+			displayName : ""
+		}
+
+		this.connection = new Connection();
 
 		this.editCategoryForm = {
 			id: -1,
@@ -82,55 +81,24 @@ class DomainStore {
 		}
 	}
 
-	visionCategoryName(id){
-		const category = this.visionData.categories.filter(category => category.id === id)[0];
+	get visionCategoryName(){
+		const category = this.visionData.categories.filter(category => category.id === this.editCategoryForm.id)[0];
 		return category.name;
 	}
 
-	postAuthorized = (url, body) => {
-		const sessionKey = this.profile.sessionKey;
-		const uid = this.profile.uid;
-
-		const session = {
-			sessionKey: sessionKey,
-			uid: uid
-		};
-		var joined = Object.assign({}, session, body);
-		return this.post(url, joined);
-	}
-
-	post = (url, body) => {
-		let status;
-		return fetch(`${this.hostname}/${url}`, {
-		 	method: 'post',
-		 	headers: {'Content-Type': 'application/json'},
-		 	body: JSON.stringify(body)
-		 })
-		 .then(response => {
-		 	status = response.status;
-		 	return response.json();
-		 })
-		 .then(data => {
-		 	return {
-		 		status: status,
-		 		data: data
-		 	}
-		 });
-	}
-
 	postLogout = () => {
-		this.postAuthorized("logout")
+		this.connection.postAuthorized("logout")
 		.then(response => {
 			if (response.status === 200){
-				this.connected = false;
-				this.profile.clearProfile();
+				this.connection.connected = false;
+				this.connection.clearSession();
 			}
 		})
 		.catch(err => console.log);
 	}
 
 	fetchVisionBoard = () => {
-		this.postAuthorized("visionboard")
+		this.connection.postAuthorized("visionboard")
 		.then(response => {
 			if (response.status === 200){
 				this.visionData = response.data;
@@ -143,7 +111,7 @@ class DomainStore {
 	}
 
 	fetchGoals = () => {
-		this.postAuthorized("goals")
+		this.connection.postAuthorized("goals")
 		.then(response => {
 			if (response.status === 200){
 				this.goalData = response.data;
@@ -153,7 +121,7 @@ class DomainStore {
 	}
 
 	checkLogin = () => {
-		this.postAuthorized('checklogin')
+		this.connection.postAuthorized('checklogin')
 		.then(response => {
 			if (response.status === 200){
 				this.login(response.data);
@@ -162,32 +130,32 @@ class DomainStore {
 		.catch(err => console.log);
 	}
 
-	login = (data) => {
-		this.displayName = data.display;
-		this.connected = true;
+	login = (profile) => {
+		this.profile = profile;
+		this.connection.connected = true;
 		this.fetchVisionBoard();
 		this.fetchGoals();
 	}
 
 	connectLogin = () => {
-		this.post("login", {
+		this.connection.post("login", {
 			username: this.loginForm.username,
 			password: this.loginForm.password
 		})
 		.then(response => {
 			const {data} = response;
 			if (response.status === 200){
-				this.profile.saveProfile(data.sessionkey, data.uid);
+				this.connection.saveSession(data.sessionkey, data.uid);
 				this.login(data);
 			} else {
 				this.loginForm.response = data;
 			}
 		})
-		.catch(err => this.loginForm.response = "Unable to connect to api");
+		.catch(err => this.loginForm.response = "Unable to connect");
 	}
 
 	connectRegister = () => {
-		this.post("register", {
+		this.connection.post("register", {
 			username: this.registrationForm.username,
 			password: this.registrationForm.password,
 			passwordRepeat: this.registrationForm.passwordRepeat
@@ -195,17 +163,17 @@ class DomainStore {
 		.then(response => {
 			const {data} = response;
 			if (response.status === 200){
-				this.profile.saveProfile(data.sessionkey, data.uid);
+				this.connection.saveSession(data.sessionkey, data.uid);
 				this.login(data);
 			} else {
 				this.registrationForm.response = data;
 			}
 		})
-		.catch(err => this.registrationForm.response = "Unable to connect to api");
+		.catch(err => this.registrationForm.response = "Unable to connect");
 	}
 
 	fetchNote = () => {
-		this.postAuthorized("visionnote", {
+		this.connection.postAuthorized("visionnote", {
 			visionItemId: this.addVisionNoteForm.visionItemId
 		})
 		.then(response => {
@@ -221,7 +189,7 @@ class DomainStore {
 	* Post Methods
 	*/
 	postAddCategory = () => {
-		this.postAuthorized("addvisioncategory", {
+		this.connection.postAuthorized("addvisioncategory", {
 			name: this.addVisionCategoryForm.name
 		})
 		.then(response => {
@@ -242,7 +210,7 @@ class DomainStore {
 	}
 
 	postAddVisionItem = () => {
-		this.postAuthorized("addvisionitem", {
+		this.connection.postAuthorized("addvisionitem", {
 			name: this.addVisionItemForm.name,
 		 	description: this.addVisionItemForm.description,
 		 	url: this.addVisionItemForm.url,
@@ -265,7 +233,7 @@ class DomainStore {
 	}
 
 	postAddGoal = () => {
-		this.postAuthorized("addgoal", {
+		this.connection.postAuthorized("addgoal", {
 		 	visionItemId: this.addGoalForm.visionItemId,
 		 	name: this.addGoalForm.name,
 		 	description: this.addGoalForm.description,
@@ -276,7 +244,7 @@ class DomainStore {
 		.then(response => {
 			const {data} = response;
 			if (response.status === 200){
-		 		this.root.store.domain.goalData.push(data);
+		 		this.goalData.push(data);
 		 		$('#modal-add-goal').modal('hide');
 			} else {
 				this.addGoalForm.response = data;
@@ -286,7 +254,7 @@ class DomainStore {
 	}
 
 	postAddVisionNote = () => {
-		this.postAuthorized("addvisionnote", {
+		this.connection.postAuthorized("addvisionnote", {
 		 	visionItemId: this.addVisionNoteForm.visionItemId,
 		 	noteText: this.addVisionNoteForm.text
 		})
@@ -308,7 +276,7 @@ class DomainStore {
 	}
 
 	editVisionCategory = () => {
-		this.postAuthorized("editvisioncategory", {
+		this.connection.postAuthorized("editvisioncategory", {
 		 	id: this.editCategoryForm.id,
 		 	name: this.editCategoryForm.name,
 		 	deleteId: this.editCategoryForm.deleteId,
@@ -335,7 +303,7 @@ class DomainStore {
 	}
 
 	editVisionItem = () => {
-		this.postAuthorized("editvisionitem", {
+		this.connection.postAuthorized("editvisionitem", {
 		 	visionItems: this.editVisionItemForm.visionItems,
 		})
 		.then(response => {
@@ -362,7 +330,7 @@ class DomainStore {
 	}
 
 	progress = (id, progress) => {
-		this.postAuthorized("updateprogress", {
+		this.connection.postAuthorized("updateprogress", {
 			id: id,
 			progress: progress
 		})
@@ -388,6 +356,7 @@ decorate(DomainStore, {
 	addVisionNoteForm: observable,
 	editCategoryForm: observable,
 	editVisionItemForm: observable,
+	visionCategoryName: computed,
 })
 
 export default DomainStore;
