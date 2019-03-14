@@ -92,7 +92,7 @@ class DomainStore {
 		.then(response => {
 			if (response.status === 200){
 				this.connection.connected = false;
-				this.connection.clearProfile();
+				this.connection.clearSession();
 			}
 		})
 		.catch(err => console.log);
@@ -146,7 +146,7 @@ class DomainStore {
 		.then(response => {
 			const {data} = response;
 			if (response.status === 200){
-				this.connection.saveProfile(data.sessionkey, data.uid);
+				this.connection.saveSession(data.sessionkey, data.uid);
 				this.login(data);
 			} else {
 				this.loginForm.response = data;
@@ -164,7 +164,7 @@ class DomainStore {
 		.then(response => {
 			const {data} = response;
 			if (response.status === 200){
-				this.connection.saveProfile(data.sessionkey, data.uid);
+				this.connection.saveSession(data.sessionkey, data.uid);
 				this.login(data);
 			} else {
 				this.registrationForm.response = data;
