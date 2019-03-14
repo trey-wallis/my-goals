@@ -62,16 +62,22 @@ class DomainStore {
 			response: ""
 		}
 
-		this.addGoalForm = {
-			categoryId: 0,
-			visionItemId: 0,
-			name: "",
-			description: "",
-			start: "",
-			end: "",
-			plans: "",
+		this.addGoal = {
+			menu: 0,
 			response: "",
-			note: "",
+			visionNote: "",
+			form: {
+				visionCategory: 0,
+				visionItem: 0,
+				name: "",
+				description: "",
+				plans: "",
+				start: "",
+				end: "",
+				progressLabel: "",
+				progressCount: 0,
+			}
+
 		}
 
 		this.addVisionNoteForm = {
@@ -79,6 +85,13 @@ class DomainStore {
 			response: "",
 			visionItemId: 0
 		}
+	}
+
+	get addGoalMenuOption(){
+		if (this.addGoal.menu === 4)
+			return "Save";
+		else 
+			return "Next";
 	}
 
 	get visionCategoryName(){
@@ -233,21 +246,14 @@ class DomainStore {
 	}
 
 	postAddGoal = () => {
-		this.connection.postAuthorized("addgoal", {
-		 	visionItemId: this.addGoalForm.visionItemId,
-		 	name: this.addGoalForm.name,
-		 	description: this.addGoalForm.description,
-		 	plans: this.addGoalForm.plans,
-		 	start: this.addGoalForm.start,
-		 	end: this.addGoalForm.end
-		})
+		this.connection.postAuthorized("addgoal", this.addGoal.form)
 		.then(response => {
 			const {data} = response;
 			if (response.status === 200){
 		 		this.goalData.push(data);
 		 		$('#modal-add-goal').modal('hide');
 			} else {
-				this.addGoalForm.response = data;
+				this.addGoal.response = data;
 			}
 		})
 		.catch(error => console.log);
@@ -351,7 +357,8 @@ decorate(DomainStore, {
 	addVisionItemForm: observable,
 	visionData: observable,
 	goalData: observable,
-	addGoalForm: observable,
+	addGoal: observable,
+	addGoalMenuOption: computed,
 	addVisionNoteForm: observable,
 	editCategoryForm: observable,
 	editVisionItemForm: observable,
