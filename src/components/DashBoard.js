@@ -22,6 +22,8 @@ class DashBoard extends Component {
 	render(){
 		const visionItemCount = this.domain.visionData.items.length;
 		const goalCount = this.domain.goalData.length;
+		const goalsCompleted = this.domain.goalData.filter(goal => goal.progresscount === goal.progresstotal).length;
+		const goalsInProgress = goalCount - goalsCompleted;
 
 		return(
 		<div className="DashBoard">
@@ -36,12 +38,12 @@ class DashBoard extends Component {
 						<h5 className="text-black text-center">Vision Items</h5>
 					</div>
 					<div className="col-4">
-						<div className="display-4 text-center">{goalCount}</div>
-						<h5 className="text-black text-center">Goals</h5>
+						<div className="display-4 text-center">{goalsCompleted}</div>
+						<h5 className="text-black text-center">Goals Completed</h5>
 					</div>
 					<div className="col-4">
-						<div className="display-4 text-center">0</div>
-						<h5 className="text-black text-center">Habits</h5>
+						<div className="display-4 text-center">{goalsInProgress}</div>
+						<h5 className="text-black text-center">Goals In Progress</h5>
 					</div>
 				</div>
 			</div>

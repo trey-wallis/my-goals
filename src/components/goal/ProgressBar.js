@@ -13,7 +13,7 @@ class ProgressBar extends Component {
 
 		return(
 			<div className="progress" style={progressOuterStyle}>
-  				<div className="progress-bar bg-danger" role="progressbar" style={progressStyle}></div>
+  				<div className={this.props.style} role="progressbar" style={progressStyle}></div>
 			</div>);
 	}
 }

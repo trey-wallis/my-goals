@@ -80,6 +80,23 @@ class DomainStore {
 
 		}
 
+		this.editGoal = {
+			menu: 0,
+			visionNote: "",
+			form: {
+				selectedId: -1,
+				visionCategory: 0,
+				visionItem: 0,
+				name: "",
+				description: "",
+				plans: "",
+				start: "",
+				end: "",
+				progressLabel: "",
+				progressTotal: 0,
+			}
+		}
+
 		this.addVisionNoteForm = {
 			text: "",
 			response: "",
@@ -89,6 +106,13 @@ class DomainStore {
 
 	get addGoalMenuOption(){
 		if (this.addGoal.menu === 4)
+			return "Save";
+		else 
+			return "Next";
+	}
+
+	get editGoalMenuOption(){
+		if (this.editGoal.menu === 4)
 			return "Save";
 		else 
 			return "Next";
@@ -255,9 +279,34 @@ class DomainStore {
 			const {data} = response;
 			if (response.status === 200){
 		 		this.goalData.push(data);
+		 		this.addGoal.menu = 0; //reset the menu to the start
 		 		$('#modal-add-goal').modal('hide');
+		 		alert("Added goal!");
 			} else {
 				this.addGoal.response = data;
+			}
+		})
+		.catch(error => console.log);
+	}
+
+	postEditGoal = () => {
+		this.connection.postAuthorized("editgoal", this.editGoal.form)
+		.then(response => {
+			const {data} = response;
+			if (response.status === 200){
+				const goal = this.goalData.filter(goal => goal.id === this.editGoal.form.selectedId)[0];
+				goal.name = this.editGoal.form.name;
+				goal.description = this.editGoal.form.description;
+				goal.plans = this.editGoal.form.plans;
+				goal.starttime = this.editGoal.form.start;
+				goal.endtime = this.editGoal.form.end;
+				goal.progresslabel = this.editGoal.form.progressLabel;
+				goal.progresstotal = this.editGoal.form.progressTotal;
+				goal.visionid = this.editGoal.form.visionItem;
+
+		 		this.editGoal.menu = 0; //reset the menu to the start
+		 		$('#modal-edit-goal').modal('hide');
+		 		alert("Saved goal!");
 			}
 		})
 		.catch(error => console.log);
@@ -352,6 +401,25 @@ class DomainStore {
 		})
 		.catch(error => console.log);
 	}
+
+	postDeleteGoal = (id) => {
+		this.connection.postAuthorized("deletegoal", {
+			id: id
+		})
+		.then(response => {
+			if (response.status === 200){
+				for (let i = 0; i < this.goalData.length; i++){
+					const goal = this.goalData[i];
+					if (goal.id === id){
+						this.goalData.splice(i, 1);
+						break;
+					}
+				}
+				alert("Deleted goal!");
+			}
+		})
+		.catch(error => console.log);
+	}
 }
 
 decorate(DomainStore, {
@@ -362,6 +430,7 @@ decorate(DomainStore, {
 	visionData: observable,
 	goalData: observable,
 	addGoal: observable,
+	editGoal: observable,
 	addGoalMenuOption: computed,
 	addVisionNoteForm: observable,
 	editCategoryForm: observable,

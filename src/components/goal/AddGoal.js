@@ -14,6 +14,20 @@ class AddGoal extends Component {
 	}
 
 	componentDidMount(){
+		//If the amount of category is not 0 then we will set our default category
+		if (this.domain.visionData.categories.length > 0){
+			this.domain.addGoal.form.visionCategory = this.domain.visionData.categories[0].id;
+		}
+
+		const items = this.domain.visionData.items.filter(item => {
+			return item.categoryid === this.domain.addGoal.form.visionCategory;
+		});
+
+		//If the number of items in that category are not 0 then set our default items
+		if (items.length > 0){
+			this.domain.addGoal.form.visionItem = items[0].id;
+			this.domain.addGoal.form.visionNote = items[0].notes;
+		}
 		this.domain.addGoal.form.start = this.currentDate();
 		this.domain.addGoal.form.end = this.currentDate();
 	}
