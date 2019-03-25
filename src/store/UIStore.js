@@ -9,7 +9,7 @@ class UIStore {
 		this.root = root;
 
 		this.navItemActive = 0;
-
+		this.filterCompletedGoals = false;
 		this.dropDown = {
 			id: 0,
 			active: 0,
@@ -48,6 +48,8 @@ class UIStore {
 decorate(UIStore, {
 	dropDown: observable,
 	navItemActive: observable,
+	filterCompletedGoals: observable,
+	editGoalId: observable,
 })
 
 export default UIStore;
