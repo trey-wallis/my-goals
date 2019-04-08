@@ -15,9 +15,9 @@ class DropDownGoals extends Component {
 	onAddGoal = () => {
 		$('#modal-add-goal').modal('show');
 	}
-	
-	onFilterCompleted = () => {
-		this.ui.filterCompletedGoals = !this.ui.filterCompletedGoals;
+
+	filterChange = (e) => {
+		this.ui.filterGoal.id = parseInt(e.target.value);
 	}
 
 	render(){
@@ -27,7 +27,15 @@ class DropDownGoals extends Component {
 				<div className="dropdown-menu">
 					{this.domain.visionData.items.length > 0 ?
 				    <button type="button" className="dropdown-item" onClick={this.onAddGoal}>Add Goal</button>: ''}
-				    <button type="button" className="dropdown-item" onClick={this.onFilterCompleted}>Filter Completed</button>
+					<div className="dropdown-divider"></div>
+
+					<select className="form-control" value={this.ui.filterGoal.id} onChange={(e)=>{this.filterChange(e)}}>
+						<option value={this.ui.states.FILTER_GOAL_NONE}>Show All</option>
+						<option value={this.ui.states.FILTER_GOAL_COMPLETED}>Uncompleted</option>
+						<option value={this.ui.states.FILTER_GOAL_WEEK}>This Week</option>
+						<option value={this.ui.states.FILTER_GOAL_MONTH}>This Month</option>
+					</select>
+
 				</div>
 			</div>);
 	}

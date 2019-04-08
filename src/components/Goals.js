@@ -18,33 +18,51 @@ class Goals extends Component {
 		this.domain = domain;
 	}
 
-	componentDidMount(){
+	componentDidMount(){ //TODO - REMOVE THESE VALUES AND PLACE IN WHERE THE ROUTE IS CHANGED - THESE LOAD THE COMPONENT TWICE
 		$('.navbar-collapse').collapse('hide');
 		this.ui.navItemActive = 2; //Goals will be highlighted
 		this.ui.dropDown.id = 2; //What does this do?
 	}
 
 	renderGoals = () => {
-			//Iterate through all the goals
 			return this.domain.goalData.map((goal, i) => {
+
+				//Get the vision item that this goal is attached to
 				const visionItem = this.domain.visionData.items.filter(item => item.id === goal.visionid)[0];
 
-				let goalProgress = 0;
-				if (goal.progresstotal !== 0){
-					goalProgress = parseInt((goal.progresscount / goal.progresstotal) * 100);
-				}
+				//Calculate the progress of the goal
+				const progress = parseInt((goal.progresscount / goal.progresstotal) * 100);
 
-				let style = "progress-bar";
+				//This will be our default progress bar style
+				let progressBarStyle = "progress-bar";
+
+				//If we have completed our goal based on our measurements
 				if (goal.progresscount === goal.progresstotal){
-					style = "progress-bar bg-success";
-					if (this.ui.filterCompletedGoals === true){
+
+					//Add the success style
+					progressBarStyle = "progress-bar bg-success";
+
+					//If we want to filter our goals - then we will return right here and not render them
+					if (this.ui.filterGoal.id === this.ui.states.FILTER_GOAL_COMPLETED)
 						return '';
-					}
 				}
 
-				return <GoalItem key={i} index={i} id={goal.id} name={goal.name} visionItemTitle={visionItem.title} visionItemUrl={visionItem.url} progress={goalProgress}
-							progressLabel={goal.progresslabel} progressTotal={goal.progresstotal} progressCount={goal.progresscount}
-							startTime={goal.starttime} endTime={goal.endtime} plans={goal.plans} description={goal.description} progressStyle={style}/>
+				const today = new Date().getTime();
+				const endDate = new Date(goal.endtime.substring(0, 10)).getTime();
+
+				//Filter for weekly goals
+				if (this.ui.filterGoal.id === this.ui.states.FILTER_GOAL_WEEK){
+					if (endDate - today > this.ui.ONE_WEEK_MILLIS)
+						return '';
+				}
+
+				//Filter for monthly goals
+				if (this.ui.filterGoal.id === this.ui.states.fILTER_GOAL_MONTH){
+					if (endDate - today > this.ui.ONE_MONTH_MILLIS)
+						return '';
+				}
+
+				return <GoalItem key={i} index={i} id={goal.id} name={goal.name} visionItemTitle={visionItem.title} visionItemUrl={visionItem.url} progress={progress} progressLabel={goal.progresslabel} progressTotal={goal.progresstotal} progressCount={goal.progresscount} startTime={goal.starttime} endTime={goal.endtime} plans={goal.plans} description={goal.description} progressStyle={progressBarStyle}/>
 			});
 	}
 
