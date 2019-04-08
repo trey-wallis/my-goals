@@ -11,7 +11,7 @@ class DropDownVision extends Component {
 		let {ui, domain} = RootStore.store;
 		this.ui = ui;
 		this.domain = domain;
-
+		
 		this.ui.dropDown.items = this.domain.visionData.categories.map((category, i) => {
 			return category.name;
 		});

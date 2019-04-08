@@ -12,7 +12,7 @@ class UIStore {
 		this.filterCompletedGoals = false;
 		this.dropDown = {
 			id: 0,
-			active: 0,
+			active: -1,
 			items: []
 		}
 	}
