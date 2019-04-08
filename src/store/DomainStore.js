@@ -74,8 +74,8 @@ class DomainStore {
 				plans: "",
 				start: "",
 				end: "",
-				progressLabel: "",
-				progressTotal: 0,
+				progressLabel: "Tasks Completed",
+				progressTotal: 1,
 			}
 
 		}

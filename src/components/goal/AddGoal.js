@@ -3,6 +3,7 @@ import {observer} from 'mobx-react';
 
 import $ from 'jquery';
 import RootStore from '../../store/RootStore';
+import {date} from '../../TextUtils';
 
 class AddGoal extends Component {
 
@@ -14,22 +15,25 @@ class AddGoal extends Component {
 	}
 
 	componentDidMount(){
-		//If the amount of category is not 0 then we will set our default category
+		//If there are more than 0 categories then set the first category as the default
+		//option in the form
 		if (this.domain.visionData.categories.length > 0){
 			this.domain.addGoal.form.visionCategory = this.domain.visionData.categories[0].id;
 		}
 
+		//Filter all vision items that fall within this category
 		const items = this.domain.visionData.items.filter(item => {
 			return item.categoryid === this.domain.addGoal.form.visionCategory;
 		});
 
-		//If the number of items in that category are not 0 then set our default items
+		//If the number of items in that category are not 0 then set the default vision item to be the first
 		if (items.length > 0){
 			this.domain.addGoal.form.visionItem = items[0].id;
 			this.domain.addGoal.form.visionNote = items[0].notes;
 		}
-		this.domain.addGoal.form.start = this.currentDate();
-		this.domain.addGoal.form.end = this.currentDate();
+
+		this.domain.addGoal.form.start = date(0);
+		this.domain.addGoal.form.end = date(7);
 	}
 
 	/*
@@ -112,23 +116,6 @@ class AddGoal extends Component {
 
 	}
 
-	/*
-	* Gets the Current Date and Formats for Input Field Type Date
-	*/
-	currentDate = () => {
-		const today = new Date();
-		let dd = today.getDate();
-		let mm = today.getMonth()+1; //January is 0!
-		const yyyy = today.getFullYear();
-
-		if(dd<10)
-			dd='0'+dd
-		 if(mm<10)
-		 	mm='0'+mm
-		 const formatted = '' + yyyy+'-'+mm+'-'+dd + '';
-		 return formatted;
-	}
-
 
 	/*
 	* Render Methods
@@ -164,61 +151,61 @@ class AddGoal extends Component {
 
 	renderSelectCategory = () => {
 		return (
-				<React.Fragment>
-					<h6>Select a category</h6>
-					<div className="form-group">
-						<select className="form-control form-control-sm mb-2" onChange={this.onCategoryChange}>
-							{this.renderCategories()}
-						</select>
-					</div>
-				</React.Fragment>
-				);
+			<React.Fragment>
+				<h6>Select a category</h6>
+				<div className="form-group">
+					<select className="form-control form-control-sm" value={this.domain.addGoal.form.visionCategory} onChange={this.onCategoryChange}>
+						{this.renderCategories()}
+					</select>
+				</div>
+			</React.Fragment>
+		);
 	}
 
 	renderSelectVisionItem = () => {
 		return (
-				<React.Fragment>
-					<h6>Select an item</h6>
-					<div className="form-group">
-						<select className="form-control form-control-sm mb-2" onChange={this.onItemChange}>
-							{this.renderItems()}
-						</select>
-					</div>
-				</React.Fragment>
-				);
+			<React.Fragment>
+				<h6>Select an item</h6>
+				<div className="form-group">
+					<select className="form-control form-control-sm" value={this.domain.addGoal.form.visionItem} onChange={this.onItemChange}>
+						{this.renderItems()}
+					</select>
+				</div>
+			</React.Fragment>
+		);
 	}
 
 	renderGoalDescription = () => {
 		return(
-				<React.Fragment>
-		     		<h6>Enter goal details</h6>
-					<div className="form-group">
-						<input type="text" className="form-control form-control-sm" placeholder="Name" onChange={this.onNameChange}/>
-					</div>
-					<div className="form-group">
-						<textarea className="form-control form-control-sm" placeholder="What do you want to do? How will this help you progress towards your vision?" onChange={this.onDescriptionChange}/>
-					</div>
-					<div className="form-group">
-						<textarea className="form-control form-control-sm" rows="4" placeholder="What are your plans to achieve your goal?" onChange={this.onPlansChange}/>
-					</div>
-				</React.Fragment>
-				);
+			<React.Fragment>
+		    	<h6>Enter goal details</h6>
+				<div className="form-group">
+					<input type="text" className="form-control form-control-sm" placeholder="Name" value={this.domain.addGoal.form.name} onChange={this.onNameChange}/>
+				</div>
+				<div className="form-group">
+					<textarea className="form-control form-control-sm" placeholder="What do you want to do? How will this help you progress towards your vision?" value={this.domain.addGoal.form.description} onChange={this.onDescriptionChange}/>
+				</div>
+				<div className="form-group">
+					<textarea className="form-control form-control-sm" rows="4" placeholder="What are your plans to achieve your goal? What will hinder me in my progress? What are my plans to overcome this?" value={this.domain.addGoal.form.plans} onChange={this.onPlansChange}/>
+				</div>
+			</React.Fragment>
+		);
 	}
 
 	renderSelectDate = () => {
 		return(
-				<React.Fragment>
-					<h6>Goal timeline</h6>
-					<div className="form-group">
-						<label>Start</label>
-						<input id="start-date" type="date" className="form-control form-control-sm" defaultValue={this.currentDate()} onChange={this.onStartChange}/>
-					</div>
-					<div className="form-group">
-						<label>End</label>
-						<input id="end-date" type="date" className="form-control form-control-sm" defaultValue={this.currentDate()} onChange={this.onEndChange}/>
-					</div>
-				</React.Fragment>
-				);
+			<React.Fragment>
+				<h6>Goal timeline</h6>
+				<div className="form-group">
+					<label>Start</label>
+					<input id="start-date" type="date" className="form-control form-control-sm" defaultValue={date(0)} onChange={this.onStartChange}/>
+				</div>
+				<div className="form-group">
+					<label>End</label>
+					<input id="end-date" type="date" className="form-control form-control-sm" defaultValue={date(7)} onChange={this.onEndChange}/>
+				</div>
+			</React.Fragment>
+		);
 	}
 
 	renderTrackProgress =  () => {
@@ -226,13 +213,13 @@ class AddGoal extends Component {
 			<React.Fragment>
 				<h6>Tracking progress</h6>
 				<div className="form-group">
-					<input type="text" className="form-control form-control-sm" placeholder="Progress label" onChange={this.onProgressLabelChange}/>
+					<input type="text" className="form-control form-control-sm" placeholder="Progress label" value={this.domain.addGoal.form.progressLabel} onChange={this.onProgressLabelChange}/>
 				</div>
 				<div className="form-group">
-					<input type="number" className="form-control form-control-sm" placeholder="Number of tasks" onChange={this.onProgressTotalChange}/>
+					<input type="number" className="form-control form-control-sm" placeholder="Number of tasks" value={this.domain.addGoal.form.progressTotal} onChange={this.onProgressTotalChange}/>
 				</div>
 			</React.Fragment>
-			);
+		);
 	}
 
 	render(){
