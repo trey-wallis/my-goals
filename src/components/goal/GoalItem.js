@@ -165,7 +165,7 @@ class GoalItem extends Component {
     					</li>
     					<li className="list-group-item bg-white border-0">
     						<div className="text-primary">Plans</div>
-    						<div className="text-dark Goals__text--sm">{plans}</div>
+    						<div className="Goals__plans text-dark Goals__text--sm">{plans}</div>
     					</li>
   					</ul>
   					</div>
