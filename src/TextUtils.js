@@ -3,9 +3,9 @@
 */
 export const date = (dayOffset) => {
 		const today = new Date();
-		const later = new Date(today.getTime() + (1000 * 60 * 60 * 24 * dayOffset));
+		const later = new Date(today.getDate() + (dayOffset)); //If we were to use millis instead of date it is not daylight savings safe
 		let dd = later.getDate();
-		let mm = later.getMonth()+1; //January is 0!
+		let mm = later.getMonth() + 1; //January is 0!
 		const yyyy = later.getFullYear();
 
 		if (dd < 10)
