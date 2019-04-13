@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {observer} from 'mobx-react';
-import {HashRouter as Router, Link, Route, Redirect, Switch} from 'react-router-dom';
+import {HashRouter as Router, Route, Redirect, Switch} from 'react-router-dom';
 
 import RootStore from '../store/RootStore';
 

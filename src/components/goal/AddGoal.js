@@ -90,8 +90,8 @@ class AddGoal extends Component {
 		this.domain.addGoal.form.progressTotal = e.target.value;
 	}
 
-	onProgressLabelChange = (e) => {
-		this.domain.addGoal.form.progressLabel = e.target.value;
+	onProgressTrackingChange = (e) => {
+		this.domain.addGoal.form.progressTracking = parseInt(e.target.value);
 	}
 
 	/*
@@ -209,14 +209,22 @@ class AddGoal extends Component {
 	}
 
 	renderTrackProgress =  () => {
+		let placeholder = "Number of days";
+		if (this.domain.addGoal.form.progressTracking === 1){
+			placeholder = "Number of tasks";
+		}
+
 		return(
 			<React.Fragment>
 				<h6>Tracking progress</h6>
 				<div className="form-group">
-					<input type="text" className="form-control form-control-sm" placeholder="Progress label" value={this.domain.addGoal.form.progressLabel} onChange={this.onProgressLabelChange}/>
+					<select className="form-control form-control-sm" value={this.domain.addGoal.form.progressTracking} onChange={this.onProgressTrackingChange}>
+						<option value="0">Habit</option>
+						<option value="1">Tasks</option>
+					</select>
 				</div>
 				<div className="form-group">
-					<input type="number" className="form-control form-control-sm" placeholder="Number of tasks" value={this.domain.addGoal.form.progressTotal} onChange={this.onProgressTotalChange}/>
+					<input type="number" className="form-control form-control-sm" placeholder={placeholder} value={this.domain.addGoal.form.progressTotal} onChange={this.onProgressTotalChange}/>
 				</div>
 			</React.Fragment>
 		);

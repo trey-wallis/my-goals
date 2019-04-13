@@ -8,10 +8,7 @@ import RootStore from '../../store/RootStore';
 import ProgressBar from './ProgressBar.js';
 
 import ViewList from '../../icons/view-list.svg';
-import Plus from '../../icons/plus.svg';
-import Minus from '../../icons/minus.svg';
 import Cross from '../../icons/cross.svg';
-import Trophy from '../../icons/trophy.svg';
 import DocumentEdit from '../../icons/document-edit.svg';
 
 import $ from 'jquery';
@@ -23,32 +20,6 @@ class GoalItem extends Component {
 		const {ui, domain} = RootStore.store;
 		this.ui = ui;
 		this.domain = domain;
-	}
-
-	increaseProgress = (id) => {
-		const goal = this.getGoal(id);
-		if (goal.progresstotal !== 0){
-			if (goal.progresscount < goal.progresstotal){
-				goal.progresscount += 1;
-				this.domain.postProgress(id, goal.progresscount);
-			}
-		}
-	}
-
-	decreaseProgress = (id) => {
-		const goal = this.getGoal(id);
-		if (goal.progresstotal !== 0){
-			if (goal.progresscount !== 0){
-				goal.progresscount -= 1;
-				this.domain.postProgress(id, goal.progresscount);
-			}
-		}
-	}
-
-	completeGoal = (id) => {
-		const goal = this.getGoal(id);
-		goal.progresscount = goal.progresstotal;
-		this.domain.postProgress(id, goal.progresstotal);
 	}
 
 	deleteGoal = (id) => {
@@ -87,7 +58,7 @@ class GoalItem extends Component {
 		this.domain.editGoal.form.start = selectedGoal.starttime.substring(0, 10);
 		this.domain.editGoal.form.end = selectedGoal.endtime.substring(0,10);	
 		this.domain.editGoal.form.visionCategory = selectedGoalCategory.id;
-		this.domain.editGoal.form.progressLabel = selectedGoal.progresslabel;
+		this.domain.editGoal.form.progressTracking = selectedGoal.progress_tracking;
 		this.domain.editGoal.form.progressTotal = selectedGoal.progresstotal;
 		this.domain.editGoal.form.visionItem = selectedGoalVisionItem.id;
 		this.domain.editGoal.visionNote = selectedGoalVisionItem.notes;
@@ -100,7 +71,7 @@ class GoalItem extends Component {
 	}
 
 	render(){
-		const {index, id, name, visionItemTitle, visionItemUrl, progress, progressStyle, progressCount, progressTotal, progressLabel, startTime, endTime, plans, description} = this.props;
+		const {index, id, name, visionItemTitle, visionItemUrl, progress, progressStyle, progressCount, progressTotal, progressTracking, startTime, endTime, plans, description} = this.props;
 
 		return(
 			<div className="col-12 mb-4">
@@ -118,14 +89,11 @@ class GoalItem extends Component {
 								</div>
 									<div className="d-flex justify-content-end">
 										<div className="Goals__icon">
-											<img src={Plus} className="Goals__icon-item" alt="plus" onClick={()=>{this.increaseProgress(id)}}/>
+											<img src={DocumentEdit} className="Goals__icon-item" alt="edit" onClick={()=>{this.editGoal(id)}}/>
 										</div>
-										<div className="Goals__icon">
-											<img src={Minus} className="Goals__icon-item" alt="minus" onClick={()=>{this.decreaseProgress(id)}}/>
-										</div>
-										<div className="Goals__icon">
-											<img src={Cross} className="Goals__icon-item" alt="cross" onClick={()=>{this.deleteGoal(id)}}/>
-										</div>
+																		<div className="Goals__icon">
+									<img src={ViewList} className="Goals__icon-item" alt="viewlist" data-toggle="collapse" data-target={"#goal-info-" + index}/>
+								</div>
 									</div>
 							</div>
 							<div className="d-flex justify-content-between">
@@ -137,7 +105,7 @@ class GoalItem extends Component {
 									<div className="text-dark">{endTime.substring(0,10)}</div>
 								</div>
 								<div className="col-sm-6 ">
-									<div className="text-dark">{progressLabel}</div>
+									<div className="text-dark">{progressTracking}</div>
 								</div>
 								<div className="col-sm-6">
 									<div className="text-dark">{`${progressCount} out of ${progressTotal}`}</div>
@@ -145,13 +113,7 @@ class GoalItem extends Component {
 							</div>
 							<div className="d-flex justify-content-end">
 								<div className="Goals__icon">
-									<img src={DocumentEdit} className="Goals__icon-item" alt="edit" onClick={()=>{this.editGoal(id)}}/>
-								</div>
-								<div className="Goals__icon">
-									<img src={Trophy} className="Goals__icon-item" alt="tropy" onClick={()=>{this.completeGoal(id)}}/>
-								</div>
-								<div className="Goals__icon">
-									<img src={ViewList} className="Goals__icon-item" alt="viewlist" data-toggle="collapse" data-target={"#goal-info-" + index}/>
+									<img src={Cross} className="Goals__icon-item" alt="cross" onClick={()=>{this.deleteGoal(id)}}/>
 								</div>
 								</div>
 							</div>

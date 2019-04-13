@@ -55,8 +55,8 @@ class editGoal extends Component {
 		this.domain.editGoal.form.progressTotal = e.target.value;
 	}
 
-	onProgressLabelChange = (e) => {
-		this.domain.editGoal.form.progressLabel = e.target.value;
+	onProgressTrackingChange = (e) => {
+		this.domain.editGoal.form.progressTracking = parseInt(e.target.value);
 	}
 
 	/*
@@ -177,7 +177,10 @@ class editGoal extends Component {
 			<React.Fragment>
 				<h6>Tracking progress</h6>
 				<div className="form-group">
-					<input type="text" className="form-control form-control-sm" placeholder="Progress label" onChange={this.onProgressLabelChange} value={this.domain.editGoal.form.progressLabel}/>
+					<select className="form-control form-control-sm" value={this.domain.editGoal.form.progressTracking} onChange={this.onProgressTrackingChange}>
+						<option value="0">Habit</option>
+						<option value="1">Tasks</option>
+					</select>
 				</div>
 				<div className="form-group">
 					<input type="number" className="form-control form-control-sm" placeholder="Number of tasks" onChange={this.onProgressTotalChange} value={this.domain.editGoal.form.progressTotal}/>

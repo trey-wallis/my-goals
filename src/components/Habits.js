@@ -17,18 +17,16 @@ class Habits extends Component {
 	componentDidMount(){
 		$('.navbar-collapse').collapse('hide');
 		this.ui.navItemActive = 3;
-		this.ui.dropDown.id = 3;
+		this.ui.dropDown.id = 0;
 	}
 
 	render(){
 		return(
 			<div className="Habits">
-				<div className="container bg-white h-100">
-					<div className="p-4">
+				<div className="container pt-4 bg-white h-100">
 						<h3 className="text-center">Habits</h3>
 						<div className="d-flex justify-content-center">
 						<HabitContainer/>
-						</div>
 					</div>
 				</div>
 			</div>);

@@ -10,6 +10,7 @@ class DomainStore {
 
 		this.goalData = [];
 		this.habitData = [];
+		this.taskData = [];
 
 		this.visionData = {
 			categories: [],
@@ -75,8 +76,8 @@ class DomainStore {
 				plans: "",
 				start: "",
 				end: "",
-				progressLabel: "Tasks Completed",
-				progressTotal: 1,
+				progressTracking: 0,
+				progressTotal: 21,
 			}
 
 		}
@@ -93,7 +94,7 @@ class DomainStore {
 				plans: "",
 				start: "",
 				end: "",
-				progressLabel: "",
+				progressTracking: 0,
 				progressTotal: 0,
 			}
 		}
@@ -158,6 +159,17 @@ class DomainStore {
 		.catch(err => console.log);
 	}
 
+	fetchHabits = () => {
+		this.connection.postAuthorized("habits")
+		.then(response => {
+			if (response.status === 200){
+				this.habitData = response.data;
+				console.log(this.habitData);
+			}
+		})
+		.catch(err => console.log);
+	}
+
 	checkLogin = () => {
 		this.connection.postAuthorized('checklogin')
 		.then(response => {
@@ -173,6 +185,7 @@ class DomainStore {
 		this.connection.connected = true;
 		this.fetchVisionBoard();
 		this.fetchGoals();
+		this.fetchHabits();
 	}
 
 	connectLogin = () => {
@@ -218,6 +231,33 @@ class DomainStore {
 			if (response.status === 200){
 				this.addVisionNoteForm.text = response.data;
 				$("#modal-add-vision-note").modal('show');
+			}
+		})
+		.catch(error => console.log);
+	}
+
+
+	postHabit = (goalId, date) => {
+		this.connection.postAuthorized("updatehabit", {
+			goalId: goalId,
+			date: date
+		})
+		.then(response => {
+			const {data} = response;
+			if (response.status === 200){
+				if (data === "Success"){
+					const filtered = this.habitData.filter(habit => {
+						if (habit.goal_id === goalId){
+							if (new Date(habit.date).getTime() === (date.getTime() - (date.getTimezoneOffset() * 60000))){
+								return false;
+							}
+						}
+						return true;
+					});
+					this.habitData = filtered;
+				} else {
+					this.habitData.push(data);
+				}
 			}
 		})
 		.catch(error => console.log);
@@ -293,7 +333,6 @@ class DomainStore {
 	postEditGoal = () => {
 		this.connection.postAuthorized("editgoal", this.editGoal.form)
 		.then(response => {
-			const {data} = response;
 			if (response.status === 200){
 				const goal = this.goalData.filter(goal => goal.id === this.editGoal.form.selectedId)[0];
 				goal.name = this.editGoal.form.name;
@@ -301,7 +340,7 @@ class DomainStore {
 				goal.plans = this.editGoal.form.plans;
 				goal.starttime = this.editGoal.form.start;
 				goal.endtime = this.editGoal.form.end;
-				goal.progresslabel = this.editGoal.form.progressLabel;
+				goal.progress_tracking = this.editGoal.form.progressTracking;
 				goal.progresstotal = this.editGoal.form.progressTotal;
 				goal.visionid = this.editGoal.form.visionItem;
 
@@ -389,20 +428,6 @@ class DomainStore {
 		.catch(error => console.log);
 	}
 
-	postProgress = (id, progressCount) => {
-		this.connection.postAuthorized("updateprogress", {
-			id: id,
-			progressCount: progressCount
-		})
-		.then(response => {
-		 	if (response.status === 200){
-		 		//const goal = this.goalData.filter(goal => goal.id === id)[0];
-		 		//goal.progress = progress;
-		 	} 
-		})
-		.catch(error => console.log);
-	}
-
 	postDeleteGoal = (id) => {
 		this.connection.postAuthorized("deletegoal", {
 			id: id
@@ -437,6 +462,7 @@ decorate(DomainStore, {
 	editCategoryForm: observable,
 	editVisionItemForm: observable,
 	visionCategoryName: computed,
+	habitData: observable,
 })
 
 export default DomainStore;

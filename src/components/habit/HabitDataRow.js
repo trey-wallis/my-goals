@@ -1,34 +1,41 @@
 import React, { Component } from 'react';
 import { observer} from 'mobx-react';
 
-import Store from '../../store/RootStore';
-import { upperCaseFirst, getWeekDates } from '../../TextUtils';
+import RootStore from '../../store/RootStore';
+import { upperCaseFirst, getDates } from '../../TextUtils';
 import HabitDataRowItem from './HabitDataRowItem';
 
 class HabitDataRow extends Component {
   render() {
-  	const {id, title, markedDates} = this.props;
-  	const rows = getWeekDates(Store.ui.habits.date).map((date, i) => {
-  		const match = markedDates.filter(markedDate => {
-			const marked = new Date(markedDate);
-			return marked.getTime() === date.getTime()
-  		})[0];
-  		if (match !== undefined){
-  			return <HabitDataRowItem key={i} id={id} imgName="checkmark" fill="green" date={date} checked={true} />;
-  		}
-  		else 
-  			return <HabitDataRowItem key={i} id={id} imgName="cross" fill="red" date={date} checked={false} />;
+  	const {goalId, title} = this.props;
+  	const rows = getDates(RootStore.store.ui.habitDate).map((date, i) => {
+      if (RootStore.store.domain.habitData.length === 0){
+        return <HabitDataRowItem key={i} goalId={goalId} imgName="cross" fill="red" date={date}/>;
+      } else {
+        const habit = RootStore.store.domain.habitData.filter((habit, i) => {
+          if (habit.goal_id === goalId){
+            const utc = date.getTime() - (date.getTimezoneOffset() * 60000);
+            if (utc === new Date(habit.date).getTime()){
+              return true;
+            }
+          }
+          return false; 
+        })[0];
+        if (habit !== undefined){
+          return <HabitDataRowItem key={i} goalId={goalId} imgName="checkmark" fill="green" date={date}/>;
+        } else { 
+  			  return <HabitDataRowItem key={i} goalId={goalId} imgName="cross" fill="red" date={date} />;
+        }
+      }
   	});
 
     return (
-      <div style={{padding: '0px 30px'}}>
-      	<div style={{display: 'flex', justifyContent: 'space-between'}}>
-	        <div style={{display: 'inline-block', height: '30px', padding: '12px 0px', fontSize: '1.1rem', width: '150px'}}>
-	        	<div>{upperCaseFirst(title)}</div>
-	      	</div>
-	      	<div>
+      <div>
+      	<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+	        	<h6 className="text-primary">{upperCaseFirst(title)}</h6>
+            <div style={{display: 'flex', justifyContent: 'end', padding: '0px 15px'}}>
 	      		{rows}
-        	</div>
+            </div>
         </div>
       </div>
     );

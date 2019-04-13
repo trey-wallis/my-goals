@@ -22,17 +22,11 @@ export const upperCaseFirst = (s) => {
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-export const getLastSunday = (startDate) => { //Reset the time so it's at midnight. This will allow better date comparisons
-	const today = new Date(startDate);
-	today.setHours(0,0,0,0);
-	today.setDate(today.getDate() - today.getDay());
-	return today;
-}
-
-export const getWeekDates = (startDate) => {
+export const getDates = (startDate) => {
 	const dates = [];
-	for (let i = 0; i < 7; i++){
-		const currentDate = getLastSunday(startDate);
+	startDate.setHours(0,0,0,0);
+	for (let i = 0; i < 4; i++){
+		const currentDate = new Date(startDate);
 		currentDate.setDate(currentDate.getDate() + i);
 		dates.push(currentDate);
 	}
@@ -48,7 +42,7 @@ export const getDayName = (day) => {
 		case 3:
 			return 'weds';
 		case 4:
-			return 'thurs';
+			return 'thur';
 		case 5:
 			return 'fri';
 		case 6:

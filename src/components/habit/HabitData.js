@@ -5,10 +5,11 @@ import HabitDataRow from './HabitDataRow';
 
 class HabitData extends Component {
   render() {
-  	const rows = RootStore.store.domain.habitData.map((habit, i) => {
-  		const goalId = habit.goalId;
-  		const goal = RootStore.store.domain.goalData.filter(goal => goal.id === goalId)[0];
-  		return <HabitDataRow key={i} id={habit.id} title={goal.title} markedDates={habit.markedDates}/>
+    const rows = RootStore.store.domain.goalData.map((goal, i) => {
+      if (goal.progress_tracking === 0)
+  		  return <HabitDataRow key={i} goalId={goal.id} title={goal.name}/>
+      else
+        return '';
   	}); 
     return (
       <div>

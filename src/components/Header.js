@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import RootStore from '../store/RootStore';
 
 import HeaderContainer from './header/HeaderContainer';
 

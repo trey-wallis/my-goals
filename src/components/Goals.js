@@ -21,7 +21,7 @@ class Goals extends Component {
 	componentDidMount(){ //TODO - REMOVE THESE VALUES AND PLACE IN WHERE THE ROUTE IS CHANGED - THESE LOAD THE COMPONENT TWICE
 		$('.navbar-collapse').collapse('hide');
 		this.ui.navItemActive = 2; //Goals will be highlighted
-		this.ui.dropDown.id = 2; //What does this do?
+		this.ui.dropDown.id = 2;
 	}
 
 	renderGoals = () => {
@@ -30,14 +30,21 @@ class Goals extends Component {
 				//Get the vision item that this goal is attached to
 				const visionItem = this.domain.visionData.items.filter(item => item.id === goal.visionid)[0];
 
+				let progressCount = 0;
+				if (goal.progress_tracking === 0){
+					progressCount = this.domain.habitData.filter(habit => habit.goal_id === goal.id).length;
+				} else {
+					progressCount = this.domain.taskData.filter(task => task.goal_id === goal.id).length;
+				}
+
 				//Calculate the progress of the goal
-				const progress = parseInt((goal.progresscount / goal.progresstotal) * 100);
+				const progress = parseInt((progressCount / goal.progresstotal) * 100);
 
 				//This will be our default progress bar style
 				let progressBarStyle = "progress-bar";
 
 				//If we have completed our goal based on our measurements
-				if (goal.progresscount === goal.progresstotal){
+				if (progressCount === goal.progresstotal){
 
 					//Add the success style
 					progressBarStyle = "progress-bar bg-success";
@@ -62,7 +69,12 @@ class Goals extends Component {
 						return '';
 				}
 
-				return <GoalItem key={i} index={i} id={goal.id} name={goal.name} visionItemTitle={visionItem.title} visionItemUrl={visionItem.url} progress={progress} progressLabel={goal.progresslabel} progressTotal={goal.progresstotal} progressCount={goal.progresscount} startTime={goal.starttime} endTime={goal.endtime} plans={goal.plans} description={goal.description} progressStyle={progressBarStyle}/>
+				let progressTracking = "Habit";
+				if (goal.progress_tracking === 1){
+					progressTracking = "Tasks";
+				}
+
+				return <GoalItem key={i} index={i} id={goal.id} name={goal.name} visionItemTitle={visionItem.title} visionItemUrl={visionItem.url} progress={progress} progressTracking={progressTracking} progressTotal={goal.progresstotal} progressCount={progressCount} startTime={goal.starttime} endTime={goal.endtime} plans={goal.plans} description={goal.description} progressStyle={progressBarStyle}/>
 			});
 	}
 

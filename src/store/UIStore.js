@@ -2,6 +2,7 @@ import React from 'react';
 import { observable, decorate} from 'mobx';
 import DropDownGoals from '../components/dropdown/DropDownGoals';
 import DropDownVision from '../components/dropdown/DropDownVision';
+import DropDownHabits from '../components/dropdown/DropDownHabits';
 
 class UIStore {
 
@@ -60,6 +61,8 @@ class UIStore {
 				return <DropDownVision/>;
 			case 2:
 				return <DropDownGoals/>;
+			case 3:
+				return <DropDownHabits/>;
 			default:
 				return <div className="navbar-brand">My Goals</div>;
 		}

@@ -4,24 +4,15 @@ import Store from '../../store/RootStore';
 
 class HabitDataRowItem extends Component {
 
-	clickedImage = (id, date, checked) => {
-		const clicked = Store.domain.habitData.filter(habit => habit.id === id)[0];
-		if (checked === true){
-			const filtered = clicked.markedDates.filter(markedDate => {
-				return markedDate.getTime() !== date.getTime();
-			});
-			clicked.markedDates = filtered;
-		} else {
-			clicked.markedDates.push(date);
-			console.log("Adding date", id, date);
-		}
+	clickedImage = (goalId, date) => {
+		Store.store.domain.postHabit(goalId, date);
 	}
 
 	render() {
-		const {id, imgName, fill, date, checked} = this.props;
+		const {goalId, imgName, fill, date} = this.props;
 		return (
-			<div style={{display: 'inline-block', textAlign: 'center', margin: '10px 30px', width: '30px'}} onClick={()=>{this.clickedImage(id, date, checked)}}>
-				<SVG className="hover" name={imgName} fill={fill}/>
+			<div style={{textAlign: 'center', margin: '10px 9px', width: '30px'}} onClick={()=>{this.clickedImage(goalId,  date)}}>
+				<SVG className="light-hover" name={imgName} fill={fill}/>
 	    	</div>
 		);
 	}
