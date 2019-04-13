@@ -9,6 +9,7 @@ class DomainStore {
 		this.root = root;
 
 		this.goalData = [];
+		this.habitData = [];
 
 		this.visionData = {
 			categories: [],

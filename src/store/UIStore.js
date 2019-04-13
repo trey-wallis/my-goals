@@ -28,6 +28,8 @@ class UIStore {
 		this.filterGoal = {
 			id: this.states.FILTER_GOAL_COMPLETED
 		}
+
+		this.habitDate = new Date();
 	}
 
 	isFilterGoalActive(i){
@@ -69,6 +71,7 @@ decorate(UIStore, {
 	navItemActive: observable,
 	editGoalId: observable,
 	filterGoal: observable,
+	habitDate: observable
 })
 
 export default UIStore;

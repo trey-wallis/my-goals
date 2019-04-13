@@ -13,8 +13,6 @@ import Goals from '../components/Goals';
 import Habits from '../components/Habits';
 import Settings from '../components/Settings';
 
-import '../css/App.css';
-
 class App extends Component {
 
 	constructor(){
