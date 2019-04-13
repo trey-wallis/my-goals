@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import RootStore from '../store/RootStore';
 import HabitContainer from './habit/HabitContainer';
+import '../css/Habits.css';
 import $ from 'jquery';
 
 class Habits extends Component {

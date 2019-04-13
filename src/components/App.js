@@ -4,6 +4,7 @@ import {HashRouter as Router, Link, Route, Redirect, Switch} from 'react-router-
 
 import RootStore from '../store/RootStore';
 
+import Header from '../components/Header'
 import Register from '../components/Register';
 import Login from '../components/Login';
 import Title from '../components/Title';
@@ -30,8 +31,7 @@ class App extends Component {
 		return (
 			<Router>
 				<div className="App">
-					{this.domain.connection.connected ? 
-						HeaderLoggedIn(this.ui, this.domain): HeaderLoggedOut(this.ui)}
+					<Header />
 					{this.domain.connection.connected ?
 						<Switch>
 							<Route path="/dashboard" component={DashBoard}/>
@@ -51,55 +51,5 @@ class App extends Component {
 			</Router>);
 	}
 }
-
-const HeaderLoggedIn = (ui, domain) => {
-		return (<nav className="navbar navbar-expand-md navbar-dark bg-primary" id="navbar-top">
-		{ui.renderDropDown}
-		<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main">
-    		<span className="navbar-toggler-icon"></span>
-  		</button>
-  		<div className="collapse navbar-collapse" id="navbar-main">
-    		<ul className="navbar-nav ml-auto">
-	      		<li className="nav-item ml-auto">
-        			<Link to={'/dashboard'} className={"nav-link" + ui.isNavItemActive(0)}>Dashboard</Link>
-	      		</li>
-	      		<li className="nav-item ml-auto">
-        			<Link to={'/visionboard'} className={"nav-link" + ui.isNavItemActive(1)}>Vision Board</Link>
-	      		</li>
-	      		<li className="nav-item ml-auto">
-        			<Link to={'/goals'} className={"nav-link" + ui.isNavItemActive(2)}>Goals</Link>
-	      		</li>
-	      		<li className="nav-item ml-auto">
-        			<Link to={'/habits'} className={"nav-link" + ui.isNavItemActive(3)}>Habits</Link>
-	      		</li>
-	      		<li className="nav-item ml-auto">
-        			<Link to={'/settings'} className={"nav-link" + ui.isNavItemActive(4)}>Settings</Link>
-	      		</li>
-	      		<li className="nav-item ml-auto">
-        			<button className="nav-link btn--reset" onClick={domain.postLogout}>Logout</button>
-	      		</li>
-    		</ul>
-   		</div>
-  	</nav>);
-};
-
-const HeaderLoggedOut = (ui) => (
-	<nav className="navbar navbar-expand-md navbar-dark bg-primary" id="navbar-top">
-		<Link to={'/'} className="navbar-brand">My Goals</Link>
-		<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main">
-    		<span className="navbar-toggler-icon"></span>
-  		</button>
-  		<div className="collapse navbar-collapse" id="navbar-main">
-    		<ul className="navbar-nav ml-auto">
-      			<li className="nav-item ml-auto">
-      				<Link to={'/login'} className={"nav-link" + ui.isNavItemActive(1)}>Login</Link>
-      			</li>
-      			<li className="nav-item ml-auto">
-        			<Link to={'/register'} className={"nav-link" + ui.isNavItemActive(2)}>Register</Link>
-      			</li>
-    		</ul>
-    	</div>
-    </nav>
-);
 
 export default observer(App);
