@@ -75,7 +75,8 @@ decorate(UIStore, {
 	navItemActive: observable,
 	editGoalId: observable,
 	filterGoal: observable,
-	habitDate: observable
+	habitDate: observable,
+	deleteVisionItemId: observable,
 })
 
 export default UIStore;

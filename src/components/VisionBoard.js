@@ -14,78 +14,73 @@ import DeleteVisionItem from './vision/DeleteVisionItem';
 
 class VisionBoard extends Component {
 
-	constructor(){
-		super();
-		const {ui, domain} = RootStore.store;
-		this.ui = ui;
-		this.domain = domain;
-	}
-
 	componentDidMount(){
 		$('.navbar-collapse').collapse('hide');
-		this.ui.navItemActive = 1;
-		this.ui.dropDown.id = 1;
+		RootStore.store.ui.navItemActive = 1;
+		RootStore.store.ui.dropDown.id = 1;
 	}
 
-	renderItems(id){
-		const items = this.domain.visionData.items.map((item, i) => {
-			if (item.categoryid === id)
+	renderItems(catId){
+		let hasRenderedItems = false;
+		const items = RootStore.store.domain.visionData.items.map((item, i) => {
+			if (item.categoryid === catId){
+				hasRenderedItems = true;
 				return <VisionItem key={i} img={item.url} title={item.title} desc={item.description} itemId={item.id} />
-			return '';
+			} else {
+				return '';
+			}
 		});
-		if (items.length > 0){
+		if (hasRenderedItems){
 			return items;
 		} else {
-			this.domain.editVisionItemForm.visionItems = [];
-			return this.renderItemMessage();
+			return this.renderNoItems();
 		}
 	}
 
-	renderItemMessage = () => {
+	renderNoItems = () => {
 		return (<p>There are no items to display.<br/>
-				Would you like to <span className="text-primary" data-toggle="modal" data-target="#modal-add-vision-item">add</span> items?</p>);
+				Would you like to <span className="text-primary" data-toggle="modal" data-target="#modal-add-vision-item">add</span> an item?</p>);
 	}
 
-	renderCategories(){
-		return this.domain.visionData.categories.map((category, i) => {
-			if(this.ui.dropDown.active === i || this.ui.dropDown.active === -1){
+	renderNoCategories = () => {
+		return (
+			<p className="text-center">There are no categories to display.<br/>
+			Would you like to <span className="text-primary" data-toggle="modal" data-target="#modal-add-vision-category">add</span> a category?</p>
+		);
+	}
+
+	renderCategories = () => {
+		return RootStore.store.domain.visionData.categories.map((category, i) => {
+			if(RootStore.store.ui.dropDown.active === i || RootStore.store.ui.dropDown.active === -1){
 				return(
-					<div key={i}>
+					<React.Fragment key={i}>
 						<h3 className="text-center text-dark pt-4">{category.name}</h3>
 						<div className="row justify-content-center">
 							{this.renderItems(category.id)}
 						</div>
-					</div>
+					</React.Fragment>
 				);
+			} else { 
+				return '';
 			}
-			return '';
 		});
-	}
-
-	renderCategoryMessage = () => {
-		return (
-			<div className="p-4">
-				<h3 className="text-center">My Vision Board</h3>
-				<div className="text-center">
-				<p>There are no categories to display.<br/>
-				Would you like to <span className="text-primary" data-toggle="modal" data-target="#modal-add-vision-category">add</span> a category?</p>
-				</div>
-			</div>);
 	}
 
 	render(){
 		return(
 			<div className="VisionBoard">
-				<div className="container bg-white">
-					{this.domain.visionData.categories.length > 0 ? this.renderCategories() : this.renderCategoryMessage()}
+				<div className="container bg-white p-4">
+					<h3 className="text-center">My Vision Board</h3>
+					{RootStore.store.domain.visionData.categories.length > 0 ? this.renderCategories() : this.renderNoCategories()}
 				</div>
 				<AddVisionItem/>
 				<AddVisionCategory/>
-				{this.domain.visionData.categories.length > 0 ? <EditVisionCategory/> : ''}
-				{this.domain.visionData.items.length > 0 ? <EditVisionItem/> : ''}
+				{RootStore.store.domain.visionData.categories.length > 0 ? <EditVisionCategory/> : ''}
+				{RootStore.store.domain.visionData.items.length > 0 ? <EditVisionItem/> : ''}
 				<AddVisionNote/>
 				<DeleteVisionItem/>
-			</div>);
+			</div>
+		);
 	}
 }
 

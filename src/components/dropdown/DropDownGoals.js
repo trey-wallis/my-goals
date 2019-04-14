@@ -16,8 +16,9 @@ class DropDownGoals extends Component {
 		$('#modal-add-goal').modal('show');
 	}
 
-	filterChange = (e) => {
-		this.ui.filterGoal.id = parseInt(e.target.value);
+	filterChange = (id) => {
+		this.ui.filterGoal.id = id;
+		console.log(this.ui.filterGoal.id);
 	}
 
 	render(){
@@ -28,13 +29,14 @@ class DropDownGoals extends Component {
 					{this.domain.visionData.items.length > 0 ?
 				    <button type="button" className="dropdown-item" onClick={this.onAddGoal}>Add Goal</button>: ''}
 					<div className="dropdown-divider"></div>
-
-					<select className="form-control form-control-sm my-1" value={this.ui.filterGoal.id} onChange={(e)=>{this.filterChange(e)}}>
-						<option value={this.ui.states.FILTER_GOAL_NONE}>Show All</option>
-						<option value={this.ui.states.FILTER_GOAL_COMPLETED}>Uncompleted</option>
-						<option value={this.ui.states.FILTER_GOAL_WEEK}>This Week</option>
-						<option value={this.ui.states.FILTER_GOAL_MONTH}>This Month</option>
-					</select>
+					{this.domain.goalData.length > 0 ?
+						<div>
+							<button className="dropdown-item" onClick={()=>{this.filterChange(this.ui.states.FILTER_GOAL_NONE)}}>Show All</button>
+							<button className="dropdown-item" onClick={()=>{this.filterChange(this.ui.states.FILTER_GOAL_COMPLETED)}}>In Progress</button>
+							<button className="dropdown-item" onClick={()=>{this.filterChange(this.ui.states.FILTER_GOAL_WEEK)}}>This Week</button>
+							<button className="dropdown-item" onClick={()=>{this.filterChange(this.ui.states.FILTER_GOAL_MONTH)}}>This Month</button>
+						</div>
+					: ''}
 
 				</div>
 			</div>);

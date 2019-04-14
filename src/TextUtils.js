@@ -3,7 +3,8 @@
 */
 export const date = (dayOffset) => {
 		const today = new Date();
-		const later = new Date(today.getDate() + (dayOffset)); //If we were to use millis instead of date it is not daylight savings safe
+		today.setDate(today.getDate() + dayOffset); //If we were to use millis instead of date it is not daylight savings safe
+		const later = today;
 		let dd = later.getDate();
 		let mm = later.getMonth() + 1; //January is 0!
 		const yyyy = later.getFullYear();

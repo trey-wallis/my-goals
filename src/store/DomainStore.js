@@ -336,6 +336,8 @@ class DomainStore {
 			if (response.status === 200){
 				const filtered = this.visionData.items.filter(item => item.id !== id);
 				this.visionData.items = filtered;
+				this.root.store.ui.deleteVisionItemId = this.visionData.items[0].id; //if we delete the first item from the list
+				//we want to update the value
 		 		alert("Deleted vision item!");
 			} else {
 				alert("An error occurred while deleting the item");

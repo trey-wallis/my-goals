@@ -6,12 +6,19 @@ import { observer } from 'mobx-react';
 
 class DeleteVisionItem extends Component {
 
+	componentDidMount(){
+		//Set the default value to the first selected
+		if (RootStore.store.domain.visionData.items.length !== 0)
+			RootStore.store.ui.deleteVisionItemId = RootStore.store.domain.visionData.items[0].id;
+	}
+
 	onDismiss = () => {
 		console.log("Dismiss");
 	}
 
 	onSelectChange = (e) => {
 		RootStore.store.ui.deleteVisionItemId = parseInt(e.target.value);
+		console.log(e.target.value);
 	}
 
 	onDelete = () => {

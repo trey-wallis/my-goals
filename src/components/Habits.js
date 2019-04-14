@@ -7,26 +7,21 @@ import $ from 'jquery';
 
 class Habits extends Component {
 
-	constructor(){
-		super();
-		const {domain, ui} = RootStore.store;
-		this.ui = ui;
-		this.domain = domain;
-	}
-
 	componentDidMount(){
 		$('.navbar-collapse').collapse('hide');
-		this.ui.navItemActive = 3;
-		this.ui.dropDown.id = 0;
+		RootStore.store.ui.navItemActive = 3;
+		RootStore.store.ui.dropDown.id = 0;
 	}
 
 	render(){
+		const filtered = RootStore.store.domain.goalData.filter(goal => goal.progress_tracking === 0);
 		return(
 			<div className="Habits">
 				<div className="container pt-4 bg-white h-100">
-						<h3 className="text-center">Habits</h3>
-						<div className="d-flex justify-content-center">
-						<HabitContainer/>
+					<h3 className="text-center">Habits</h3>
+					<div className="d-flex justify-content-center">
+						{filtered.length > 0 ?
+						<HabitContainer/> : 'There are no habits to display'}
 					</div>
 				</div>
 			</div>);
