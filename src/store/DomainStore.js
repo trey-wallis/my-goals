@@ -33,7 +33,6 @@ class DomainStore {
 		this.editVisionItemForm = {
 			categoryId: -1,
 			visionItems: [],
-			delete: [],
 			itemIndex: 0,
 			response: "",
 		}
@@ -164,7 +163,6 @@ class DomainStore {
 		.then(response => {
 			if (response.status === 200){
 				this.habitData = response.data;
-				console.log(this.habitData);
 			}
 		})
 		.catch(err => console.log);
@@ -325,6 +323,22 @@ class DomainStore {
 		 		alert("Added goal!");
 			} else {
 				this.addGoal.response = data;
+			}
+		})
+		.catch(error => console.log);
+	}
+
+	postDeleteVisionItem = (id) => {
+		this.connection.postAuthorized("deletevisionitem", {
+			id: id
+		})
+		.then(response => {
+			if (response.status === 200){
+				const filtered = this.visionData.items.filter(item => item.id !== id);
+				this.visionData.items = filtered;
+		 		alert("Deleted vision item!");
+			} else {
+				alert("An error occurred while deleting the item");
 			}
 		})
 		.catch(error => console.log);

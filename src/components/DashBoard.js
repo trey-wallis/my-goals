@@ -22,7 +22,7 @@ class DashBoard extends Component {
 	render(){
 		const visionItemCount = this.domain.visionData.items.length;
 		const goalCount = this.domain.goalData.length;
-		const goalsCompleted = this.domain.goalData.filter(goal => goal.progresscount === goal.progresstotal).length;
+		const goalsCompleted = this.domain.goalData.filter(goal => goal.progresscount === goal.progresstotal).length; //TODO - fix this
 		const goalsInProgress = goalCount - goalsCompleted;
 
 		return(

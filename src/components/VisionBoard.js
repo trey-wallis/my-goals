@@ -10,6 +10,7 @@ import EditVisionItem from '../components/vision/EditVisionItem.js';
 import EditVisionCategory from '../components/vision/EditVisionCategory.js';
 import AddVisionNote from '../components/vision/AddVisionNote';
 import VisionItem from './vision/VisionItem';
+import DeleteVisionItem from './vision/DeleteVisionItem';
 
 class VisionBoard extends Component {
 
@@ -83,6 +84,7 @@ class VisionBoard extends Component {
 				{this.domain.visionData.categories.length > 0 ? <EditVisionCategory/> : ''}
 				{this.domain.visionData.items.length > 0 ? <EditVisionItem/> : ''}
 				<AddVisionNote/>
+				<DeleteVisionItem/>
 			</div>);
 	}
 }

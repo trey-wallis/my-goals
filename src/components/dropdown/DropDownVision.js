@@ -54,6 +54,8 @@ class DropDownVision extends Component {
 				    <button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-edit-vision-category">Edit Categories</button> : ''}
 				    {this.domain.visionData.items.length > 0 ?
 				  	<button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-edit-vision-item">Edit Items</button> : ''}
+				  	{this.domain.visionData.items.length > 0 ?
+				  		<button type="button" className="dropdown-item" data-toggle="modal" data-target="#modal-delete-vision-item">Delete Items</button>: ''}
 				</div>
 			</div>);
 	}

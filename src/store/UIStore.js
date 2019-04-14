@@ -30,6 +30,7 @@ class UIStore {
 			id: this.states.FILTER_GOAL_COMPLETED
 		}
 
+		this.deleteVisionItemId = -1;
 		this.habitDate = new Date();
 	}
 

@@ -70,13 +70,6 @@ class EditVisionItem extends Component {
 		this.domain.editVisionItemForm.visionItems[this.domain.editVisionItemForm.itemIndex].newCategory = e.target.value;
 	}
 
-	onItemDelete = () => {
-		const id = this.domain.editVisionItemForm.visionItems[this.domain.editVisionItemForm.itemIndex].id;
-		if (this.domain.editVisionItemForm.delete.includes(id)){
-			this.domain.editVisionItemForm.delete.push(id);
-		}
-	}
-
 	render(){
 		return(
 			<div className="modal fade" id="modal-edit-vision-item" role="dialog">
@@ -110,9 +103,6 @@ class EditVisionItem extends Component {
 								<select className="form-control form-control-sm mb-2" onChange={(e) => {this.onCategorySelect(e)}}>
 									{this.renderCategoryOptions()}
 								</select>
-							</div>
-							<div className="d-flex w-100 justify-content-end">
-								<button className="btn btn-danger" onClick={() => {this.onItemDelete(this.domain.editVisionItemForm.itemIndex)}}>Delete</button>
 							</div>
 			      		</div>
 			      		<div className="modal-footer justify-content-between">
