@@ -18,7 +18,6 @@ class DropDownGoals extends Component {
 
 	filterChange = (id) => {
 		this.ui.filterGoal.id = id;
-		console.log(this.ui.filterGoal.id);
 	}
 
 	render(){
