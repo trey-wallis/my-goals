@@ -4,6 +4,8 @@ import {observer} from 'mobx-react';
 import $ from 'jquery';
 import RootStore from '../store/RootStore';
 
+import DashCard from './dashboard/DashCard';
+
 class DashBoard extends Component {
 
 	componentDidMount(){
@@ -32,38 +34,36 @@ class DashBoard extends Component {
 		const goalsInProgress = goalCount - goalsCompleted;
 
 		return(
-			<div>
-				<div className="d-flex flex-column align-items-center text-primary h-100">
-					<div className="w-100 p-4 text-center mb-1">
-						<h3 className="text-dark">Dashboard</h3>
-						<h6 className="lead">Welcome {RootStore.store.domain.profile.display}</h6>
-					</div>
-					<div className="row">
-						<div className="col-4 mb-4">
-							<div className="display-4 text-center">{visionCategoryCount}</div>
-							<h5 className="text-black text-center">Vision Categories</h5>
-						</div>
-						<div className="col-4 mb-4">
-							<div className="display-4 text-center">{visionItemCount}</div>
-							<h5 className="text-black text-center">Vision Items</h5>
-						</div>
-						<div className="col-4 mb-4">
-							<div className="display-4 text-center">{goalsInProgress}</div>
-							<h5 className="text-black text-center">Goals In Progress</h5>
-						</div>
-						<div className="col-4 mb-4">
-							<div className="display-4 text-center">{goalsCompleted}</div>
-							<h5 className="text-black text-center">Goals Completed</h5>
-						</div>
-						<div className="col-4 mb-4">
-							<div className="display-4 text-center">{habitsInProgress}</div>
-							<h5 className="text-black text-center">Habits in Progress</h5>
-						</div>
-						<div className="col-4 mb-4">
-							<div className="display-4 text-center">{habitsCompleted}</div>
-							<h5 className="text-black text-center">Habits Completed</h5>
-						</div>
-					</div>
+			<div className="row no-gutters">
+				<div className="col-4">
+					<DashCard title="Vision Categories">
+						<div className="display-4 text-white text-center">{visionCategoryCount}</div>
+					</DashCard>
+				</div>
+				<div className="col-4">
+					<DashCard title="Vision Items">
+						<div className="display-4 text-white text-center">{visionItemCount}</div>
+					</DashCard>
+				</div>
+				<div className="col-4">
+					<DashCard title="Goals in Progress">
+						<div className="display-4 text-white text-center">{goalsInProgress}</div>
+					</DashCard>
+				</div>
+				<div className="col-4">
+					<DashCard title="Goals Completed">
+						<div className="display-4 text-white text-center">{goalsCompleted}</div>
+					</DashCard>
+				</div>
+				<div className="col-4">
+					<DashCard title="Habits In Progress">
+						<div className="display-4 text-white text-center">{habitsInProgress}</div>
+					</DashCard>
+				</div>	
+				<div className="col-4">
+					<DashCard title="Habits Completed">
+						<div className="display-4 text-white text-center">{habitsCompleted}</div>
+					</DashCard>
 				</div>
 			</div>
 		);

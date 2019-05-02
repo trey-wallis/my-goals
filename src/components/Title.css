@@ -1,10 +1,12 @@
-.Title {
-}
-
 .Title__top {
 	min-height: calc(65vh - 56px);
 }
 
 .Title__bottom {
 	min-height: 35vh;
+}
+
+.icon--sm {
+	height: 20px;
+	width: 20px;
 }

@@ -18,7 +18,7 @@ class DomainStore {
 		};
 
 		this.profile = {
-			displayName : ""
+			displayName : "",
 		}
 
 		this.connection = new Connection();

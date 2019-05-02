@@ -1,9 +1,13 @@
 .app-content {
-	display: block;
+	width: 100vw;
 }
 
 @media screen and (min-width: 768px){
+
 	.app-content {
-		display: inline-block;
+		position: absolute;
+		z-index: 0;
+		margin-left: 200px;
+		width: calc(100vw - 200px);
 	}
 }

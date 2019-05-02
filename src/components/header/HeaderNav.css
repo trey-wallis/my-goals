@@ -1,9 +1,9 @@
-.header-navbar {
-	display: none;
+.hide-md {
+	display: none !important;
 }
 
 @media screen and (max-width: 768px){
-	.header-navbar {
-		display: block;
+	.hide-md {
+		display: block !important;
 	}
 }

@@ -87,10 +87,10 @@ class GoalItem extends Component {
 								</div>
 									<div className="d-flex justify-content-end">
 										<div className="Goals__icon">
-											<img src={SVG(name='document-edit')} className="Goals__icon-item" alt="edit" onClick={()=>{this.editGoal(id)}}/>
+											<SVG name="document-edit" className="Goals__icon-item" alt="edit" onClick={()=>{this.editGoal(id)}}/>
 										</div>
 																		<div className="Goals__icon">
-									<img src={SVG(name='view-list')} className="Goals__icon-item" alt="viewlist" data-toggle="collapse" data-target={"#goal-info-" + index}/>
+									<SVG name="view-list" className="Goals__icon-item" alt="viewlist" data-toggle="collapse" data-target={"#goal-info-" + index}/>
 								</div>
 									</div>
 							</div>
@@ -111,7 +111,7 @@ class GoalItem extends Component {
 							</div>
 							<div className="d-flex justify-content-end">
 								<div className="Goals__icon">
-									<img src={SVG(name='cross')} className="Goals__icon-item" alt="cross" onClick={()=>{this.deleteGoal(id)}}/>
+									<SVG name="cross" className="Goals__icon-item" alt="cross" onClick={()=>{this.deleteGoal(id)}}/>
 								</div>
 								</div>
 							</div>

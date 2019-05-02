@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
 
-import { Link } from 'react-router-dom';
 import RootStore from '../../store/RootStore';
 
 import './HeaderSideBar.css';
+import HeaderNavLoggedIn from './HeaderNavLoggedIn';
 
 class HeaderSideBar extends Component {
 
 	render(){
 		return (
-			<div className="sidebar">
-				<h1>My Goals</h1>
-				<ul>
-					<li>DashBoard</li>
-					<li>Vision Board</li>
-					<li>Goals</li>
-					<li>Calendar</li>
-					<li>Settings</li>
-				</ul>
+			<div className="sidebar bg-primary">
+				<h4 className="title">My Goals</h4>
+				<div className="nav flex-column align-items-center">
+					<HeaderNavLoggedIn/>
+				</div>
 			</div>
 		);
 	}
