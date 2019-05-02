@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 
-import DocumentIcon from '../icons/document-new.svg'
-import GraphicIcon from '../icons/graph-bar.svg';
-import HeartIcon from '../icons/heart.svg';
+import SVG from '../SVG';
 
 import $ from 'jquery';
 
@@ -35,18 +33,18 @@ class Title extends Component {
 				</div>
 				<div className="Title__bottom row no-gutters align-items-center bg-white py-4">
 					<div className="col-sm-4 d-flex flex-column align-items-center">
-						<img src={DocumentIcon} className="m-2 icon--small" alt="new document"/>
+						<SVG className="m-2 icon--small" name="document-new"/>
 						<h6 className="text-dark text-center">Vision Board</h6>
 						<p className="w-50 text-center text-dark">Create a visual representation of your ideas and aspirations</p>
 					</div>
 					<div className="col-sm-4 d-flex flex-column align-items-center">
-						<img src={GraphicIcon} alt="graph" className="m-2 icon--small"/>
+						<SVG className="m-2 icon--small" name="graph-bar"/>
 						<h6 className="text-dark">Goals</h6>
 						<p className="w-50 text-center text-dark">Create and actively track your SMART goals. Create subgoals
 						and tasks to help manage your progress</p>
 					</div>
 					<div className="col-sm-4 d-flex flex-column align-items-center">
-						<img src={HeartIcon} alt="heart" className="m-2 icon--small"/>
+						<SVG className="m-2 icon--small" name="heart"/>
 						<h6 className="text-dark">Habits</h6>
 						<p className="w-50 text-center text-dark">Track and develop healthy habits that will help you achieve your goals</p>
 					</div>

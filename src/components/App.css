@@ -1,0 +1,9 @@
+.app-content {
+	display: block;
+}
+
+@media screen and (min-width: 768px){
+	.app-content {
+		display: inline-block;
+	}
+}

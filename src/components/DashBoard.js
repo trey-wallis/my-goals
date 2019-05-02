@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
-import '../css/DashBoard.css';
 
 import $ from 'jquery';
 import RootStore from '../store/RootStore';
+
 class DashBoard extends Component {
 
 	componentDidMount(){
@@ -32,8 +32,8 @@ class DashBoard extends Component {
 		const goalsInProgress = goalCount - goalsCompleted;
 
 		return(
-			<div className="DashBoard">
-				<div className="container bg-white d-flex flex-column align-items-center text-primary h-100">
+			<div>
+				<div className="d-flex flex-column align-items-center text-primary h-100">
 					<div className="w-100 p-4 text-center mb-1">
 						<h3 className="text-dark">Dashboard</h3>
 						<h6 className="lead">Welcome {RootStore.store.domain.profile.display}</h6>
