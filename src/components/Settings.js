@@ -21,8 +21,8 @@ class Settings extends Component {
 	render(){
 		return(
 			<div className="Settings">
-				<div className="container h-100 d-flex flex-column align-items-center bg-white p-4">
-					<h3 className="mb-3">Settings</h3>
+				<div className="d-flex flex-column align-items-center p4">
+					<h3>Settings</h3>
 				</div>
 			</div>);
 	}

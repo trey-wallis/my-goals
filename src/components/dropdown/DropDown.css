@@ -1,0 +1,14 @@
+.dropdown-item {
+	color: rgba(255,255,255,0.75) !important;
+	font-size: 0.8rem;
+	margin: 10px 0px;
+	background-color: inherit;
+	outline: 0;
+	border: 0;
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+	outline: 0;
+	border: 0;
+	background-color: inherit !important;
+}

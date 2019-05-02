@@ -1,8 +1,8 @@
-.Title__top {
+.divide-top {
 	min-height: calc(65vh - 56px);
 }
 
-.Title__bottom {
+.divide-bottom {
 	min-height: 35vh;
 }
 

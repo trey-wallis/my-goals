@@ -5,8 +5,6 @@
 @media screen and (min-width: 768px){
 
 	.app-content {
-		position: absolute;
-		z-index: 0;
 		margin-left: 200px;
 		width: calc(100vw - 200px);
 	}

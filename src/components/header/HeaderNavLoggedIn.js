@@ -18,7 +18,7 @@ class HeaderNavLoggedIn extends Component {
         			<Link to={'/goals'} className={"nav-link" + RootStore.store.ui.isNavItemActive(2)}>Goals</Link>
 	      		</li>
 	      		<li className="nav-item">
-        			<Link to={'/habits'} className={"nav-link" + RootStore.store.ui.isNavItemActive(3)}>Calendar</Link>
+        			<Link to={'/calendar'} className={"nav-link" + RootStore.store.ui.isNavItemActive(3)}>Calendar</Link>
 	      		</li>
 	      		<li className="nav-item">
         			<Link to={'/settings'} className={"nav-link" + RootStore.store.ui.isNavItemActive(4)}>Settings</Link>

@@ -14,16 +14,16 @@ class HeaderNav extends Component {
 	render(){
 		let className = "navbar navbar-expand-md navbar-dark bg-primary";
 		if (RootStore.store.domain.connection.connected === true){ //If we're logged in - then hide the nav bar if the window size is md or larger
-			className = "navbar navbar-dark bg-primary hide-md";
+			className = "navbar navbar-dark bg-primary hide-md nav-fix";
 		}
 
 		return (
 			<nav className={className} id="navbar-top">
-				<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main">
+				<button className="navbar-toggler nav-margin" type="button" data-toggle="collapse" data-target="#navbar-main">
     				<span className="navbar-toggler-icon"></span>
   				</button>
   				<div className="collapse navbar-collapse" id="navbar-main">
-    				<ul className="navbar-nav mr-auto">
+    				<ul className="navbar-nav bg-primary nav-padding">
     					{RootStore.store.domain.connection.connected ? <HeaderNavLoggedIn/> : <HeaderNavLoggedOut/>}
 					</ul>
    				</div>

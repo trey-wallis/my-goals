@@ -44,7 +44,7 @@ class Login extends Component {
 		return(
 			<div className="container d-flex justify-content-center align-items-center">
 				<div className="Login__wrapper">
-					<h4 className="text-center text-dark">Login</h4>
+					<h4 className="text-center text-white">Login</h4>
 					<div className="form-group">
 						<input type="text" placeholder="Username" className="form-control" onChange={(e)=>{this.onChangeUsername(e)}}/>
 					</div>

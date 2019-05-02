@@ -6,11 +6,15 @@ import $ from 'jquery';
 
 import AddVisionCategory from './vision/AddVisionCategory';
 import AddVisionItem from './vision/AddVisionItem';
-import EditVisionItem from '../components/vision/EditVisionItem.js';
-import EditVisionCategory from '../components/vision/EditVisionCategory.js';
-import AddVisionNote from '../components/vision/AddVisionNote';
+import EditVisionItem from './vision/EditVisionItem.js';
+import EditVisionCategory from './vision/EditVisionCategory.js';
+import AddVisionNote from './vision/AddVisionNote';
 import VisionItem from './vision/VisionItem';
 import DeleteVisionItem from './vision/DeleteVisionItem';
+
+import Widget from './widget/Widget';
+import SVG from '../SVG';
+import './VisionBoard.css';
 
 class VisionBoard extends Component {
 
@@ -54,7 +58,7 @@ class VisionBoard extends Component {
 			if(RootStore.store.ui.dropDown.active === i || RootStore.store.ui.dropDown.active === -1){
 				return(
 					<React.Fragment key={i}>
-						<h3 className="text-center text-dark pt-4">{category.name}</h3>
+						<h3 className="text-center text-white p-4">{category.name}</h3>
 						<div className="row justify-content-center">
 							{this.renderItems(category.id)}
 						</div>
@@ -68,11 +72,8 @@ class VisionBoard extends Component {
 
 	render(){
 		return(
-			<div className="VisionBoard">
-				<div className="container bg-white p-4">
-					<h3 className="text-center">My Vision Board</h3>
-					{RootStore.store.domain.visionData.categories.length > 0 ? this.renderCategories() : this.renderNoCategories()}
-				</div>
+			<div className="vision-padding">
+				{RootStore.store.domain.visionData.categories.length > 0 ? this.renderCategories() : this.renderNoCategories()}
 				<AddVisionItem/>
 				<AddVisionCategory/>
 				{RootStore.store.domain.visionData.categories.length > 0 ? <EditVisionCategory/> : ''}

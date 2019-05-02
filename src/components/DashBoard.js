@@ -34,36 +34,39 @@ class DashBoard extends Component {
 		const goalsInProgress = goalCount - goalsCompleted;
 
 		return(
-			<div className="row no-gutters">
-				<div className="col-4">
-					<DashCard title="Vision Categories">
-						<div className="display-4 text-white text-center">{visionCategoryCount}</div>
-					</DashCard>
-				</div>
-				<div className="col-4">
-					<DashCard title="Vision Items">
-						<div className="display-4 text-white text-center">{visionItemCount}</div>
-					</DashCard>
-				</div>
-				<div className="col-4">
-					<DashCard title="Goals in Progress">
-						<div className="display-4 text-white text-center">{goalsInProgress}</div>
-					</DashCard>
-				</div>
-				<div className="col-4">
-					<DashCard title="Goals Completed">
-						<div className="display-4 text-white text-center">{goalsCompleted}</div>
-					</DashCard>
-				</div>
-				<div className="col-4">
-					<DashCard title="Habits In Progress">
-						<div className="display-4 text-white text-center">{habitsInProgress}</div>
-					</DashCard>
-				</div>	
-				<div className="col-4">
-					<DashCard title="Habits Completed">
-						<div className="display-4 text-white text-center">{habitsCompleted}</div>
-					</DashCard>
+			<div>
+				<h3 className="p-4 text-light">My Dashboard</h3>
+				<div className="row no-gutters">
+					<div className="col-4">
+						<DashCard title="Vision Categories">
+							<div className="display-4 text-white text-center">{visionCategoryCount}</div>
+						</DashCard>
+					</div>
+					<div className="col-4">
+						<DashCard title="Vision Items">
+							<div className="display-4 text-white text-center">{visionItemCount}</div>
+						</DashCard>
+					</div>
+					<div className="col-4">
+						<DashCard title="Goals in Progress">
+							<div className="display-4 text-white text-center">{goalsInProgress}</div>
+						</DashCard>
+					</div>
+					<div className="col-4">
+						<DashCard title="Goals Completed">
+							<div className="display-4 text-white text-center">{goalsCompleted}</div>
+						</DashCard>
+					</div>
+					<div className="col-4">
+						<DashCard title="Habits In Progress">
+							<div className="display-4 text-white text-center">{habitsInProgress}</div>
+						</DashCard>
+					</div>	
+					<div className="col-4">
+						<DashCard title="Habits Completed">
+							<div className="display-4 text-white text-center">{habitsCompleted}</div>
+						</DashCard>
+					</div>
 				</div>
 			</div>
 		);

@@ -3,6 +3,8 @@ import {observer} from 'mobx-react';
 
 import RootStore from '../../store/RootStore';
 
+import Modal from '../Modal';
+
 class EditVisionCategory extends Component {
 
 	constructor(){
@@ -48,41 +50,27 @@ class EditVisionCategory extends Component {
 
 	render(){
 		return(
-			<div className="modal fade" id="modal-edit-vision-category" role="dialog">
-				<div className="modal-dialog" role="document">
-			    	<div className="modal-content">
-			    		<div className="modal-header">
-			    			<h5 className="modal-title">Edit Category</h5>
-			    			<button type="button" className="close" data-dismiss="modal">
-			          			<span>&times;</span>
-			       			</button>
+			<Modal id="modal-edit-vision-category" title="Edit Vision Category">
+				<div className="form-group">
+				    <select className="form-control form-control-sm mb-2" onChange={(e) => {this.onCategoryChange(e)}}>
+				    			{this.renderCategoryOptions()}
+					</select>
+				</div>
+				<h6 className="text-black">Category</h6>
+			    <div className="form-group mb-3">
+			      <div className="row">
+			      	<div className="col-8">
+						<input type="text" className="form-control" placeholder="Name" value={this.domain.editCategoryForm.name} onChange={ (e) => {this.onCategoryNameChange(e)}}/>
 			      		</div>
-			      		<div className="modal-body">
-				      		<select className="form-control form-control-sm mb-2" onChange={(e) => {this.onCategoryChange(e)}}>
-				      			{this.renderCategoryOptions()}
-							</select>
-							<h6 className="mt-2">Category</h6>
-			      			<div className="form-group mb-3">
-			      				<div className="row">
-			      					<div className="col-8">
-			      						<input type="text" className="form-control" placeholder="Name" value={this.domain.editCategoryForm.name} onChange={ (e) => {this.onCategoryNameChange(e)}}/>
-			      					</div>
-			      					<div className="col-2">
-			      						<button className="btn btn-danger" onClick={this.onCategoryDelete}>Delete</button>
-			      					</div>
-			      				</div>
-			      			</div>
+	      					<div className="col-2">
+			      			<button className="btn btn-danger" onClick={this.onCategoryDelete}>Delete</button>
 			      		</div>
-			      		<div className="modal-footer justify-content-between">
-			      			<div className="text-danger">{this.domain.editCategoryForm.response}</div>
-			      			<div>
-				      			<button type="button" className="btn btn-primary mr-2" onClick={this.onSaveChanges}>Save changes</button>
-				        		<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-			        		</div>
 			      		</div>
-			    	</div>
-			  	</div>
-			</div>);
+			      	</div>
+			      	<button type="button" className="btn btn-primary mb-2" onClick={this.onSaveChanges}>Save changes</button>
+			     	<div className="text-danger">{this.domain.editCategoryForm.response}</div>
+			</Modal>
+		);
 	}
 }
 
