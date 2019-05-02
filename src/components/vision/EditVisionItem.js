@@ -13,8 +13,8 @@ class EditVisionItem extends Component {
 		this.ui = ui;
 		this.domain = domain;
 
+		//this won't update if we update the list..hmmm.. that's interesting
 		this.domain.editVisionItemForm.visionItems = [];
-
 		if (this.domain.visionData.items.length > 0){
 			this.domain.editVisionItemForm.categoryId = this.domain.visionData.categories[0].id;
 			this.domain.visionData.items.forEach(item => {
