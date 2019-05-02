@@ -236,12 +236,12 @@ class AddGoal extends Component {
 			<div className="modal-dialog" role="document">
 		    	<div className="modal-content">
 		    		<div className="modal-header">
-			    		<button type="button" className="btn btn--reset" onClick={this.onDismiss}>
+			    		<button type="button" className="close" onClick={this.onDismiss}>
 			          		<span>&times;</span>
 			       		</button>
 			       		<div>
-			       		{this.domain.addGoal.menu > 0 ? <button type="button" className="btn btn--reset" onClick={this.onMenuBackClick}>Back</button> : ''}
-			       		<button type="button" className="btn btn--reset" onClick={this.onMenuForwardClick}>{this.domain.addGoalMenuOption}</button>
+			       		{this.domain.addGoal.menu > 0 ? <button type="button" className="btn" onClick={this.onMenuBackClick}>Back</button> : ''}
+			       		<button type="button" className="btn" onClick={this.onMenuForwardClick}>{this.domain.addGoalMenuOption}</button>
 			       		</div>
 			      	</div>
 			      	<div className="modal-body">

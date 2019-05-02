@@ -36,6 +36,14 @@ class EditVisionItem extends Component {
 
 	onCategoryChange = (e) => {
 		this.domain.editVisionItemForm.categoryId = parseInt(e.target.value);
+		//Set the first vision item
+		for (let i = 0; i < this.domain.editVisionItemForm.visionItems.length; i++){
+			const item = this.domain.editVisionItemForm.visionItems[i];
+			if (item.category === this.domain.editVisionItemForm.categoryId){
+				this.domain.editVisionItemForm.itemIndex = i;
+				break;
+			}
+		}
 	}
 
 	onItemChange = (e) => {

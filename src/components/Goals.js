@@ -101,8 +101,8 @@ class Goals extends Component {
 
 	render(){
 		return(
-			<div className="Goals">
-				<h3 className="text-center">My Goals</h3>
+			<div className="p-4">
+				<h3 className="mb-4">My Goals</h3>
 				{this.domain.visionData.items.length > 0 ?
 					this.renderBoard() : this.renderNoCategories()}
 				<AddGoal/>

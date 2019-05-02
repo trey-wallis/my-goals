@@ -80,18 +80,18 @@ class GoalItem extends Component {
 					</div>
 					<div className="media-body">
 					<div className="card border-0">
-						<div className="card-body pt-0">
+						<div className="card-body pt-4">
 							<div className="d-flex justify-content-between">
 								<div className="wrapper">	
 									<h6 className="card-title text-primary">{name}</h6>
 								</div>
 									<div className="d-flex justify-content-end">
-										<div className="Goals__icon">
-											<SVG name="document-edit" className="Goals__icon-item" alt="edit" onClick={()=>{this.editGoal(id)}}/>
+										<div className="Goals__icon" onClick={()=>{this.editGoal(id)}}>
+											<SVG name="document-edit" className="Goals__icon-item"/>
 										</div>
-																		<div className="Goals__icon">
-									<SVG name="view-list" className="Goals__icon-item" alt="viewlist" data-toggle="collapse" data-target={"#goal-info-" + index}/>
-								</div>
+										<div className="Goals__icon" data-toggle="collapse" data-target={"#goal-info-" + index}>
+											<SVG name="view-list" className="Goals__icon-item" />
+										</div>
 									</div>
 							</div>
 							<div className="d-flex justify-content-between">
@@ -110,8 +110,8 @@ class GoalItem extends Component {
 								</div>
 							</div>
 							<div className="d-flex justify-content-end">
-								<div className="Goals__icon">
-									<SVG name="cross" className="Goals__icon-item" alt="cross" onClick={()=>{this.deleteGoal(id)}}/>
+								<div className="Goals__icon" onClick={()=>{this.deleteGoal(id)}}>
+									<SVG name="cross" className="Goals__icon-item"/>
 								</div>
 								</div>
 							</div>
