@@ -30,6 +30,7 @@ class UIStore {
 		}
 
 		this.deleteVisionItemId = -1;
+		this.deleteVisionCategoryId = -1;
 		this.habitDate = new Date();
 	}
 
@@ -74,6 +75,7 @@ decorate(UIStore, {
 	filterGoal: observable,
 	habitDate: observable,
 	deleteVisionItemId: observable,
+	deleteVisionCategoryId: observable,
 })
 
 export default UIStore;

@@ -29,17 +29,8 @@ class EditVisionCategory extends Component {
 
 	onCategoryChange = (e) => {
 		this.domain.editCategoryForm.id = parseInt(e.target.value);
-		this.domain.editCategoryForm.name = this.domain.visionCategoryName();
-	}
-
-	onCategoryDelete = () => {
-		if (this.domain.editCategoryForm.deleteId === -1){
-			this.domain.editCategoryForm.deleteId = this.domain.editCategoryForm.id;
-			this.domain.editCategoryForm.response = "Queued for deletion";
-		} else {
-			this.domain.editCategoryForm.deleteId = -1;
-			this.domain.editCategoryForm.response = "";
-		}
+		const name = this.domain.visionData.categories.filter(category => category.id === this.domain.editCategoryForm.id)[0].name;
+		this.domain.editCategoryForm.name = name;
 	}
 
 	renderCategoryOptions = () => {
@@ -52,23 +43,16 @@ class EditVisionCategory extends Component {
 		return(
 			<Modal id="modal-edit-vision-category" title="Edit Vision Category">
 				<div className="form-group">
-				    <select className="form-control form-control-sm mb-2" onChange={(e) => {this.onCategoryChange(e)}}>
-				    			{this.renderCategoryOptions()}
+				    <select className="form-control form-control-sm" onChange={(e) => {this.onCategoryChange(e)}}>
+				    	{this.renderCategoryOptions()}
 					</select>
 				</div>
 				<h6 className="text-black">Category</h6>
 			    <div className="form-group mb-3">
-			      <div className="row">
-			      	<div className="col-8">
-						<input type="text" className="form-control" placeholder="Name" value={this.domain.editCategoryForm.name} onChange={ (e) => {this.onCategoryNameChange(e)}}/>
-			      		</div>
-	      					<div className="col-2">
-			      			<button className="btn btn-danger" onClick={this.onCategoryDelete}>Delete</button>
-			      		</div>
-			      		</div>
-			      	</div>
-			      	<button type="button" className="btn btn-primary mb-2" onClick={this.onSaveChanges}>Save changes</button>
-			     	<div className="text-danger">{this.domain.editCategoryForm.response}</div>
+					<input type="text" className="form-control" placeholder="Name" value={this.domain.editCategoryForm.name} onChange={ (e) => {this.onCategoryNameChange(e)}}/>
+			    </div>
+			    <button type="button" className="btn btn-primary mb-2" onClick={this.onSaveChanges}>Save changes</button>
+			    <div className="text-danger">{this.domain.editCategoryForm.response}</div>
 			</Modal>
 		);
 	}
