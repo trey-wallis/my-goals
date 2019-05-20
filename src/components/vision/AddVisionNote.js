@@ -34,8 +34,8 @@ class AddVisionNote extends Component {
 				<div className="form-group">
 					<textarea className="form-control" rows="5" placeholder="Ideas, goals, or plans about your vision item" onChange={this.onTextChange} value={this.domain.addVisionNoteForm.text}/>
 				</div>
-				<button type="button" className="btn btn-primary mr-2 mb-2" onClick={this.onSaveNote}>Save Note</button>
-				<button type="button" className="btn btn-danger mb-2" onClick={this.onClearText}>Clear Text</button>
+				<button type="button" className="btn btn-primary mr-2 mb-2" onClick={this.onSaveNote}>Save</button>
+				<button type="button" className="btn btn-danger mb-2" onClick={this.onClearText}>Clear</button>
 				<div className="text-danger">{this.domain.addVisionNoteForm.response}</div>
 			</Modal>
 		);
