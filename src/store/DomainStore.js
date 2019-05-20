@@ -395,6 +395,24 @@ class DomainStore {
 		.catch(error => console.log);
 	}
 
+	postCompleteVisionItem = (id) => {
+		this.connection.postAuthorized("complete-vision-item", {
+			visionItemId: id
+		})
+		.then(response => {
+			const {data} = response;
+			if (response.status === 200){
+			 	const selected = this.visionData.items.filter(item => {
+			 		return item.id === id;
+			 	})[0];
+			 	selected.complete = data.complete;
+			} else {
+				console.log(data);
+			}
+		})
+		.catch(err => console.log(err));
+	}
+
 	editVisionCategory = () => {
 		this.connection.postAuthorized("editvisioncategory", {
 		 	id: this.editCategoryForm.id,
