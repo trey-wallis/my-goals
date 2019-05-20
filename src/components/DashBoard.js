@@ -31,8 +31,6 @@ class DashBoard extends Component {
 			return false;
 		}).length; //optimize this
 		const habitsInProgress = totalHabits - habitsCompleted;
-
-		const visionCategoryCount = RootStore.store.domain.visionData.categories.length;
 		const goalCount = RootStore.store.domain.goalData.length;
 		const goalsCompleted = habitsCompleted; //Add in goals by tasks
 		const goalsInProgress = goalCount - goalsCompleted;

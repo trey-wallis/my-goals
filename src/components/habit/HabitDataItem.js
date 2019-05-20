@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SVG from '../../SVG';
 import Store from '../../store/RootStore';
 
-class HabitDataRowItem extends Component {
+class HabitDataItem extends Component {
 
 	clickedImage = (goalId, date) => {
 		Store.store.domain.postHabit(goalId, date);
@@ -11,11 +11,11 @@ class HabitDataRowItem extends Component {
 	render() {
 		const {goalId, imgName, fill, date} = this.props;
 		return (
-			<div style={{textAlign: 'center', margin: '10px 9px', width: '30px'}} onClick={()=>{this.clickedImage(goalId,  date)}}>
+			<div style={{textAlign: 'center', margin: '10px 8px', width: '30px'}} onClick={()=>{this.clickedImage(goalId,  date)}}>
 				<SVG className="light-hover" name={imgName} fill={fill}/>
 	    	</div>
 		);
 	}
 }
 
-export default HabitDataRowItem;
+export default HabitDataItem;

@@ -7,11 +7,8 @@ class HabitContainer extends Component {
   render() {
     return (
       <div>
-      	<div style={{float: 'right'}}>
         <HabitDate/>
-        </div>
-        <div style={{clear: 'both'}}></div>
-        <HabitData/>
+        <HabitData goalId={this.props.goalId} name={this.props.name}/>
       </div>
     );
   }

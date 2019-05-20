@@ -168,6 +168,18 @@ class DomainStore {
 		.catch(err => console.log);
 	}
 
+
+	fetchTasks = () => {
+		this.connection.postAuthorized("tasks")
+		.then(response => {
+			if (response.status === 200){
+				this.taskData = response.data;
+				console.log(response.data);
+			}
+		})
+		.catch(err => console.log);
+	}
+
 	checkLogin = () => {
 		this.connection.postAuthorized('checklogin')
 		.then(response => {
@@ -184,6 +196,7 @@ class DomainStore {
 		this.fetchVisionBoard();
 		this.fetchGoals();
 		this.fetchHabits();
+		this.fetchTasks();
 		this.fetchNote();
 	}
 
@@ -326,6 +339,23 @@ class DomainStore {
 		.catch(error => console.log);
 	}
 
+
+	postDeleteTask = (id) => {
+		this.connection.postAuthorized("delete-task", {
+			taskId: id
+		})
+		.then(response => {
+			if (response.status === 200){
+				const filtered = this.taskData.filter(task => task.id !== id);
+				this.taskData = filtered;
+		 		alert("Deleted vision item!");
+			} else {
+				alert("An error occurred while deleting the item");
+			}
+		})
+		.catch(error => console.log);
+	}
+
 	postDeleteVisionItem = (id) => {
 		this.connection.postAuthorized("deletevisionitem", {
 			id: id
@@ -412,6 +442,25 @@ class DomainStore {
 		})
 		.catch(err => console.log(err));
 	}
+
+	postCompleteTask = (id) => {
+		this.connection.postAuthorized("complete-task", {
+			taskId: id
+		})
+		.then(response => {
+			const {data} = response;
+			if (response.status === 200){
+			 	const selected = this.taskData.filter(task => {
+			 		return task.id === id;
+			 	})[0];
+			 	selected.completed = data.completed;
+			} else {
+				console.log(data);
+			}
+		})
+		.catch(err => console.log(err));
+	}
+
 
 	editVisionCategory = () => {
 		this.connection.postAuthorized("editvisioncategory", {
@@ -501,6 +550,7 @@ decorate(DomainStore, {
 	editVisionItemForm: observable,
 	visionCategoryName: computed,
 	habitData: observable,
+	taskData: observable,
 })
 
 export default DomainStore;
