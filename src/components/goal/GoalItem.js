@@ -6,6 +6,8 @@ import '../../css/GoalItem.css'
 
 import RootStore from '../../store/RootStore';
 import ProgressBar from './ProgressBar.js';
+import HabitContainer from '../habit/HabitContainer';
+import TaskContainer from '../tasks/TaskContainer';
 
 import SVG from '../../SVG';
 
@@ -59,13 +61,20 @@ class GoalItem extends Component {
 		this.domain.editGoal.form.progressTracking = selectedGoal.progress_tracking;
 		this.domain.editGoal.form.progressTotal = selectedGoal.progresstotal;
 		this.domain.editGoal.form.visionItem = selectedGoalVisionItem.id;
-		this.domain.editGoal.visionNote = selectedGoalVisionItem.notes;
 
 		$('#modal-edit-goal').modal('show');
 	}
 
 	getGoal = (id) => {
 		return this.domain.goalData.filter(goal => goal.id === id)[0];
+	}
+
+	renderHabits = () => {
+		return <HabitContainer goalId={this.props.id}/>;
+	}
+
+	renderTasks = () => {
+		return <TaskContainer goalId={this.props.id}/>
 	}
 
 	render(){
@@ -126,6 +135,11 @@ class GoalItem extends Component {
     					<li className="list-group-item bg-white border-0">
     						<div className="text-primary">Plans</div>
     						<div className="Goals__plans text-dark Goals__text--sm">{plans}</div>
+    					</li>
+    					 <li className="list-group-item bg-light border-0">
+    					 	<div className="text-primary">Progress Tracking</div>
+	    					{progressTracking === 'Habit' ? this.renderHabits() : ''}
+	    					{progressTracking === 'Tasks' ? this.renderTasks() : ''}
     					</li>
   					</ul>
   					</div>

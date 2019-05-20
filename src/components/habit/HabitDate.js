@@ -15,9 +15,11 @@ class HabitDate extends Component {
 
     return (
       <div style={style}>
-      	<HabitDateChevron imgName="chevron-left" left={true}/>
       	{rows}
-        <HabitDateChevron imgName="chevron-right" left={false}/>
+        <div style={{display: 'inline-block'}}>
+          <HabitDateChevron imgName="chevron-right" left={false}/>
+          <HabitDateChevron imgName="chevron-left" left={true}/>
+        </div>
       </div>
     );
   }
