@@ -112,7 +112,7 @@ class editGoal extends Component {
 	renderSelectCategory = () => {
 		return (
 				<React.Fragment>
-					<h6>Select a category</h6>
+					<h6 className="text-black">Select a category</h6>
 					<div className="form-group">
 						<select className="form-control form-control-sm mb-2" onChange={this.onCategoryChange} value={this.domain.editGoal.form.visionCategory}>
 							{this.renderCategories()}
@@ -125,7 +125,7 @@ class editGoal extends Component {
 	renderSelectVisionItem = () => {
 		return (
 				<React.Fragment>
-					<h6>Select an item</h6>
+					<h6 className="text-black">Select an item</h6>
 					<div className="form-group">
 						<select className="form-control form-control-sm mb-2" onChange={this.onItemChange} value={this.domain.editGoal.form.visionItem}>
 							{this.renderItems()}
@@ -138,7 +138,7 @@ class editGoal extends Component {
 	renderGoalDescription = () => {
 		return(
 				<React.Fragment>
-		     		<h6>Enter goal details</h6>
+		     		<h6 className="text-black">Enter goal details</h6>
 					<div className="form-group">
 						<input type="text" className="form-control form-control-sm" placeholder="Name" onChange={this.onNameChange} value={this.domain.editGoal.form.name}/>
 					</div>
@@ -155,13 +155,13 @@ class editGoal extends Component {
 	renderSelectDate = () => {
 		return(
 				<React.Fragment>
-					<h6>Goal timeline</h6>
+					<h6 className="text-black">Goal timeline</h6>
 					<div className="form-group">
-						<label>Start</label>
+						<label className="text-black">Start</label>
 						<input id="start-date" type="date" className="form-control form-control-sm" onChange={this.onStartChange} value={this.domain.editGoal.form.start}/>
 					</div>
 					<div className="form-group">
-						<label>End</label>
+						<label className="text-black">End</label>
 						<input id="end-date" type="date" className="form-control form-control-sm" onChange={this.onEndChange} value={this.domain.editGoal.form.end}/>
 					</div>
 				</React.Fragment>
@@ -171,7 +171,7 @@ class editGoal extends Component {
 	renderTrackProgress =  () => {
 		return(
 			<React.Fragment>
-				<h6>Tracking progress</h6>
+				<h6 className="text-black">Tracking progress</h6>
 				<div className="form-group">
 					<select className="form-control form-control-sm" value={this.domain.editGoal.form.progressTracking} onChange={this.onProgressTrackingChange}>
 						<option value="0">Habit</option>
@@ -190,22 +190,17 @@ class editGoal extends Component {
 		<div className="modal fade" id="modal-edit-goal" role="dialog">
 			<div className="modal-dialog" role="document">
 		    	<div className="modal-content">
-		    		<div className="modal-header">
-			    		<button type="button" className="btn btn--reset" onClick={this.onDismiss}>
-			          		<span>&times;</span>
-			       		</button>
-			       		<div>
-			       		{this.domain.editGoal.menu > 0 ? <button type="button" className="btn btn--reset" onClick={this.onMenuBackClick}>Back</button> : ''}
-			       		<button type="button" className="btn btn--reset" onClick={this.onMenuForwardClick}>{this.domain.editGoalMenuOption}</button>
+		    		<div className="modal-header justify-content-end">
+			       		<div className="button-group">
+			       		{this.domain.editGoal.menu > 0 ? <button type="button" className="btn btn-danger" onClick={this.onMenuBackClick}>Back</button> : ''}
+			       		<button type="button" className="btn btn-success" onClick={this.onMenuForwardClick}>{this.domain.editGoalMenuOption}</button>
 			       		</div>
 			      	</div>
 			      	<div className="modal-body">
 		    			{this.renderMenu()}
 		    		</div>
-		    		<div className="modal-footer justify-content-between">
+		    		<div className="modal-footer">
 		    			<div className="text-danger">{this.domain.editGoal.response}</div>
-		    			{this.domain.editGoal.menu > 0 ?
-		    			<button type="button" className="btn btn-sm btn-success" data-toggle="collapse" data-target="#edit-goal-text-notes">View Notes</button> : <div></div>}
 		    		</div>
 		    	</div>
 		  	</div>

@@ -227,22 +227,17 @@ class AddGoal extends Component {
 		<div className="modal fade" id="modal-add-goal" role="dialog">
 			<div className="modal-dialog" role="document">
 		    	<div className="modal-content">
-		    		<div className="modal-header justify-content-between">
-			    		<button type="button" className="close" onClick={this.onDismiss}>
-			          		<span>&times;</span>
-			       		</button>
-			       		<div>
-			       		{this.domain.addGoal.menu > 0 ? <button type="button" className="btn btn-secondary" onClick={this.onMenuBackClick}>Back</button> : ''}
-			       		<button type="button" className="btn btn-primary" onClick={this.onMenuForwardClick}>{this.domain.addGoalMenuOption}</button>
+		    		<div className="modal-header justify-content-end">
+		    			<div className="button-group">
+		    				{this.domain.addGoal.menu > 0 ? <button type="button" className="btn btn-danger" onClick={this.onMenuBackClick}>Back</button> : ''}
+		    				<button type="button" className="btn btn-success" onClick={this.onMenuForwardClick}>{this.domain.addGoalMenuOption}</button>
 			       		</div>
 			      	</div>
 			      	<div className="modal-body">
 		    			{this.renderMenu()}
 		    		</div>
-		    		<div className="modal-footer justify-content-between">
+		    		<div className="modal-footer">
 		    			<div className="text-danger">{this.domain.addGoal.response}</div>
-		    			{this.domain.addGoal.menu > 0 ?
-		    			<button type="button" className="btn btn-sm btn-success" data-toggle="collapse" data-target="#add-goal-text-notes">View Notes</button> : <div></div>}
 		    		</div>
 		    	</div>
 		  	</div>
