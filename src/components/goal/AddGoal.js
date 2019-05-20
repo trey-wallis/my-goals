@@ -29,7 +29,6 @@ class AddGoal extends Component {
 		//If the number of items in that category are not 0 then set the default vision item to be the first
 		if (items.length > 0){
 			this.domain.addGoal.form.visionItem = items[0].id;
-			this.domain.addGoal.form.visionNote = items[0].notes;
 		}
 
 		this.domain.addGoal.form.start = date(0);
@@ -41,12 +40,6 @@ class AddGoal extends Component {
 	*/
 	onItemChange = (e) => {
 		this.domain.addGoal.form.visionItem = parseInt(e.target.value); //we need to parse int because select values are strings
-
-		this.domain.visionData.items.forEach(item => {
-			if(item.id  === this.domain.addGoal.form.visionItem){
-				this.domain.addGoal.visionNote = item.notes;
-			}
-		});
 	}
 
 	onCategoryChange = (e) => {
@@ -56,7 +49,6 @@ class AddGoal extends Component {
 			const item = this.domain.visionData.items[i];
 			if (item.categoryid === this.domain.addGoal.form.visionCategory){
 				this.domain.addGoal.form.visionItem = item.id;
-				this.domain.addGoal.visionNote = item.notes;
 				break;
 			}
 		}
@@ -246,10 +238,6 @@ class AddGoal extends Component {
 			      	</div>
 			      	<div className="modal-body">
 		    			{this.renderMenu()}
-		    			{this.domain.addGoal.menu > 0 ?
-		    			<div className="form-group mt-2">
-	 		      			<textarea className="form-control collapse" id="add-goal-text-notes" rows="5" placeholder="Ideas, goals, or plans about your vision item" value={this.domain.addGoal.visionNote} readOnly />
-	 		      		</div> : ''}
 		    		</div>
 		    		<div className="modal-footer justify-content-between">
 		    			<div className="text-danger">{this.domain.addGoal.response}</div>
