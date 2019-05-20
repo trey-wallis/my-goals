@@ -30,7 +30,6 @@ class VisionItem extends Component {
 	}
 
 	render(){
-		console.log(this.props.id);
 		return(
 			<div className="Vision__card card d-flex flex-column align-items-center border-0" onClick={() => {this.onClick(this.props.id)}}>
 				<img className="Vision__img" src={this.props.img} alt="img"/>

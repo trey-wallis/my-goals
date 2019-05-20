@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import RootStore from '../../store/RootStore';
 
+import './HeaderNavLoggedIn.css';
+
 class HeaderNavLoggedIn extends Component {
 
 	render(){
@@ -24,7 +26,7 @@ class HeaderNavLoggedIn extends Component {
         			<Link to={'/settings'} className={"nav-link" + RootStore.store.ui.isNavItemActive(4)}>Settings</Link>
 	      		</li>
 	      		<li className="nav-item">
-        			<a className="nav-link" href="#" onClick={RootStore.store.domain.postLogout}>Logout</a>
+        			<button className="nav-link nav-reset-button" onClick={RootStore.store.domain.postLogout}>Logout</button>
 	      		</li>
 	      	</React.Fragment>
 		);

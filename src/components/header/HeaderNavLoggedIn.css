@@ -1,0 +1,16 @@
+.nav-reset-button {
+	border: 0;
+	outline: 0;
+	background-color: inherit;
+	color: rgba(255,255,255,0.75);
+}
+
+.nav-reset-button:focus {
+	border: 0;
+	outline: 0;
+}
+
+.nav-reset-button:hover {
+	border: 0;
+	outline: 0;
+}
