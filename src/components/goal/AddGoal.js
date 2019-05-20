@@ -152,7 +152,7 @@ class AddGoal extends Component {
 	renderSelectCategory = () => {
 		return (
 			<React.Fragment>
-				<h6>Select a category</h6>
+				<h6 className="text-black">Select a category</h6>
 				<div className="form-group">
 					<select className="form-control form-control-sm" value={this.domain.addGoal.form.visionCategory} onChange={this.onCategoryChange}>
 						{this.renderCategories()}
@@ -165,7 +165,7 @@ class AddGoal extends Component {
 	renderSelectVisionItem = () => {
 		return (
 			<React.Fragment>
-				<h6>Select an item</h6>
+				<h6 className="text-black">Select an item</h6>
 				<div className="form-group">
 					<select className="form-control form-control-sm" value={this.domain.addGoal.form.visionItem} onChange={this.onItemChange}>
 						{this.renderItems()}
@@ -178,7 +178,7 @@ class AddGoal extends Component {
 	renderGoalDescription = () => {
 		return(
 			<React.Fragment>
-		    	<h6>Enter goal details</h6>
+		    	<h6 className="text-black">Enter goal details</h6>
 				<div className="form-group">
 					<input type="text" className="form-control form-control-sm" placeholder="Name" value={this.domain.addGoal.form.name} onChange={this.onNameChange}/>
 				</div>
@@ -195,13 +195,13 @@ class AddGoal extends Component {
 	renderSelectDate = () => {
 		return(
 			<React.Fragment>
-				<h6>Goal timeline</h6>
+				<h6 className="text-black">Goal timeline</h6>
 				<div className="form-group">
-					<label>Start</label>
+					<label className="text-black">Start</label>
 					<input id="start-date" type="date" className="form-control form-control-sm" defaultValue={date(0)} onChange={this.onStartChange}/>
 				</div>
 				<div className="form-group">
-					<label>End</label>
+					<label className="text-black">End</label>
 					<input id="end-date" type="date" className="form-control form-control-sm" defaultValue={date(7)} onChange={this.onEndChange}/>
 				</div>
 			</React.Fragment>
@@ -216,7 +216,7 @@ class AddGoal extends Component {
 
 		return(
 			<React.Fragment>
-				<h6>Tracking progress</h6>
+				<h6 className="text-black">Tracking progress</h6>
 				<div className="form-group">
 					<select className="form-control form-control-sm" value={this.domain.addGoal.form.progressTracking} onChange={this.onProgressTrackingChange}>
 						<option value="0">Habit</option>
@@ -235,13 +235,13 @@ class AddGoal extends Component {
 		<div className="modal fade" id="modal-add-goal" role="dialog">
 			<div className="modal-dialog" role="document">
 		    	<div className="modal-content">
-		    		<div className="modal-header">
+		    		<div className="modal-header justify-content-between">
 			    		<button type="button" className="close" onClick={this.onDismiss}>
 			          		<span>&times;</span>
 			       		</button>
 			       		<div>
-			       		{this.domain.addGoal.menu > 0 ? <button type="button" className="btn" onClick={this.onMenuBackClick}>Back</button> : ''}
-			       		<button type="button" className="btn" onClick={this.onMenuForwardClick}>{this.domain.addGoalMenuOption}</button>
+			       		{this.domain.addGoal.menu > 0 ? <button type="button" className="btn btn-secondary" onClick={this.onMenuBackClick}>Back</button> : ''}
+			       		<button type="button" className="btn btn-primary" onClick={this.onMenuForwardClick}>{this.domain.addGoalMenuOption}</button>
 			       		</div>
 			      	</div>
 			      	<div className="modal-body">

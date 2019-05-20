@@ -1,16 +1,21 @@
 .Vision__img {
-	width: 350px;
+	width: 450px;
 	height: 200px;
 	object-fit: cover;
 }
 
 .Vision__card {
-	border: 0;
-	overflow: hidden;
+	width: 450px;
+	height: 350px;
+	margin: 10px 20px;
 }
 
 .Vision__card:hover {
 	background: rgba(255,255,255,0.85);
+}
+
+.Vision__card-body {
+	padding: 10px 20px !important;
 }
 
 .Vision__description {
@@ -19,7 +24,7 @@
 
 
 @media (max-width: 576px) {
-	.Vision__img {
-		padding-top: 20px;
+	.Vision__card {
+		margin: 10px 0px;
 	}
 }

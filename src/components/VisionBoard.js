@@ -13,7 +13,6 @@ import VisionItem from './vision/VisionItem';
 import DeleteVisionItem from './vision/DeleteVisionItem';
 import DeleteVisionCategory from './vision/DeleteVisionCategory';
 
-import Widget from './widget/Widget';
 import SVG from '../SVG';
 import './VisionBoard.css';
 
@@ -60,7 +59,7 @@ class VisionBoard extends Component {
 				return(
 					<React.Fragment key={i}>
 						<h3 className="text-center text-white p-4">{category.name}</h3>
-						<div className="row justify-content-center">
+						<div className="d-flex flex-wrap justify-content-center">
 							{this.renderItems(category.id)}
 						</div>
 					</React.Fragment>
@@ -73,7 +72,7 @@ class VisionBoard extends Component {
 
 	render(){
 		return(
-			<div className="vision-padding">
+			<div>
 				{RootStore.store.domain.visionData.categories.length > 0 ? this.renderCategories() : this.renderNoCategories()}
 				<AddVisionItem/>
 				<AddVisionCategory/>
