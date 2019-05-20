@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import RootStore from '../store/RootStore';
 import $ from 'jquery';
 
-class Settings extends Component {
+class Calendar extends Component {
 
 	constructor(){
 		super();
@@ -20,12 +20,12 @@ class Settings extends Component {
 
 	render(){
 		return(
-			<div className="Settings">
-				<div className="d-flex flex-column align-items-center p4">
-					<h3>Settings</h3>
+			<div className="Calendar">
+				<div className="d-flex flex-column align-items-center p-4">
+					<h3 className="mb-3">Calendar</h3>
 				</div>
 			</div>);
 	}
 }
 
-export default Settings;
+export default Calendar;

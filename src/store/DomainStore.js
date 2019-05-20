@@ -18,7 +18,7 @@ class DomainStore {
 		};
 
 		this.profile = {
-			displayName : ""
+			displayName : "",
 		}
 
 		this.connection = new Connection();
@@ -26,7 +26,6 @@ class DomainStore {
 		this.editCategoryForm = {
 			id: -1,
 			name: "",
-			deleteId: -1,
 			response: "",
 		}
 
@@ -98,10 +97,11 @@ class DomainStore {
 			}
 		}
 
-		this.addVisionNoteForm = {
-			text: "",
-			response: "",
-			visionItemId: 0
+		this.addNote = {
+			form : {
+				text: ""
+			},
+			response: ""
 		}
 	}
 
@@ -184,6 +184,7 @@ class DomainStore {
 		this.fetchVisionBoard();
 		this.fetchGoals();
 		this.fetchHabits();
+		this.fetchNote();
 	}
 
 	connectLogin = () => {
@@ -222,13 +223,10 @@ class DomainStore {
 	}
 
 	fetchNote = () => {
-		this.connection.postAuthorized("visionnote", {
-			visionItemId: this.addVisionNoteForm.visionItemId
-		})
+		this.connection.postAuthorized("note", {})
 		.then(response => {
 			if (response.status === 200){
-				this.addVisionNoteForm.text = response.data;
-				$("#modal-add-vision-note").modal('show');
+				this.addNote.form.text = response.data;
 			}
 		})
 		.catch(error => console.log);
@@ -346,6 +344,22 @@ class DomainStore {
 		.catch(error => console.log);
 	}
 
+	postDeleteVisionCategory = (id) => {
+		this.connection.postAuthorized("deletevisioncategory", {
+			deleteId: id
+		})
+		.then(response => {
+			if (response.status === 200){
+				const filtered = this.visionData.categories.filter(category => category.id !== id);
+				this.visionData.categories = filtered;
+		 		alert("Deleted vision category!");
+			} else {
+				alert("An error occurred while deleting the category");
+			}
+		})
+		.catch(error => console.log);
+	}
+
 	postEditGoal = () => {
 		this.connection.postAuthorized("editgoal", this.editGoal.form)
 		.then(response => {
@@ -368,21 +382,12 @@ class DomainStore {
 		.catch(error => console.log);
 	}
 
-	postAddVisionNote = () => {
-		this.connection.postAuthorized("addvisionnote", {
-		 	visionItemId: this.addVisionNoteForm.visionItemId,
-		 	noteText: this.addVisionNoteForm.text
-		})
+	postAddNote = () => {
+		this.connection.postAuthorized("addnote", this.addNote.form)
 		.then(response => {
 			const {data} = response;
 			if (response.status === 200){
-			 	this.addVisionNoteForm.response = data;
-			 	for (let i = 0; i < this.visionData.items.length; i++){
-			 		const item = this.visionData.items[i];
-			 		if (item.id === this.addVisionNoteForm.visionItemId){
-			 			item.notes = this.addVisionNoteForm.text;
-			 		}
-			 	}
+			 	alert("Saved!");
 			} else {
 				console.log(data);
 			}
@@ -394,19 +399,18 @@ class DomainStore {
 		this.connection.postAuthorized("editvisioncategory", {
 		 	id: this.editCategoryForm.id,
 		 	name: this.editCategoryForm.name,
-		 	deleteId: this.editCategoryForm.deleteId,
 		})
 		.then(response => {
 			const {data} = response;
 		 	if (response.status === 200){
 		 		for (let i = 0; i < this.visionData.categories.length; i++){
 		 			if (this.visionData.categories[i].id === this.editCategoryForm.id){
-		 				if (this.editCategoryForm.deleteId !== -1){
-		 					this.visionData.categories.splice(i);
-		 					this.editCategoryForm.deleteId = -1;
-		 				} else {
+		 				//f (this.editCategoryForm.deleteId !== -1){
+		 				//	this.visionData.categories.splice(i);
+		 				//	this.editCategoryForm.deleteId = -1;
+		 				//} else {
 		 					this.visionData.categories[i].name = this.editCategoryForm.name;
-		 				}
+		 				//}
 		 			}
 		 		}
 		 		$("#modal-edit-vision-category").modal('hide');
@@ -474,7 +478,7 @@ decorate(DomainStore, {
 	addGoal: observable,
 	editGoal: observable,
 	addGoalMenuOption: computed,
-	addVisionNoteForm: observable,
+	addNote: observable,
 	editCategoryForm: observable,
 	editVisionItemForm: observable,
 	visionCategoryName: computed,

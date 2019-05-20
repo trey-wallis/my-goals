@@ -18,9 +18,6 @@ class editGoal extends Component {
 	*/
 	onItemChange = (e) => {
 		this.domain.editGoal.form.visionItem = parseInt(e.target.value); //we need to parse int because select values are strings
-
-		const item = this.domain.visionData.items.filter(item => item.id === this.domain.editGoal.form.visionItem)[0];
-		this.domain.editGoal.visionNote = item.notes;
 	}
 
 	onCategoryChange = (e) => {
@@ -28,7 +25,6 @@ class editGoal extends Component {
 
 		const item = this.domain.visionData.items.filter(item => item.categoryid === this.domain.editGoal.form.visionCategory)[0];
 		this.domain.editGoal.form.visionItem = item.id;
-		this.domain.editGoal.visionNote = item.notes;
 	}
 
 	onNameChange = (e) => {
@@ -205,10 +201,6 @@ class editGoal extends Component {
 			      	</div>
 			      	<div className="modal-body">
 		    			{this.renderMenu()}
-		    			{this.domain.editGoal.menu > 0 ?
-		    			<div className="form-group mt-2">
-	 		      			<textarea className="form-control collapse" id="edit-goal-text-notes" rows="5" placeholder="Ideas, goals, or plans about your vision item" value={this.domain.editGoal.visionNote} readOnly />
-	 		      		</div> : ''}
 		    		</div>
 		    		<div className="modal-footer justify-content-between">
 		    			<div className="text-danger">{this.domain.editGoal.response}</div>

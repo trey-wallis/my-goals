@@ -12,10 +12,6 @@ class DeleteVisionItem extends Component {
 			RootStore.store.ui.deleteVisionItemId = RootStore.store.domain.visionData.items[0].id;
 	}
 
-	onDismiss = () => {
-		console.log("Dismiss");
-	}
-
 	onSelectChange = (e) => {
 		RootStore.store.ui.deleteVisionItemId = parseInt(e.target.value);
 		console.log(e.target.value);
@@ -34,12 +30,14 @@ class DeleteVisionItem extends Component {
 		});
 
 		return(
-			<Modal id="modal-delete-vision-item" onDismiss={this.onDismiss}>
-				<h6>Vision Item</h6>
+			<Modal id="modal-delete-vision-item" title="Delete Vision Item">
+				<h6 className="text-black">Vision Item</h6>
+				<div className="form-group">
 				<select className="form-control form-control-sm" value={RootStore.store.ui.deleteVisionItemId} onChange={(e)=>{this.onSelectChange(e)}}>
 					{visionItems}
 				</select>
-				<button className="btn btn-danger mt-2" onClick={this.onDelete}>Delete</button>
+				</div>
+				<button className="btn btn-danger" onClick={this.onDelete}>Delete</button>
 			</Modal>
 		);
 	}

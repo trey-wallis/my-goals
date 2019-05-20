@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import RootStore from '../../store/RootStore';
 
-class HeaderLoggedOut extends Component {
+class HeaderNavLoggedOut extends Component {
 
 	render(){
 		return (
@@ -20,4 +20,4 @@ class HeaderLoggedOut extends Component {
 	}
 }
 
-export default HeaderLoggedOut;
+export default HeaderNavLoggedOut;

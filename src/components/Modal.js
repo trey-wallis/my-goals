@@ -8,7 +8,8 @@ class Modal extends Component {
 				<div className="modal-dialog" role="document">
 			    	<div className="modal-content">
 			    		<div className="modal-header">
-			    			<button type="button" className="close" data-dismiss="modal" onClick={this.props.onDismiss}>
+			    			<h5 className="modal-title text-black">{this.props.title}</h5>
+			    			<button type="button" className="close" data-dismiss="modal">
 			          			<span>&times;</span>
 			       			</button>
 			       			<div></div>
@@ -16,7 +17,7 @@ class Modal extends Component {
 			      		<div className="modal-body">
 			      			{this.props.children}
 			      		</div>
-			      		<div className="modal-footer justify-content-between">
+			      		<div className="modal-footer">
 			      		</div>
 			    	</div>
 			  	</div>

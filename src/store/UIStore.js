@@ -2,7 +2,6 @@ import React from 'react';
 import { observable, decorate} from 'mobx';
 import DropDownGoals from '../components/dropdown/DropDownGoals';
 import DropDownVision from '../components/dropdown/DropDownVision';
-import DropDownHabits from '../components/dropdown/DropDownHabits';
 
 class UIStore {
 
@@ -26,11 +25,14 @@ class UIStore {
 			items: []
 		}
 
+		this.openIdeaPanel = false;
+
 		this.filterGoal = {
 			id: this.states.FILTER_GOAL_COMPLETED
 		}
 
 		this.deleteVisionItemId = -1;
+		this.deleteVisionCategoryId = -1;
 		this.habitDate = new Date();
 	}
 
@@ -62,10 +64,8 @@ class UIStore {
 				return <DropDownVision/>;
 			case 2:
 				return <DropDownGoals/>;
-			case 3:
-				return <DropDownHabits/>;
 			default:
-				return <div className="navbar-brand">My Goals</div>;
+				return '';
 		}
 	}
 }
@@ -77,6 +77,8 @@ decorate(UIStore, {
 	filterGoal: observable,
 	habitDate: observable,
 	deleteVisionItemId: observable,
+	deleteVisionCategoryId: observable,
+	openIdeaPanel: observable
 })
 
 export default UIStore;

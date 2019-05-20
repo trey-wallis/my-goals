@@ -1,61 +1,28 @@
 // Override default variables before the import
-$body-bg: #D3DEED;
-$body-color: #333333;
+$body-bg: #005880;
+$body-color: rgba(255,255,255,0.75);
 
 $theme-colors: (
-  "primary": #2C6DCE,
-  "tertiary": #B6D1F8,
-  "secondary": #033174,
-  "black": #000000,
-  "dark": #333333,
-  "dark-secondary": #6C6C6C,
-  "light": #D3DEED,
+  "primary": #1D1B46,
+  "tertiary": #1B3055,
+  "secondary": #005880,
+  "light": rgba(255,255,255,0.75),
+  "very-light": rgba(255,255,255,0.9),
   "white": #FFFFFF,
+  "black": #000000
 );
 
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';
 
-.container {
-	min-height: calc(100vh - 56px);
-}
-
-.btn--reset {
-	background: inherit;
-	border: 0;
-}
-
-.btn--reset:focus {
-	outline: 0;
-}
-
 .bg--inherit {
-	background: inherit;
-}
-
-.btn--reset:active {
-	outline: 0;
-}
-
-#navbar-dropdown {
-	font-size: 1.3rem;
+	background-color: inherit;
 }
 
 #navbar-top {
-	height: auto;
+	height: 56px;
 }
 
-@media (min-width: 576px) {
-	#navbar-top {
-		height: 56px;
-	}
-}
-
-.icon--small {
-	height: 25px;
-	width: auto;
-}
-
-.light-hover:hover {
-	background-color: rgba(0,0,0,0.1);
+.container {
+	height: calc(100vh - 56px);
 }
