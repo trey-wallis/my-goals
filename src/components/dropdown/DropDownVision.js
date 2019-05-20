@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 import {observer} from 'mobx-react';
 import RootStore from '../../store/RootStore';
-import Scrollable from '../Scrollable';
 import DropDown from './DropDown';
 
 class DropDownVision extends Component {

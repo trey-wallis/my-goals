@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 import '../../css/VisionItem.css';
 
-import Scrollable from '../../components/Scrollable';
 import RootStore from '../../store/RootStore';
 
 class VisionItem extends Component {

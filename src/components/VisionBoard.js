@@ -8,12 +8,10 @@ import AddVisionCategory from './vision/AddVisionCategory';
 import AddVisionItem from './vision/AddVisionItem';
 import EditVisionItem from './vision/EditVisionItem.js';
 import EditVisionCategory from './vision/EditVisionCategory.js';
-import AddVisionNote from './vision/AddVisionNote';
 import VisionItem from './vision/VisionItem';
 import DeleteVisionItem from './vision/DeleteVisionItem';
 import DeleteVisionCategory from './vision/DeleteVisionCategory';
 
-import SVG from '../SVG';
 import './VisionBoard.css';
 
 class VisionBoard extends Component {
@@ -78,7 +76,6 @@ class VisionBoard extends Component {
 				<AddVisionCategory/>
 				{RootStore.store.domain.visionData.categories.length > 0 ? <EditVisionCategory/> : ''}
 				{RootStore.store.domain.visionData.items.length > 0 ? <EditVisionItem/> : ''}
-				<AddVisionNote/>
 				<DeleteVisionItem/>
 				<DeleteVisionCategory/>
 			</div>

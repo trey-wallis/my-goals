@@ -97,10 +97,11 @@ class DomainStore {
 			}
 		}
 
-		this.addVisionNoteForm = {
-			text: "",
-			response: "",
-			visionItemId: 0
+		this.addNote = {
+			form : {
+				text: ""
+			},
+			response: ""
 		}
 	}
 
@@ -183,6 +184,7 @@ class DomainStore {
 		this.fetchVisionBoard();
 		this.fetchGoals();
 		this.fetchHabits();
+		this.fetchNote();
 	}
 
 	connectLogin = () => {
@@ -221,13 +223,10 @@ class DomainStore {
 	}
 
 	fetchNote = () => {
-		this.connection.postAuthorized("visionnote", {
-			visionItemId: this.addVisionNoteForm.visionItemId
-		})
+		this.connection.postAuthorized("note", {})
 		.then(response => {
 			if (response.status === 200){
-				this.addVisionNoteForm.text = response.data;
-				$("#modal-add-vision-note").modal('show');
+				this.addNote.form.text = response.data;
 			}
 		})
 		.catch(error => console.log);
@@ -383,21 +382,12 @@ class DomainStore {
 		.catch(error => console.log);
 	}
 
-	postAddVisionNote = () => {
-		this.connection.postAuthorized("addvisionnote", {
-		 	visionItemId: this.addVisionNoteForm.visionItemId,
-		 	noteText: this.addVisionNoteForm.text
-		})
+	postAddNote = () => {
+		this.connection.postAuthorized("addnote", this.addNote.form)
 		.then(response => {
 			const {data} = response;
 			if (response.status === 200){
-			 	this.addVisionNoteForm.response = data;
-			 	for (let i = 0; i < this.visionData.items.length; i++){
-			 		const item = this.visionData.items[i];
-			 		if (item.id === this.addVisionNoteForm.visionItemId){
-			 			item.notes = this.addVisionNoteForm.text;
-			 		}
-			 	}
+			 	alert("Saved!");
 			} else {
 				console.log(data);
 			}
@@ -488,7 +478,7 @@ decorate(DomainStore, {
 	addGoal: observable,
 	editGoal: observable,
 	addGoalMenuOption: computed,
-	addVisionNoteForm: observable,
+	addNote: observable,
 	editCategoryForm: observable,
 	editVisionItemForm: observable,
 	visionCategoryName: computed,

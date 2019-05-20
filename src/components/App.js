@@ -12,6 +12,7 @@ import VisionBoard from '../components/VisionBoard';
 import Goals from '../components/Goals';
 import Calendar from '../components/Calendar';
 import Settings from '../components/Settings';
+import IdeaPanel from '../components/IdeaPanel';
 
 import HeaderSideBar from '../components/header/HeaderSideBar';
 import HeaderNav from '../components/header/HeaderNav';
@@ -47,6 +48,7 @@ class App extends Component {
 									<Route path='/settings' component={Settings}/>
 									<Redirect to='/dashboard' push={true}/>
 								</Switch>
+								<IdeaPanel/>
 							</div> : 
 							<Switch>
 								<Route exact={true} path={'/'}  component={Title}/>

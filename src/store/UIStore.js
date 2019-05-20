@@ -25,6 +25,8 @@ class UIStore {
 			items: []
 		}
 
+		this.openIdeaPanel = false;
+
 		this.filterGoal = {
 			id: this.states.FILTER_GOAL_COMPLETED
 		}
@@ -76,6 +78,7 @@ decorate(UIStore, {
 	habitDate: observable,
 	deleteVisionItemId: observable,
 	deleteVisionCategoryId: observable,
+	openIdeaPanel: observable
 })
 
 export default UIStore;

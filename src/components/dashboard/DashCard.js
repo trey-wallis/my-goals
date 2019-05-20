@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import RootStore from '../../store/RootStore';
-
 import './DashCard.css';
 
 class DashCard extends Component {
