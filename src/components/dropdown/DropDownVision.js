@@ -17,7 +17,7 @@ class DropDownVision extends Component {
 		return (
 			<DropDown title="Options">
 				<button className="dropdown-item" data-toggle="modal" data-target="#modal-add-vision-category">Add Category</button>
-				<button className="dropdown-item" className="dropdown-item" data-toggle="modal" data-target="#modal-add-vision-item">Add Item</button>
+				<button className="dropdown-item" data-toggle="modal" data-target="#modal-add-vision-item">Add Item</button>
 				{this.domain.visionData.categories.length > 0 ? 
 					<button className="dropdown-item" data-toggle="modal" data-target="#modal-edit-vision-category">Edit Category</button> : ''}
 				{this.domain.visionData.items.length > 0 ?

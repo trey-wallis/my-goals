@@ -13,20 +13,27 @@ class VisionItem extends Component {
 		this.domain = domain;
 	}
 
-	onCard = (id) => {
-		this.domain.addVisionNoteForm.visionItemId = id;
-		this.domain.addVisionNoteForm.response = "";
-		this.domain.fetchNote();
+	onClick = (id) => {
+		this.domain.postCompleteVisionItem(id);
+	}
+
+	renderBody = (complete) => {
+		let name = "card-body Vision__card-body";
+		if (complete)
+			name = "card-body Vision__card-body bg-success"
+		return (
+				<div className={name}>
+	   				<h6 className="text-center text-primary">{this.props.title}</h6>
+	   				<p className="text-black">{this.props.description}</p>
+ 	 			</div>
+ 	 		);
 	}
 
 	render(){
 		return(
-			<div className="Vision__card card d-flex flex-column align-items-center border-0" onClick={() => {this.onCard(this.props.itemId)}}>
+			<div className="Vision__card card d-flex flex-column align-items-center border-0" onClick={() => {this.onClick(this.props.id)}}>
 				<img className="Vision__img" src={this.props.img} alt="img"/>
-  				<div className="card-body Vision__card-body">
-	   				<h6 className="text-center text-primary">{this.props.title}</h6>
-	   				<p className="Vision__description text-black">{this.props.desc}</p>
- 	 			</div>
+				{this.renderBody(this.props.complete)}
 			</div>);
 	}
 }

@@ -27,7 +27,7 @@ class VisionBoard extends Component {
 		const items = RootStore.store.domain.visionData.items.map((item, i) => {
 			if (item.categoryid === catId){
 				hasRenderedItems = true;
-				return <VisionItem key={i} img={item.url} title={item.title} desc={item.description} itemId={item.id} />
+				return <VisionItem key={i} img={item.url} title={item.title} description={item.description} id={item.id} complete={item.complete} />
 			} else {
 				return '';
 			}
