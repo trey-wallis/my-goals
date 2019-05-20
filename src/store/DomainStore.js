@@ -29,6 +29,12 @@ class DomainStore {
 			response: "",
 		}
 
+		this.addTask = {
+			form: {
+				text: ""
+			}
+		}
+
 		this.editVisionItemForm = {
 			categoryId: -1,
 			visionItems: [],
@@ -174,7 +180,6 @@ class DomainStore {
 		.then(response => {
 			if (response.status === 200){
 				this.taskData = response.data;
-				console.log(response.data);
 			}
 		})
 		.catch(err => console.log);
@@ -318,6 +323,23 @@ class DomainStore {
 				this.addVisionItemForm.response = "";
 			} else {
 				this.addVisionItemForm.response = data;
+			}
+		})
+		.catch(error => console.log);
+	}
+
+	postAddTask = (goalId) => {
+		this.connection.postAuthorized("add-task", {
+			goal_id: goalId,
+			name: this.addTask.form.text
+		})
+		.then(response => {
+			const {data} = response;
+			if (response.status === 200){
+		 		this.taskData.push(data);
+		 		this.addTask.form.text = "";
+			} else {
+				alert("There was an error while adding the task");
 			}
 		})
 		.catch(error => console.log);
@@ -551,6 +573,7 @@ decorate(DomainStore, {
 	visionCategoryName: computed,
 	habitData: observable,
 	taskData: observable,
+	addTask: observable
 })
 
 export default DomainStore;

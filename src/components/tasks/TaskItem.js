@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 
 import RootStore from '../../store/RootStore';
 import {observer} from 'mobx-react';
+import SVG from '../../SVG';
+import './TaskItem.css';
+
 class TaskItem extends Component {
   
   constructor(){
@@ -34,11 +37,15 @@ class TaskItem extends Component {
         textColor = "text-success";
     }
     return (
-    	<div>
+    	<div className="d-flex justify-content-between">
         <div className={textColor}>{this.props.name}</div>
-        <div className="button-group">
-          {this.renderCompleteButton()}
-          <button className="btn btn-sm btn-danger" onClick={this.delete}>Delete</button>
+        <div>
+          <div className="icon" onClick={this.complete}>
+            <SVG name="trophy" className="icon-item"/>
+          </div>
+          <div className="icon" onClick={this.delete}>
+            <SVG name="cross" className="icon-item"/>
+          </div>
         </div>
     	</div>
     );

@@ -34,7 +34,8 @@ class Goals extends Component {
 				if (goal.progress_tracking === 0){
 					progressCount = this.domain.habitData.filter(habit => habit.goal_id === goal.id).length;
 				} else {
-					progressCount = this.domain.taskData.filter(task => task.goal_id === goal.id).length;
+					const tasks = this.domain.taskData.filter(task => task.goal_id === goal.id);
+					progressCount = tasks.filter(task => task.completed === true).length;
 				}
 
 				//Calculate the progress of the goal
