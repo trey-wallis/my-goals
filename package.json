@@ -1,34 +1,22 @@
 {
-  "name": "my-goals-react",
-  "version": "0.1.0",
-  "private": true,
-  "homepage": "https://www.wallisinnovations.com/my-goals",
-  "dependencies": {
-    "bootstrap": "^4.2.1",
-    "jquery": "^3.3.1",
-    "mobx": "^5.9.0",
-    "mobx-react": "^5.4.3",
-    "node-sass": "^4.11.0",
-    "popper.js": "^1.14.7",
-    "react": "^16.6.3",
-    "react-confirm-alert": "^2.4.0",
-    "react-dom": "^16.6.3",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1"
-  },
+  "name": "my-goals-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "nodemon server.js"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "author": "Trey Wallis",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "^0.0.3",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "http": "^0.0.0",
+    "https": "^1.0.0",
+    "nodemon": "^1.18.10",
+    "pg-promise": "^8.5.6",
+    "uuid": "^3.3.2"
+  }
 }

@@ -1,0 +1,45 @@
+.Goals__plans {
+	white-space: pre-line; 
+}
+
+.Goals__img {
+	width: 128px;
+	height: auto;
+	border-radius: 6px;
+}
+
+.Goals__icon {
+	border: 1px solid rgba(0,0,0,0.0);
+	transition: border 0.4s;
+	padding: 2px 5px;
+	width: 30px;
+	height: 30px;
+}
+
+.Goals__vision-text {
+	width: 128px;
+	font-size: 0.75rem;
+}
+
+.Goals__icon-item {
+	width: 20px;
+	height: 20px;
+}
+
+.Goals__icon:hover {
+	border: 1px solid rgba(0,0,0,0.2);
+}
+
+.Goals__text--sm {
+	font-size: 0.9rem
+}
+
+.Goals__side {
+	display: none;
+}
+
+@media (min-width: 768px) {
+	.Goals__side {
+		display: block;
+	}
+}
