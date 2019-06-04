@@ -5,7 +5,7 @@ const handleIdeas = (db) => (req, res) => {
 
 	db.one('SELECT body FROM ideas WHERE user_id = $1', [uid])
 	.then(data => {
-		res.json(data.notes);
+		res.json(data.body);
 		log(uid, req.url, "Success");
 	})
 	.catch(error => {

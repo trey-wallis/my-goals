@@ -103,7 +103,7 @@ class DomainStore {
 
 		this.ideas = {
 			form : {
-				text: ""
+				body: ""
 			},
 			response: ""
 		}
@@ -242,7 +242,8 @@ class DomainStore {
 		this.connection.postAuthorized("ideas", {})
 		.then(response => {
 			if (response.status === 200){
-				this.ideas.form.text = response.data;
+				alert(response.data);
+				this.ideas.form.body = response.data;
 			}
 		})
 		.catch(error => console.log);
@@ -433,9 +434,7 @@ class DomainStore {
 	}
 
 	postSaveIdeas = (text) => {
-		this.connection.postAuthorized("save-ideas", {
-			body: text
-		})
+		this.connection.postAuthorized("save-ideas", this.ideas.form)
 		.then(response => {
 			const {data} = response;
 			if (response.status !== 200){
@@ -572,7 +571,8 @@ decorate(DomainStore, {
 	visionCategoryName: computed,
 	habitData: observable,
 	taskData: observable,
-	addTask: observable
+	addTask: observable,
+	ideas: observable
 })
 
 export default DomainStore;

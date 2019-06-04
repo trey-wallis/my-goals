@@ -14,8 +14,8 @@ class IdeaPanel extends Component {
 	}
 
 	onChange = (e) => {
-		this.domain.addNote.form.text = e.target.value;
-		this.domain.saveIdeas(e.target.value);
+		this.domain.ideas.form.body = e.target.value;
+		this.domain.postSaveIdeas();
 	}
 
 	openPanel = () => {
@@ -43,7 +43,7 @@ class IdeaPanel extends Component {
 				</div>
 				<div className="clear"></div>
 				<div className="form-group mt-2">
-					<textarea className="form-control" rows="5" placeholder="Ideas for vision board, tasks to complete, goals to implement, etc" onChange={this.onChange} value={this.domain.addNote.form.text}/>
+					<textarea className="form-control" rows="5" placeholder="Ideas for vision board, tasks to complete, goals to implement, etc" onChange={this.onChange} value={this.domain.ideas.form.body}/>
 				</div>
 			</div>
 		);
