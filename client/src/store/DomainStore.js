@@ -243,6 +243,8 @@ class DomainStore {
 		.then(response => {
 			if (response.status === 200){
 				this.ideas.form.body = response.data;
+			} else {
+				console.log(response);
 			}
 		})
 		.catch(error => console.log);
