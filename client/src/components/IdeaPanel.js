@@ -15,10 +15,7 @@ class IdeaPanel extends Component {
 
 	onChange = (e) => {
 		this.domain.addNote.form.text = e.target.value;
-	}
-
-	postText = () => {
-		this.domain.postAddNote();
+		this.domain.saveIdeas(e.target.value);
 	}
 
 	openPanel = () => {
@@ -42,7 +39,6 @@ class IdeaPanel extends Component {
 		return (
 			<div className="idea-panel idea-panel--open">
 				<div className="button-group right">
-					<button className="btn btn-sm btn-success" onClick={this.postText}>Save</button>
 					<button className="btn btn-sm btn-danger" onClick={this.closePanel}>Close</button>
 				</div>
 				<div className="clear"></div>

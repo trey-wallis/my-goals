@@ -26,8 +26,8 @@ const {handleAddVisionCategory} = require(`./${ROUTE_FOLDER}/handleAddVisionCate
 const {handleAddVisionItem} = require(`./${ROUTE_FOLDER}/handleAddVisionItem`);
 const {handleAddTask} = require(`./${ROUTE_FOLDER}/handleAddTask`);
 const {handleVisionBoard} = require(`./${ROUTE_FOLDER}/handleVisionBoard`);
-const {handleNote} = require(`./${ROUTE_FOLDER}/handleNote`);
-const {handleAddNote} = require(`./${ROUTE_FOLDER}/handleAddNote`);
+const {handleIdeas} = require(`./${ROUTE_FOLDER}/handleIdeas`);
+const {handleSaveIdeas} = require(`./${ROUTE_FOLDER}/handleSaveIdeas`);
 const {handleDeleteVisionItem} = require(`./${ROUTE_FOLDER}/handleDeleteVisionItem`);
 const {handleDeleteTask} = require(`./${ROUTE_FOLDER}/handleDeleteTask`);
 const {handleDeleteVisionCategory} = require(`./${ROUTE_FOLDER}/handleDeleteVisionCategory`);
@@ -64,9 +64,9 @@ app.use((req, res, next) => {
 app.post("/login", (req, res) => handleLogin(uuidv4, db, bcrypt)(req, res));
 app.post("/register", (req, res) => handleRegister(uuidv4, db, bcrypt)(req, res));
 app.post("/logout", (req, res) => handleLogout(db)(req, res));
-app.post("/checklogin", (req, res) => handleCheckLogin(db)(req, res)); 
+app.post("/checklogin", (req, res) => handleCheckLogin(db)(req, res));
 
-app.post("/updateprogress", (req, res) => handleUpdateProgress(db)(req, res)); 
+app.post("/updateprogress", (req, res) => handleUpdateProgress(db)(req, res));
 
 app.post("/editvisioncategory", (req, res) => handleEditVisionCategory(db)(req, res));
 app.post("/editvisionitem", (req, res) => handleEditVisionItem(db)(req, res));
@@ -74,8 +74,8 @@ app.post("/addvisioncategory", (req, res) => handleAddVisionCategory(db)(req, re
 app.post("/addvisionitem", (req, res) => handleAddVisionItem(db)(req, res));
 app.post("/add-task", (req, res) => handleAddTask(db)(req, res));
 app.post("/visionboard", (req, res) => handleVisionBoard(db)(req, res));
-app.post("/note", (req, res) => handleNote(db)(req, res));
-app.post("/addnote", (req, res) => handleAddNote(db)(req, res));
+app.post("/ideas", (req, res) => handleIdeas(db)(req, res));
+app.post("/save-ideas", (req, res) => handleSaveIdeas(db)(req, res));
 
 app.post("/addgoal", (req, res) => handleAddGoal(db)(req, res));
 app.post("/goals", (req, res) => handleGoals(db)(req, res));

@@ -71,7 +71,6 @@ class DomainStore {
 		this.addGoal = {
 			menu: 0,
 			response: "",
-			visionNote: "",
 			form: {
 				visionCategory: 0,
 				visionItem: 0,
@@ -88,7 +87,6 @@ class DomainStore {
 
 		this.editGoal = {
 			menu: 0,
-			visionNote: "",
 			form: {
 				selectedId: -1,
 				visionCategory: 0,
@@ -103,7 +101,7 @@ class DomainStore {
 			}
 		}
 
-		this.addNote = {
+		this.ideas = {
 			form : {
 				text: ""
 			},
@@ -114,14 +112,14 @@ class DomainStore {
 	get addGoalMenuOption(){
 		if (this.addGoal.menu === 4)
 			return "Save";
-		else 
+		else
 			return "Next";
 	}
 
 	get editGoalMenuOption(){
 		if (this.editGoal.menu === 4)
 			return "Save";
-		else 
+		else
 			return "Next";
 	}
 
@@ -202,7 +200,7 @@ class DomainStore {
 		this.fetchGoals();
 		this.fetchHabits();
 		this.fetchTasks();
-		this.fetchNote();
+		this.fetchIdeas();
 	}
 
 	connectLogin = () => {
@@ -240,11 +238,11 @@ class DomainStore {
 		.catch(err => this.registrationForm.response = "Unable to connect");
 	}
 
-	fetchNote = () => {
-		this.connection.postAuthorized("note", {})
+	fetchIdeas = () => {
+		this.connection.postAuthorized("ideas", {})
 		.then(response => {
 			if (response.status === 200){
-				this.addNote.form.text = response.data;
+				this.ideas.form.text = response.data;
 			}
 		})
 		.catch(error => console.log);
@@ -316,7 +314,7 @@ class DomainStore {
 			const {data} = response;
 			if (response.status === 200){
 		 		this.visionData.items.push(data);
-		 		$("#modal-add-vision-item").modal('hide'); 
+		 		$("#modal-add-vision-item").modal('hide');
 		 		this.addVisionItemForm.name = "";
 				this.addVisionItemForm.description = "";
 				this.addVisionItemForm.url = "";
@@ -434,14 +432,16 @@ class DomainStore {
 		.catch(error => console.log);
 	}
 
-	postAddNote = () => {
-		this.connection.postAuthorized("addnote", this.addNote.form)
+	postSaveIdeas = (text) => {
+		this.connection.postAuthorized("save-ideas", {
+			body: text
+		})
 		.then(response => {
 			const {data} = response;
-			if (response.status === 200){
-			 	alert("Saved!");
-			} else {
+			if (response.status !== 200){
 				console.log(data);
+			} else {
+				alert("Saved!");
 			}
 		})
 		.catch(error => console.log);
@@ -567,7 +567,6 @@ decorate(DomainStore, {
 	addGoal: observable,
 	editGoal: observable,
 	addGoalMenuOption: computed,
-	addNote: observable,
 	editCategoryForm: observable,
 	editVisionItemForm: observable,
 	visionCategoryName: computed,
