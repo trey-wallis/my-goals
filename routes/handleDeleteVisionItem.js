@@ -9,6 +9,7 @@ const handleDeleteVisionItem = (db) => (req, res) => {
 		log(uid, req.url, "Success");
 	}).catch((error) => {
 		log(uid, req.url, error);
+		res.status(400).json(error);
 	});
 }
 
