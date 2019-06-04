@@ -11,7 +11,7 @@ const handleSaveIdeas = (db) => (req, res) => {
 	})
 	.catch(err => { //We'll get a unique id only error
 		//log(uid, req.url, error);
-		db.none('UPDATE  SET body = $1 WHERE user_id = $2', [textTrimmed, uid])
+		db.none('UPDATE ideas SET body = $1 WHERE user_id = $2', [textTrimmed, uid])
 		.then(()=>{
 			res.status(200).json("Ideas saved");
 			log(uid, req.url, "Success");

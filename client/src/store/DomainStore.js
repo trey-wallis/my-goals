@@ -242,7 +242,6 @@ class DomainStore {
 		this.connection.postAuthorized("ideas", {})
 		.then(response => {
 			if (response.status === 200){
-				alert(response.data);
 				this.ideas.form.body = response.data;
 			}
 		})
