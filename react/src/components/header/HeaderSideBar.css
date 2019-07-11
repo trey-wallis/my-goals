@@ -1,0 +1,33 @@
+.sidebar {
+	position: fixed;
+	display: none;
+	width: 200px;
+	height: 100vh;
+}
+
+.title {
+	margin: 20px;
+	color: rgba(255,255,255,0.9);
+}
+
+.sidebar li {
+	margin: 10px 0px;
+}
+
+.sidebar a {
+	color: rgba(255,255,255,0.75);
+}
+
+.sidebar a:hover {
+	color: rgba(255,255,255,0.9);
+}
+
+.active {
+	color: rgba(255,255,255,0.9) !important;
+}
+
+@media screen and (min-width: 768px) {
+	.sidebar {
+		display: inline-block;
+	}
+}

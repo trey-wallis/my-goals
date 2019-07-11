@@ -1,0 +1,24 @@
+.nav-fix {
+	position: absolute;
+	z-index: 10;
+	margin-left: -15px;
+	margin-right: -15px;
+}
+
+.nav-padding {
+	padding-left: 15px !important;
+}
+
+.nav-margin {
+	margin-left: 15px;
+}
+
+.hide-md {
+	display: none !important;
+}
+
+@media screen and (max-width: 768px){
+	.hide-md {
+		display: block !important;
+	}
+}

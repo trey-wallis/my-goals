@@ -1,0 +1,37 @@
+.idea-panel {
+	position: fixed;
+	z-index: 10;
+	top: 20px;
+	left: calc(100vw - 220px);
+	width: 200px;
+	height: auto;
+}
+
+.idea-panel--open {
+	background-color: rgba(255,255,255,0.4);
+}
+
+.idea-panel--closed {
+	background-color: inherit;
+}
+
+.idea-panel-button--open {
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	left: calc(100vw - 110px);
+}
+
+.right {
+	float: right;
+}
+
+.clear {
+	clear: both;
+}
+
+@media screen and (max-width: 768px){
+	.idea-panel {
+		top: 10px;
+	}
+}
