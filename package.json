@@ -1,13 +1,9 @@
 {
   "name": "my-goals-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
   "scripts": {
     "start": "nodemon server.js"
   },
-  "author": "Trey Wallis",
-  "license": "ISC",
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.18.3",
