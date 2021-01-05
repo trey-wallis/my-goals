@@ -3,8 +3,6 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-This project includes a client (this project) and an API backend found <a href="https://github.com/trey-wallis/my-goals-api">here</a>
-
 #### Vision Board ####
 ![Screenshot](readme/vision-board.png)
 <br/><br/>
